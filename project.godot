@@ -1,0 +1,26 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="net server data_base godot"
+run/main_scene="res://escenas/mode_view/nada.tscn"
+config/features=PackedStringArray("4.4", "Mobile")
+config/icon="res://icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://escenas/": "red"
+}
+
+[rendering]
+
+renderer/rendering_method="mobile"
