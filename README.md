@@ -22,7 +22,7 @@ Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Eng
 1. Clona este repositorio:
     ```sh
     git clone https://github.com/emagood/E-DataBase.git
-    cd tu_proyecto
+    cd E-DataBase
     ```
 
 2. Abre el proyecto en Godot Engine.
