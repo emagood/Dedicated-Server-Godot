@@ -1,11 +1,20 @@
 extends Control
 
+var user_identifiers = []
+var binary_block_handler
+
+
+
 
 func _ready() -> void:
-	prueba_completa2()
+	var name = "kijkonhghyhihpiuguhiojihu"
+	var adjusted = nick_name(name)
+	print("Nombre ajustado:", adjusted)  # Salida: "Juan                "
 
-	prueba_completa3()
-
+	
+	
+	binary_block_handler = BinaryBlockHandler.new("prueba_completa.dat", 256, 255, 0, 4)  # Ajustar tamaño para data_16bit
+	pass
 # (Resto de tus funciones...)
 
 func prueba_completa3():
@@ -101,7 +110,7 @@ func generate_random_64bit_data(size) -> Array:
 
 func prueba_completa2():
 	
-	var binary_block_handler = BinaryBlockHandler.new("prueba_completa.dat", 256, 255, 0, 4)  # Ajustar tamaño para data_16bit
+	binary_block_handler = BinaryBlockHandler.new("prueba_completa.dat", 256, 255, 0, 4)  # Ajustar tamaño para data_16bit
 	
 	var timer_local = Time.get_ticks_msec()
 	#var timer_local2 = timer_local
@@ -112,9 +121,9 @@ func prueba_completa2():
 	
 	#return
 	# Lista para almacenar los identificadores generados
-	var user_identifiers = []
+	user_identifiers = []
 
-	for i in range(1):
+	for i in range(1000):
 		var user_id = generate_random_identifier()
 		print("Generado identificador:", user_id)
 		user_identifiers.append(user_id)
@@ -133,9 +142,9 @@ func prueba_completa2():
 		binary_block_handler.save_string(user_id, 0, sample_string)
 		print("String guardado en el bloque de 8 bits:", sample_string)
 		
-	#for user_id in user_identifiers:
-		#var result_string = binary_block_handler.read_string(user_id, 8,  60)
-		#print("String leído desde el bloque de 8 bits, posiciones 1 a 20:", result_string)
+	for user_id in user_identifiers:
+		var result_string = binary_block_handler.read_string(user_id, 8,  60)
+		print("String leído desde el bloque de 8 bits, posiciones 1 a 20:", result_string)
 #
 	##prints(binary_block_handler.index)
 
@@ -196,3 +205,110 @@ func prueba_completa2():
 			#print("No se encontraron datos para el identificador:", user_id)
 	
 	#prints(binary_block_handler.index)
+
+
+func _on__identificadores_pressed() -> void:
+
+	for i in range(10):
+		var user_id = generate_random_identifier()
+		print("Generado identificador:", user_id)
+		user_identifiers.append(user_id)
+		var data_8bit = generate_random_8bit_data(256)
+		var data_16bit = generate_random_16bit_data(255)
+		var data_64bit = generate_random_64bit_data(4)
+
+		print("Guardando datos para el identificador:", user_id)
+		if not binary_block_handler.save_data_block(user_id, data_8bit, data_16bit, [], data_64bit):
+			print("Error al guardar los datos del usuario con identificador:", user_id)
+		else:
+			print("Datos guardados correctamente para el identificador:", user_id)
+			
+	pass # Replace with function body.
+	prints("1000 user listos")
+	
+	
+
+func _on_data_random_id_pressed() -> void:
+	for user_id in user_identifiers:
+		print("Verificando identificador:", user_id)
+		var loaded_block = binary_block_handler.load_data_block(user_id)
+		if loaded_block:
+			print("Datos cargados para el identificador:", user_id)
+			print("Datos de 8 bits:", loaded_block.data_8bit)
+			print("Datos de 16 bits:", loaded_block.data_16bit)
+			print("Datos de 64 bits:", loaded_block.data_64bit)
+		else:
+			print("No se encontraron datos para el identificador:", user_id)
+		return
+	pass # Replace with function body.
+
+
+func _on_string_data_pressed() -> void:
+	
+	
+	
+	
+	
+	for user_id in user_identifiers:
+		
+		var sample_string = nick_name("Hello, Binary! mi nombre es emanuel y el tuyo??")
+		binary_block_handler.save_string(user_id, 0, sample_string)
+		print("String guardado en el bloque de 8 bits:", sample_string)
+		
+
+		var result_string = binary_block_handler.read_string(user_id, 8,  58)
+		print("String leído desde el bloque de 8 bits, posiciones 1 a 20:", result_string) # Replace with function body.
+
+
+func _on_delete_1k_pressed() -> void:
+	# Eliminar datos de los usuarios
+	var total = 0
+	for user_id in user_identifiers:
+		if total >= 1000:
+			return
+		total += 1
+		print("Eliminando identificador:", user_id)
+		if binary_block_handler.block_exists(user_id):
+			if binary_block_handler.delete_data_block(user_id):
+				print("Eliminación exitosa para el identificador:", user_id)
+			else:
+				print("Error al eliminar los datos del usuario con identificador:", user_id)
+		else:
+			print("No se encontraron datos para el identificador:", user_id)
+
+	# Comprobar que los usuarios han sido eliminados
+	for user_id in user_identifiers:
+		if binary_block_handler.block_exists(user_id):
+			print("Error: El bloque con el identificador aún existe:", user_id)
+		else:
+			print("Confirmado: El bloque con el identificador ha sido eliminado:", user_id)
+
+	pass # Replace with function body.
+
+
+func _on_count_user_pressed() -> void:
+	var timer_local = Time.get_ticks_msec()
+	var all_blocks = binary_block_handler.load_all_blocks()
+	if all_blocks.size() > 0:
+		print("Se han cargado  (", all_blocks.size(), ")  bloques del archivo. en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
+	#prints(user_identifiers)
+	#prints(all_blocks)
+	user_identifiers = all_blocks.duplicate()
+	#prints(user_identifiers)
+	pass # Replace with function body.
+
+
+
+
+# Función para ajustar un nombre a 20 caracteres
+func nick_name(name: String) -> String:
+	var max_length = 50
+
+	if name.length() > max_length:
+		print("El nombre es demasiado largo. Máximo permitido son 20 caracteres.")
+		return ""
+	elif name.length() < max_length:
+		# Añadir espacios al final hasta que la longitud sea de 20 caracteres
+		while name.length() < max_length:
+			name += " "
+	return name

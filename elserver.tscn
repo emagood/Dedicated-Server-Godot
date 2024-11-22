@@ -10,3 +10,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h6tja")
+
+[node name="1000_identificadores" type="Button" parent="."]
+layout_mode = 0
+offset_left = 292.0
+offset_top = 75.0
+offset_right = 414.0
+offset_bottom = 106.0
+text = "add_10_user"
+
+[node name="delete_1k" type="Button" parent="."]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 207.0
+offset_right = 400.0
+offset_bottom = 238.0
+text = "quit_1000_user"
+
+[node name="data_random_id" type="Button" parent="."]
+layout_mode = 0
+offset_left = 481.0
+offset_top = 148.0
+offset_right = 489.0
+offset_bottom = 156.0
+text = "data_random"
+
+[node name="string_data" type="Button" parent="."]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 87.0
+offset_right = 61.0
+offset_bottom = 95.0
+text = "string all user "
+
+[node name="count_user" type="Button" parent="."]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 134.0
+offset_right = 406.0
+offset_bottom = 165.0
+text = "contar"
+
+[connection signal="pressed" from="1000_identificadores" to="." method="_on__identificadores_pressed"]
+[connection signal="pressed" from="delete_1k" to="." method="_on_delete_1k_pressed"]
+[connection signal="pressed" from="data_random_id" to="." method="_on_data_random_id_pressed"]
+[connection signal="pressed" from="string_data" to="." method="_on_string_data_pressed"]
+[connection signal="pressed" from="count_user" to="." method="_on_count_user_pressed"]

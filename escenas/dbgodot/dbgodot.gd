@@ -23,7 +23,7 @@ var size_32bit: int
 var size_64bit: int
 var total_size: int  # Variable global para almacenar el tamaño total
 var cache: Dictionary = {}
-var cache_size: int = 1000  # Tamaño máximo de la caché (opcional)
+var cache_size: int = 5000000  # Tamaño máximo de la caché (opcional)
 
 func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 1000):
 	self.filename = filename
@@ -261,7 +261,7 @@ func load_all_blocks(max_blocks: int = -1) -> Array:
 				cache[current_id] = file.get_position() - 8
 
 			# Cargar el bloque de datos y añadirlo a la lista de bloques
-			var block = load_data_block(current_id)
+			var block = current_id
 			if block:
 				blocks.append(block)
 				blocks_loaded += 1
