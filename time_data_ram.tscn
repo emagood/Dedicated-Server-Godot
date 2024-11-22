@@ -7,13 +7,17 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -2.0
+offset_right = -6.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="prueba_data_ram" type="Node" parent="."]
 script = ExtResource("1_1lg0i")
 
-[node name="Button" type="Button" parent="."]
+[node name="crea_10_millon" type="Button" parent="."]
 layout_mode = 0
 offset_left = 437.0
 offset_top = 149.0
@@ -29,5 +33,14 @@ offset_right = 349.0
 offset_bottom = 173.0
 text = "buscar 10k"
 
-[connection signal="pressed" from="Button" to="prueba_data_ram" method="_on_button_pressed"]
+[node name="random_buscar_100k" type="Button" parent="."]
+layout_mode = 0
+offset_left = 719.0
+offset_top = 119.0
+offset_right = 727.0
+offset_bottom = 127.0
+text = "buscar 100k"
+
+[connection signal="pressed" from="crea_10_millon" to="prueba_data_ram" method="_on_button_pressed"]
 [connection signal="pressed" from="random buscar 10k" to="prueba_data_ram" method="_on_random_buscar_10k_pressed"]
+[connection signal="pressed" from="random_buscar_100k" to="prueba_data_ram" method="_on_random_buscar_100k_pressed"]

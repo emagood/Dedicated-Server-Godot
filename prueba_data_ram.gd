@@ -84,3 +84,26 @@ func _on_button_pressed() -> void:
 	avg_dict_search_time /= num_tests
 
 	pass # Replace with function body.
+
+
+func _on_random_buscar_100k_pressed() -> void:
+	if total <= 0 :
+		prints("error no ay datos ")
+		return
+	var timer_local = Time.get_ticks_usec()
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	prints("empieza el conteo ")
+	var num_tests = 100000
+	for i in range(num_tests):
+		var random_index = rng.randi_range(0, 1099999)
+				# Medir el tiempo de búsqueda en el diccionario
+		var dict_start_time = Time.get_ticks_usec()
+		var dict_value = dict_data[str(random_index)]
+		var dict_end_time = Time.get_ticks_usec()
+
+	prints(" el diccionario demoro  (" ,Time.get_ticks_usec() - timer_local,") en usec")
+	prints(dict_data["1"])
+	pass # Replace with function body.
+
+	pass # Replace with function body.

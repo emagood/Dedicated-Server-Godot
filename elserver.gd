@@ -4,6 +4,48 @@ extends Control
 func _ready() -> void:
 	prueba_completa2()
 
+	prueba_completa3()
+
+# (Resto de tus funciones...)
+
+func prueba_completa3():
+	pass
+	#var binary_block_handler = BinaryBlockHandler.new("prueba_completa.dat", 256, 255, 0, 4)  # Ajustar tamaño para data_16bit
+	#
+	## (Resto del código de prueba...)
+#
+	## Probar la función read_string
+	##for user_id in user_identifiers:
+		##var result_string = binary_block_handler.read_string(user_id, 1, 20)
+		##print("String leído desde el bloque de 8 bits, posiciones 1 a 20:", result_string)
+##
+	##prints(binary_block_handler.index)
+#extends Control
+#
+#func _ready() -> void:
+	#prueba_completa2()
+#
+## (Resto de tus funciones...)
+#
+#func prueba_completa2():
+	#var binary_block_handler = BinaryBlockHandler.new("prueba_completa.dat", 256, 255, 0, 4)  # Ajustar tamaño para data_16bit
+	#
+	## (Resto del código de prueba...)
+#
+	## Probar la función save_string
+	#for user_id in user_identifiers:
+		#var sample_string = "Hello, Binary!"
+		#binary_block_handler.save_string(user_id, 1, sample_string)
+		#print("String guardado en el bloque de 8 bits:", sample_string)
+#
+	## Probar la función read_string
+	#for user_id in user_identifiers:
+		#var result_string = binary_block_handler.read_string(user_id, 1, sample_string.length() + 1)
+		#print("String leído desde el bloque de 8 bits, posiciones 1 a", sample_string.length() + 1, ":", result_string)
+#
+	#prints(binary_block_handler.index)
+#
+
 
 
 func string_to_packedbytearray(identifier_str: String) -> PackedByteArray:
@@ -72,7 +114,7 @@ func prueba_completa2():
 	# Lista para almacenar los identificadores generados
 	var user_identifiers = []
 
-	for i in range(1000):
+	for i in range(1):
 		var user_id = generate_random_identifier()
 		print("Generado identificador:", user_id)
 		user_identifiers.append(user_id)
@@ -85,6 +127,20 @@ func prueba_completa2():
 			print("Error al guardar los datos del usuario con identificador:", user_id)
 		else:
 			print("Datos guardados correctamente para el identificador:", user_id)
+			
+	for user_id in user_identifiers:
+		var sample_string = "Hello, Binary! mi nombre es emanuel y el tuyo ??"
+		binary_block_handler.save_string(user_id, 0, sample_string)
+		print("String guardado en el bloque de 8 bits:", sample_string)
+		
+	#for user_id in user_identifiers:
+		#var result_string = binary_block_handler.read_string(user_id, 8,  60)
+		#print("String leído desde el bloque de 8 bits, posiciones 1 a 20:", result_string)
+#
+	##prints(binary_block_handler.index)
+
+
+
 
 	for user_id in user_identifiers:
 		print("Verificando identificador:", user_id)
@@ -139,4 +195,4 @@ func prueba_completa2():
 		#else:
 			#print("No se encontraron datos para el identificador:", user_id)
 	
-	prints(binary_block_handler.index)
+	#prints(binary_block_handler.index)

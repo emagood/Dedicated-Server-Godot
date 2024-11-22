@@ -1,6 +1,5 @@
 extends Node
 
-
 class_name BinaryBlockHandler
 
 class BinaryDataBlock:
@@ -25,7 +24,6 @@ var size_64bit: int
 var total_size: int  # Variable global para almacenar el tamaño total
 var cache: Dictionary = {}
 var cache_size: int = 1000  # Tamaño máximo de la caché (opcional)
-var index: Dictionary = {}  # Índice para búsqueda rápida
 
 func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 1000):
 	self.filename = filename
@@ -37,30 +35,33 @@ func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, s
 	self.total_size = 8 + size_8bit + size_16bit * 2 + size_32bit * 4 + size_64bit * 8  # Calcular total_size aquí
 	ensure_file_exists()
 
-# Ahora puedes usar total_size en cualquier lugar de la clase sin recalcularlo cada vez
-
-
+# Función para abrir el archivo
 func open_file():
 	return FileAccess.open(filename, FileAccess.READ_WRITE)
 
+# Función para cerrar el archivo
 func close_file(file):
 	file.close()
 
+# Función para asegurar que el archivo existe
 func ensure_file_exists():
 	if not FileAccess.file_exists(filename):
 		var file = FileAccess.open(filename, FileAccess.WRITE)
 		file.close()
 		print("Archivo creado:", filename)
 
+# Función para actualizar la caché
 func update_cache(identifier: PackedByteArray, position: int):
 	if cache_size > 0:
 		if cache.size() >= cache_size and not cache.has(identifier):
 			cache.erase(cache.keys()[0])  # Eliminar el elemento más antiguo
 		cache[identifier] = position
 
+# Función para obtener la posición desde la caché
 func get_cached_position(identifier: PackedByteArray) -> int:
 	return cache.get(identifier, -1)
 
+# Función para guardar un bloque de datos
 func save_data_block(identifier: PackedByteArray, data_8bit: PackedByteArray, data_16bit: Array, data_32bit: Array, data_64bit: Array):
 	var block = BinaryDataBlock.new(identifier, data_8bit, data_16bit, data_32bit, data_64bit)
 	var file = open_file()
@@ -83,12 +84,10 @@ func save_data_block(identifier: PackedByteArray, data_8bit: PackedByteArray, da
 	_write_data_block(file, block)
 
 	update_cache(identifier, found_position if found_position != -1 else file_length)
-	# Actualiza el índice con la posición del bloque
-	index[identifier] = found_position if found_position != -1 else file_length
-
 	close_file(file)
 	return true
 
+# Función para escribir un bloque de datos en el archivo
 func _write_data_block(file, block: BinaryDataBlock):
 	file.store_buffer(block.identifier)
 	file.store_buffer(block.data_8bit)
@@ -101,27 +100,24 @@ func _write_data_block(file, block: BinaryDataBlock):
 
 	for value in block.data_64bit:
 		file.store_64(value)
-func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
-	# Usa el índice para encontrar la posición del bloque
-	var position = index.get(identifier, -1)
-	if position == -1:
-		# Si el índice no tiene la posición, busca en el archivo
-		position = get_cached_position(identifier)
-		if position == -1:
-			var file = open_file()
-			total_size
-			var file_length = file.get_length()
-			position = 0
-			while position < file_length:
-				file.seek(position)
-				var current_id = file.get_buffer(8)
-				if current_id == identifier:
-					update_cache(identifier, position)
-					index[identifier] = position  # Actualiza el índice
-					break
-				position += total_size
 
-			close_file(file)
+# Función para cargar un bloque de datos
+func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
+	var position = get_cached_position(identifier)
+	if position == -1:
+		var file = open_file()
+		total_size
+		var file_length = file.get_length()
+		position = 0
+		while position < file_length:
+			file.seek(position)
+			var current_id = file.get_buffer(8)
+			if current_id == identifier:
+				update_cache(identifier, position)
+				break
+			position += total_size
+
+		close_file(file)
 
 	if position != -1:
 		var file = open_file()
@@ -145,10 +141,8 @@ func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
 
 	return null
 
+# Función para verificar si un bloque existe
 func block_exists(identifier: PackedByteArray) -> bool:
-	if index.has(identifier):
-		return true
-
 	var position = get_cached_position(identifier)
 	if position != -1:
 		return true
@@ -163,13 +157,13 @@ func block_exists(identifier: PackedByteArray) -> bool:
 		if file.get_buffer(8) == identifier:
 			close_file(file)
 			update_cache(identifier, position)
-			index[identifier] = position
 			return true
 		position += total_size
 
 	close_file(file)
 	return false
 
+# Función para eliminar un bloque de datos
 func delete_data_block(identifier: PackedByteArray):
 	if not block_exists(identifier):
 		print("Error: El identificador no existe. No se puede eliminar el bloque.")
@@ -185,13 +179,13 @@ func delete_data_block(identifier: PackedByteArray):
 			file.seek(initial_position)
 			file.store_buffer(PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]))  # Establecer el identificador a 0
 			close_file(file)
-			index.erase(identifier)  # Eliminar del índice
 			return true
 		file.seek(initial_position + total_size)
 
 	close_file(file)
 	return false
 
+# Función para actualizar un bloque de datos
 func update_data_block(identifier: PackedByteArray, block_type: String, position: int, value):
 	if not block_exists(identifier):
 		print("Error: El identificador no existe. No se puede actualizar el bloque.")
@@ -228,24 +222,55 @@ func update_data_block(identifier: PackedByteArray, block_type: String, position
 	return false
 
 
-func load_all_blocks() -> Array:
+
+
+# Función para leer un string desde una posición específica en el bloque de 8 bits
+
+func read_string(identifier: PackedByteArray, start: int, end: int) -> String:
+	var block = load_data_block(identifier)
+	if block and start >= 0 and end <= block.data_8bit.size() and start < end:
+		var string_data = block.data_8bit.slice(start, end)
+		return string_data.get_string_from_utf8()
+	return ""
+
+# Función para guardar un string en el bloque de 8 bits
+func save_string(identifier: PackedByteArray, start: int, data_string: String) -> void:
+	var block = load_data_block(identifier)
+	if block and start >= 0 and start + data_string.length() <= block.data_8bit.size():
+		var utf8_data = data_string.to_utf8_buffer()
+		for i in range(utf8_data.size()):
+			block.data_8bit[start + i] = utf8_data[i]
+		save_data_block(block.identifier, block.data_8bit, block.data_16bit, block.data_32bit, block.data_64bit)
+
+
+func load_all_blocks(max_blocks: int = -1) -> Array:
 	var blocks = []  # Lista para almacenar los bloques cargados
 	var file = open_file()
+	var blocks_loaded = 0
 
 	# Leer el archivo bloque por bloque
 	while file.get_position() < file.get_length():
+		if max_blocks != -1 and blocks_loaded >= max_blocks:
+			break
+
 		var current_id = file.get_buffer(8)  # Leer el identificador del bloque
 
 		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
-			# Añadir el identificador al índice si no está presente
-			if not index.has(current_id):
-				index[current_id] = file.get_position() - 8
+			# Añadir el identificador a la caché si no está presente
+			if not cache.has(current_id):
+				cache[current_id] = file.get_position() - 8
+
+			# Cargar el bloque de datos y añadirlo a la lista de bloques
+			var block = load_data_block(current_id)
+			if block:
+				blocks.append(block)
+				blocks_loaded += 1
 
 		# Mover el puntero de archivo al siguiente bloque
 		file.seek(file.get_position() + total_size - 8)
 
 	close_file(file)
-	return index.keys()  # Retornar solo los identificadores
+	return blocks  # Retornar los bloques cargados
 
 
 '''
