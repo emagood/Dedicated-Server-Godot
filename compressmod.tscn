@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5wloq8aqfuun"]
+
+[ext_resource type="Script" path="res://compressmod.gd" id="1_qtj72"]
+[ext_resource type="Script" path="res://use_compres.gd" id="2_dq34v"]
+
+[node name="compressmod" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qtj72")
+
+[node name="use_compres" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_dq34v")

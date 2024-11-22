@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfvt5n5h366kh"]
+
+[ext_resource type="Script" path="res://bits.gd" id="1_cn8gx"]
+[ext_resource type="Script" path="res://bitwisw2.gd" id="3_p3b8h"]
+
+[node name="byte_bit" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cn8gx")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="bit2" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_p3b8h")

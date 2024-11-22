@@ -1,10 +1,13 @@
+'''
+No es solo texto plano :)
+
+Se puede comprimir con acssesfile 
+
+'''
+
 extends Node
 
-
 class_name  User_tool
-
-
-
 
 
 class User:
@@ -243,7 +246,7 @@ class ChangeHistory:
 
 class UserArrayManager:
 	var cache: Dictionary = {}  ## Usar solo el diccionario para la caché
-	var max_cache_size: int = 100
+	var max_cache_size: int = 10000
 	var filename: String
 	var history_filename: String
 	var searcher: UserSearcher

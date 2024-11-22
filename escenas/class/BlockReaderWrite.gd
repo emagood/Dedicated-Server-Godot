@@ -128,11 +128,11 @@ class BlockReaderWriter:
 				print("Tamaño de bits no soportado.")
 		return values
 
-	func write_data_with_flag(values: Array, bit_size: int):
-		if file == null:
-			print("Error: Archivo no está abierto.")
-			return
-
-		var flag = "*" + str(values.size()) + "*" + str(bit_size) + "?"
-		write_string(flag)
-		write_blocks(values, bit_size)
+	#func write_data_with_flag(values: Array, bit_size: int):
+		#if file == null:
+			#print("Error: Archivo no está abierto.")
+			#return
+#
+		#var flag = "*" + str(values.size()) + "*" + str(bit_size) + "?"
+		#write_string(flag)
+		#write_blocks(values, bit_size)

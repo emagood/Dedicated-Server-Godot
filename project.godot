@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="net server data_base godot"
-run/main_scene="res://escenas/mode_view/nada.tscn"
+run/main_scene="res://escenas/mode_view/user_admin.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

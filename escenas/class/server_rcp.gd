@@ -1,3 +1,21 @@
+'''
+No compartir datos de id entre usuarios ni amigos id
+
+Usar siempre safe id el servidor sabra que usuario es 
+
+Si hacen fuerza bruta al id obtendran siempre un id valido 
+
+El password es otro bloqueo creo mal 
+
+Conclucion el id es solo gestion del servidor no compartir 
+
+Para cada accion de id comprobar password 
+
+
+
+'''
+
+
 extends Node
 class_name server_id
 

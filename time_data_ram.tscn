@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://voctt1ex0eqr"]
+
+[ext_resource type="Script" path="res://prueba_data_ram.gd" id="1_1lg0i"]
+
+[node name="time_data_ram" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="prueba_data_ram" type="Node" parent="."]
+script = ExtResource("1_1lg0i")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 437.0
+offset_top = 149.0
+offset_right = 524.0
+offset_bottom = 180.0
+text = "generar  10 millones"
+
+[node name="random buscar 10k" type="Button" parent="."]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 142.0
+offset_right = 349.0
+offset_bottom = 173.0
+text = "buscar 10k"
+
+[connection signal="pressed" from="Button" to="prueba_data_ram" method="_on_button_pressed"]
+[connection signal="pressed" from="random buscar 10k" to="prueba_data_ram" method="_on_random_buscar_10k_pressed"]

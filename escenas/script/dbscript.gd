@@ -1,7 +1,12 @@
 extends User_tool
 
 
+'''
+quitar lineas absurdas 
 
+
+
+'''
 
 
 
@@ -215,9 +220,7 @@ func prueba():
 
 
 
-# Función de prueba para mostrar cómo usar las clases
 
-# Llamar a la función de prueba al iniciar
 func _ready() -> void:
 	#prueba()
 	
@@ -312,16 +315,28 @@ func prueba_tres():
 	print("2 usuarios aleatorios adicionales creados y guardados.")
 
 
+func list_user():
+	var manager = UserArrayManager.new("res://users.dat", "res://history.dat")
 
+	var limiter = -1
+	var users = manager.get_users()
+	for user in users:
+		limiter += 1
+	prints(" total user en cache " , limiter)
 	
 	
 func eliminar_todos_los_usuarios():
 	var manager = UserArrayManager.new("res://users.dat", "res://history.dat")
 	var deleter = UserDeleter.new("res://users.dat")
-
+	var limiter = 100
 	var users = manager.get_users()
 	for user in users:
+		limiter-= 1 
+		prints("user eliminado " , user["username"] , " identificador " , user["identifier"])
 		deleter.delete_user_by_identifier(user["identifier"], user["password"])
+		if limiter == 0 :
+			prints("100 user delete ")
+			return 
 
 	print("Todos los usuarios han sido eliminados.")
 
@@ -367,19 +382,52 @@ func _test_update_user():
 	else:
 		print("Error al actualizar el usuario.")
 		
+		## atencon anted de actualizar el usuario omprobar si existe el nombre 
+		## no existe inplementaacion en la clase 
+		
 	var existing_name = manager.get_user_by_name("john_doe")
 	if not existing_name.is_empty():
 		print("Usuario encontrado: ", existing_name["username"], ", Identificador: ", existing_name["identifier"], ", Contraseña: ", existing_name["password"])
 
-	existing_name = manager.get_user_by_name("john_doe")
+	existing_name = manager.get_user_by_name("jane_doe")
 	if not existing_name.is_empty():
 		print("Usuario encontrado: ", existing_name["username"], ", Identificador: ", existing_name["identifier"], ", Contraseña: ", existing_name["password"])
-	existing_name = manager.get_user_by_name("john_doe")
-	if not existing_name.is_empty():
-		print("Usuario encontrado: ", existing_name["username"], ", Identificador: ", existing_name["identifier"], ", Contraseña: ", existing_name["password"])
-	existing_name = manager.get_user_by_name("john_doe")
-	if not existing_name.is_empty():
-		print("Usuario encontrado: ", existing_name["username"], ", Identificador: ", existing_name["identifier"], ", Contraseña: ", existing_name["password"])
-	existing_name = manager.get_user_by_name("john_doe")
-	if not existing_name.is_empty():
-		print("Usuario encontrado: ", existing_name["username"], ", Identificador: ", existing_name["identifier"], ", Contraseña: ", existing_name["password"])
+	#existing_name = manager.get_user_by_name("john_doe")
+	#if not existing_name.is_empty():
+		#print("Usuario encontrado: ", existing_name["username"], ", Identificador: ", existing_name["identifier"], ", Contraseña: ", existing_name["password"])
+	#existing_name = manager.get_user_by_name("john_doe")
+	#if not existing_name.is_empty():
+		#print("Usuario encontrado: ", existing_name["username"], ", Identificador: ", existing_name["identifier"], ", Contraseña: ", existing_name["password"])
+	#existing_name = manager.get_user_by_name("john_doe")
+	#if not existing_name.is_empty():
+		#print("Usuario encontrado: ", existing_name["username"], ", Identificador: ", existing_name["identifier"], ", Contraseña: ", existing_name["password"])
+#
+
+func _on_add_100_user_pressed() -> void:
+	prueba_dos()
+	pass # Replace with function body.
+
+
+func _on_deleter_100_user_pressed() -> void:
+	eliminar_todos_los_usuarios()
+	pass # Replace weliith function body.
+
+
+func _on_add_quit_random_pressed() -> void:
+	prueba_tres()
+	pass # Replace with function body.
+
+
+func _on_user_add_admin_pressed() -> void:
+	prueba()
+	pass # Replace with function body.
+
+
+func _on_user_update_pressed() -> void:
+	_test_update_user()
+	pass # Replace with function body.
+
+
+func _on_list_user_pressed() -> void:
+	list_user()
+	pass # Replace with function body.
