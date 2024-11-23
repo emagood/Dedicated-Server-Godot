@@ -12,6 +12,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cn8gx")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.458824, 0.45098, 1, 1)
+
 [node name="Node" type="Node" parent="."]
 
 [node name="bit2" type="Control" parent="."]
@@ -19,3 +28,20 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_p3b8h")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "imprime bits en representacion binaria
+tiene operaciones binarias "
+
+[node name="salir" type="Button" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 102.0
+offset_right = 61.0
+offset_bottom = 133.0
+text = "salir"
+
+[connection signal="pressed" from="salir" to="." method="_on_salir_pressed"]

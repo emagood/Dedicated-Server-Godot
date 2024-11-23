@@ -1,0 +1,100 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpshlghi16q4c"]
+
+[ext_resource type="Script" path="res://escenas/modo_bin/elserver.gd" id="1_sqspy"]
+
+[node name="prueba" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sqspy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.816023, 0.324142, 0.79462, 1)
+
+[node name="20_identificadores" type="Button" parent="."]
+layout_mode = 0
+offset_left = 292.0
+offset_top = 75.0
+offset_right = 414.0
+offset_bottom = 106.0
+text = "add_20_user"
+
+[node name="delete_1k" type="Button" parent="."]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 207.0
+offset_right = 400.0
+offset_bottom = 238.0
+text = "quit_1000_user"
+
+[node name="data_random_id" type="Button" parent="."]
+layout_mode = 0
+offset_left = 481.0
+offset_top = 148.0
+offset_right = 489.0
+offset_bottom = 156.0
+text = "data_random"
+
+[node name="string_data" type="Button" parent="."]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 87.0
+offset_right = 61.0
+offset_bottom = 95.0
+text = "string all user "
+
+[node name="count_user" type="Button" parent="."]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 134.0
+offset_right = 406.0
+offset_bottom = 165.0
+text = "contar"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "esta prueba es en texto plano y binarios  , es peligroso , adaptaremos cifrado aes mas adelante "
+
+[node name="buscar_desde" type="Button" parent="."]
+layout_mode = 0
+offset_left = 549.0
+offset_top = 93.0
+offset_right = 557.0
+offset_bottom = 101.0
+text = "buscar_sector"
+
+[node name="user_1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 156.0
+offset_right = 232.0
+offset_bottom = 164.0
+text = "add_1_user"
+
+[node name="salir" type="Button" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 217.0
+offset_right = 125.0
+offset_bottom = 248.0
+text = "salir"
+
+[connection signal="pressed" from="20_identificadores" to="." method="_on__identificadores_pressed"]
+[connection signal="pressed" from="delete_1k" to="." method="_on_delete_1k_pressed"]
+[connection signal="pressed" from="data_random_id" to="." method="_on_data_random_id_pressed"]
+[connection signal="pressed" from="string_data" to="." method="_on_string_data_pressed"]
+[connection signal="pressed" from="count_user" to="." method="_on_count_user_pressed"]
+[connection signal="pressed" from="buscar_desde" to="." method="_on_buscar_desde_pressed"]
+[connection signal="pressed" from="user_1" to="." method="_on_user_1_pressed"]
+[connection signal="pressed" from="salir" to="." method="_on_salir_pressed"]

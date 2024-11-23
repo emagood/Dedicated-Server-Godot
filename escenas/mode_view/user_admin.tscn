@@ -11,6 +11,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k1d2y")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.716177, 0.279136, 0.978929, 1)
+
 [node name="add_100_user" type="Button" parent="."]
 layout_mode = 0
 offset_left = 241.0
@@ -59,9 +68,23 @@ offset_right = 293.0
 offset_bottom = 167.0
 text = "list_user"
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "esta prueba es en texto plano sin firmar , es peligroso , adaptaremos cifrado aes mas adelante "
+
+[node name="salir" type="Button" parent="."]
+offset_left = 84.0
+offset_top = 217.0
+offset_right = 125.0
+offset_bottom = 248.0
+text = "salir"
+
 [connection signal="pressed" from="add_100_user" to="." method="_on_add_100_user_pressed"]
 [connection signal="pressed" from="deleter_100_user" to="." method="_on_deleter_100_user_pressed"]
 [connection signal="pressed" from="add_quit_random" to="." method="_on_add_quit_random_pressed"]
 [connection signal="pressed" from="user_add_admin" to="." method="_on_user_add_admin_pressed"]
 [connection signal="pressed" from="user_update" to="." method="_on_user_update_pressed"]
 [connection signal="pressed" from="list_user" to="." method="_on_list_user_pressed"]
+[connection signal="pressed" from="salir" to="." method="_on_salir_pressed"]

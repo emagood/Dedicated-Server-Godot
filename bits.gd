@@ -55,3 +55,8 @@ extends Control
 	#for i in range(length):
 		#packet.append(randi() % 256)  # Generar bytes aleatorios
 	#return packet
+
+
+func _on_salir_pressed() -> void:
+	queue_free()
+	pass # Replace with function body.

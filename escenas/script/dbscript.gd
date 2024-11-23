@@ -316,6 +316,7 @@ func prueba_tres():
 
 
 func list_user():
+	var timer_local = Time.get_ticks_msec()
 	var manager = UserArrayManager.new("res://users.dat", "res://history.dat")
 
 	var limiter = -1
@@ -323,7 +324,7 @@ func list_user():
 	for user in users:
 		limiter += 1
 	prints(" total user en cache " , limiter)
-	
+	print(" bloques del archivo. (manager.get_users()) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
 	
 func eliminar_todos_los_usuarios():
 	var manager = UserArrayManager.new("res://users.dat", "res://history.dat")
@@ -430,4 +431,9 @@ func _on_user_update_pressed() -> void:
 
 func _on_list_user_pressed() -> void:
 	list_user()
+	pass # Replace with function body.
+
+
+func _on_salir_pressed() -> void:
+	queue_free()
 	pass # Replace with function body.

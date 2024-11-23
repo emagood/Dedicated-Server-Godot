@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://juy3mjxiyfxc"]
+
+[ext_resource type="Script" path="res://escenas/menu/main_menu.gd" id="1_sqxgi"]
+
+[node name="todo_main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sqxgi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.345098, 0.0235294, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "prueba de distintos modos de db en godot "
+
+[node name="texto_plano" type="Button" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 48.0
+offset_right = 192.0
+offset_bottom = 79.0
+text = "prueba en texto plano"
+
+[node name="binarios" type="Button" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 90.0
+offset_right = 177.0
+offset_bottom = 121.0
+text = "prueba de binarios"
+
+[node name="salir" type="Button" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 258.0
+offset_right = 91.0
+offset_bottom = 289.0
+text = "quit"
+
+[node name="prueba de bit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 253.0
+offset_top = 51.0
+offset_right = 345.0
+offset_bottom = 82.0
+text = "prueba_bit"
+
+[node name="prueba_ram" type="Button" parent="."]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 89.0
+offset_right = 346.0
+offset_bottom = 120.0
+text = "prueba_ram"
+
+[connection signal="pressed" from="texto_plano" to="." method="_on_texto_plano_pressed"]
+[connection signal="pressed" from="binarios" to="." method="_on_binarios_pressed"]
+[connection signal="pressed" from="salir" to="." method="_on_salir_pressed"]
+[connection signal="pressed" from="prueba de bit" to="." method="_on_prueba_de_bit_pressed"]
+[connection signal="pressed" from="prueba_ram" to="." method="_on_prueba_ram_pressed"]

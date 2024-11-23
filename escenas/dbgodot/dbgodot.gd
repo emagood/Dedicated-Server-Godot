@@ -23,7 +23,7 @@ var size_32bit: int
 var size_64bit: int
 var total_size: int  # Variable global para almacenar el tamaño total
 var cache: Dictionary = {}
-var cache_size: int = 5000000  # Tamaño máximo de la caché (opcional)
+var cache_size: int = 5000000  # Tamaño máximo de la caché (opcional) quedo en 5 millones 
 
 func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 1000):
 	self.filename = filename
@@ -271,6 +271,172 @@ func load_all_blocks(max_blocks: int = -1) -> Array:
 
 	close_file(file)
 	return blocks  # Retornar los bloques cargados
+
+
+
+# Función para cargar bloques desde un bloque específico
+func load_blocks_from(start_block: int, max_blocks: int = -1) -> Array:
+	var blocks = []  # Lista para almacenar los bloques cargados
+	var file = open_file()
+	var blocks_loaded = 0
+
+	# Calcular la posición de inicio en el archivo
+	var start_position = start_block * total_size
+
+	# Verificar que el archivo es igual o mayor que la posición de inicio
+	if file.get_length() < start_position:
+		print("El archivo es demasiado pequeño para empezar en el bloque", start_block)
+		close_file(file)
+		return blocks
+
+	file.seek(start_position)
+
+	# Leer el archivo bloque por bloque desde la posición de inicio
+	while file.get_position() < file.get_length():
+		if max_blocks != -1 and blocks_loaded >= max_blocks:
+			break
+
+		var current_id = file.get_buffer(8)  # Leer el identificador del bloque
+
+		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+			# Añadir el identificador a la caché si no está presente
+			if not cache.has(current_id):
+				cache[current_id] = file.get_position() - 8
+
+			# Cargar el bloque de datos y añadirlo a la lista de bloques
+			var block = current_id
+			if block:
+				blocks.append(block)
+				blocks_loaded += 1
+
+		# Mover el puntero de archivo al siguiente bloque
+		file.seek(file.get_position() + total_size - 8)
+
+	close_file(file)
+	return blocks  # Retornar los bloques cargados
+
+
+func find_identifier_from(start_block: int, identifier: PackedByteArray, max_blocks: int = -1) -> int:
+	var file = open_file()
+	var start_position = start_block * total_size
+	var blocks_searched = 0
+
+	# Verificar que el archivo es igual o mayor que la posición de inicio
+	if file.get_length() < start_position:
+		print("El archivo es demasiado pequeño para empezar en el bloque", start_block)
+		close_file(file)
+		return -1
+
+	file.seek(start_position)
+
+	# Leer el archivo bloque por bloque desde la posición de inicio
+	while file.get_position() < file.get_length():
+		if max_blocks != -1 and blocks_searched >= max_blocks:
+			break
+
+		var current_id = file.get_buffer(8)  # Leer el identificador del bloque
+
+		if current_id == identifier:
+			var position = file.get_position() - 8
+			update_cache(identifier, position)
+			close_file(file)
+			return position
+
+		blocks_searched += 1
+		# Mover el puntero de archivo al siguiente bloque
+		file.seek(file.get_position() + total_size - 8)
+
+	close_file(file)
+	return -1  # Retornar -1 si no se encuentra el identificador
+
+
+
+# Función para obtener el tamaño del archivo
+func get_file_size() -> int:
+	var file = FileAccess.open(filename, FileAccess.READ)
+	var size = file.get_length()
+	file.close()
+	return size
+
+
+
+func multi_identifier_file(identifier: PackedByteArray, num_files: int = 5) -> int:
+	var file_size = get_file_size()
+	var blocks_per_sector = ceil(float(file_size) / float(total_size) / float(num_files))  # Asegurar redondeo hacia arriba
+	var sector_size = blocks_per_sector * total_size  # Ajustar el tamaño del sector para incluir bloques completos
+	var positions = []
+
+	for i in range(num_files):
+		var file = FileAccess.open(filename, FileAccess.READ)
+		var start_position = i * sector_size
+		var end_position = start_position + sector_size
+		if end_position > file_size:
+			end_position = file_size
+		positions.append({ "file": file, "start": start_position, "end": end_position })
+
+	for pos in positions:
+		var found_position = search_identifier_in_range(pos["file"], pos["start"], pos["end"], identifier)
+		if found_position != -1:
+			# Cerrar todos los archivos abiertos antes de retornar
+			for p in positions:
+				p["file"].close()
+			return found_position
+
+	# Cerrar todos los archivos si no se encuentra el identificador
+	for p in positions:
+		p["file"].close()
+	
+	return -1
+
+
+# Función auxiliar para buscar un identificador en un rango específico del archivo
+func search_identifier_in_range(file, start_position: int, end_position: int, identifier: PackedByteArray) -> int:
+	file.seek(start_position)
+	while file.get_position() < end_position:
+		var current_id = file.get_buffer(8)
+		if current_id == identifier:
+			var position = file.get_position() - 8
+			update_cache(identifier, position)
+			return position
+		file.seek(file.get_position() + total_size - 8)
+	return -1
+
+
+
+func count_valid_identifiers(num_files: int = 10) -> int:
+	var file_size = get_file_size()
+	var blocks_per_sector = ceil(float(file_size) / float(total_size) / float(num_files))  # Redondear hacia arriba
+	var sector_size = blocks_per_sector * total_size  # Asegurar que cada sector es múltiplo de total_size
+	var positions = []
+	var total_valid_identifiers = 0
+	var end_position
+	var start_position
+	for i in range(num_files):
+		var file = FileAccess.open(filename, FileAccess.READ)
+		start_position = i * sector_size
+		end_position = start_position + sector_size
+		if end_position > file_size:
+			end_position = file_size
+		positions.append({ "file": file, "start": start_position, "end": end_position })
+
+	for pos in positions:
+		total_valid_identifiers += count_identifiers_in_range(pos["file"], pos["start"], pos["end"])
+
+	# Cerrar todos los archivos
+	for p in positions:
+		p["file"].close()
+	prints(end_position)
+	return total_valid_identifiers
+
+func count_identifiers_in_range(file, start_position: int, end_position: int) -> int:
+	var count = 0
+	file.seek(start_position)
+	while file.get_position() < end_position:
+		var current_id = file.get_buffer(8)
+		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+			count += 1
+		file.seek(file.get_position() + total_size - 8)
+	return count
 
 
 '''
