@@ -1,6 +1,32 @@
+# [ing]
+# DVL
+# User Management Project with ENet
+
+This project implements a user management system using Godot Engine and the ENet library, tcp and websocket, for client-server communication. The system allows the creation, modification, and deletion of users with credential verification, caching, and change history logging.
+
+## Features
+
+- **Create Users**: Allows you to create new users with a username, identifier and password.
+- **Modify Users**: Allows you to update the username and/or password of verified users.
+- **Delete Users**: Allows you to remove users from the system.
+- **Authentication**: Verify the user's credentials before allowing modifications.
+- **Cache**: Use a cache system to improve performance.
+- **History Log**: Keeps a history of changes (creations, modifications, errors) with a record on file.
+
+## Main Archives
+
+- User.: Defines the 'User' class to handle user information.
+- UserSearcher: Implements user search in the file.
+- UserArrayManager: Handles the creation, modification, and deletion of users, as well as cache management.
+- ChangeHistory.g: Maintains a change log with the ability to upload and save to archive.
+
+
+
+# [esp]
+# DVL
 # Proyecto de Gestión de Usuarios con ENet
 
-Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Engine y la biblioteca ENet para la comunicación cliente-servidor. El sistema permite la creación, modificación y eliminación de usuarios con verificación de credenciales, almacenamiento en caché y registro de historial de cambios.
+Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Engine y la biblioteca ENet , tcp y websocket , para la comunicación cliente-servidor. El sistema permite la creación, modificación y eliminación de usuarios con verificación de credenciales, almacenamiento en caché y registro de historial de cambios.
 
 ## Funcionalidades
 
@@ -15,8 +41,9 @@ Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Eng
 
 - **Godot Engine 4.3**: Motor de juego utilizado para el desarrollo.
 - **ENet**: Biblioteca para la comunicación cliente-servidor.
-
-
+- **TCP**: 
+- **WebSocket**:
+- 
 ## Instalación
 
 1. Clona este repositorio:
@@ -41,7 +68,7 @@ Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Eng
 
 ## Proyecto Complementario
 
-Este proyecto se utiliza para complementar el sistema de usuarios de otro proyecto. Puedes encontrar más detalles y colaborar en el proyecto complementario [aquí](https://github.com/emagood/Enet-Godot-Multi-User.git).
+Este proyecto se utiliza para complementar el sistema de usuarios de otro proyecto. Puedes encontrar más detalles y colaborar en el proyecto complementario [aquí](https://github.com/emagood/SocketSyncLinker.git).
 
 ## Contribuciones
 
