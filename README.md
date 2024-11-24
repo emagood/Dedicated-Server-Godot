@@ -43,7 +43,7 @@ Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Eng
 
 ## Proyecto Complementario
 
-Este proyecto se utiliza para complementar el sistema de usuarios de otro proyecto. Puedes encontrar más detalles y colaborar en el proyecto complementario [aquí](https://github.com/emagood/Enet-Godot-Multi-User.git).
+Este proyecto se utiliza para complementar el sistema de usuarios de otro proyecto. Puedes encontrar más detalles y colaborar en el proyecto complementario [aquí](https://github.com/emagood/SocketSyncLinker.git).
 
 ## Contribuciones
 
