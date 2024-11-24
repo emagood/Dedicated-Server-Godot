@@ -1,3 +1,28 @@
+# [ing]
+# DVL
+# User Management Project with ENet
+
+This project implements a user management system using Godot Engine and the ENet library, tcp and websocket, for client-server communication. The system allows the creation, modification, and deletion of users with credential verification, caching, and change history logging.
+
+## Features
+
+- **Create Users**: Allows you to create new users with a username, identifier and password.
+- **Modify Users**: Allows you to update the username and/or password of verified users.
+- **Delete Users**: Allows you to remove users from the system.
+- **Authentication**: Verify the user's credentials before allowing modifications.
+- **Cache**: Use a cache system to improve performance.
+- **History Log**: Keeps a history of changes (creations, modifications, errors) with a record on file.
+
+## Main Archives
+
+- User.: Defines the 'User' class to handle user information.
+- UserSearcher: Implements user search in the file.
+- UserArrayManager: Handles the creation, modification, and deletion of users, as well as cache management.
+- ChangeHistory.g: Maintains a change log with the ability to upload and save to archive.
+
+
+
+# [esp]
 # DVL
 # Proyecto de Gestión de Usuarios con ENet
 
