@@ -229,7 +229,9 @@ func _on__identificadores_pressed() -> void:
 	
 
 func _on_data_random_id_pressed() -> void:
+	var total = 5
 	for user_id in user_identifiers:
+		total-= 1
 		print("Verificando identificador:", user_id)
 		var loaded_block = binary_block_handler.load_data_block(user_id)
 		if loaded_block:
@@ -239,7 +241,26 @@ func _on_data_random_id_pressed() -> void:
 			#print("Datos de 64 bits:", loaded_block.data_64bit)
 		else:
 			print("No se encontraron datos para el identificador:", user_id)
-		return
+
+		
+
+
+		user_identifiers.append(user_id)
+		var data_8bit = generate_random_8bit_data(256)
+		var data_16bit = generate_random_16bit_data(255)
+		#var data_64bit = generate_random_64bit_data(4)
+
+		binary_block_handler.save_data_block(user_id, data_8bit, data_16bit, [],[])
+		prints(loaded_block.data_8bit.size() , "  este es el bloque de  8 bit de memoria")
+		prints(loaded_block.data_16bit.size() , "  este es el bloque de  16 bit de memoria")
+		#binary_block_handler.load_data_block(user_id)
+		#print("Datos cargados para el identificador:", user_id)
+		#print("Datos de 8 bits:", loaded_block.data_8bit)
+		#print("Datos de 16 bits:", loaded_block.data_16bit)
+		#
+		if total <= 0:
+			return
+		
 	pass # Replace with function body.
 
 

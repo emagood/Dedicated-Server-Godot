@@ -23,7 +23,7 @@ var size_32bit: int
 var size_64bit: int
 var total_size: int  # Variable global para almacenar el tamaño total
 var cache: Dictionary = {}
-var cache_size: int = 5000000  # Tamaño máximo de la caché (opcional) quedo en 5 millones 
+var cache_size: int = 1 # Tamaño máximo de la caché (opcional) quedo en 5 millones 
 
 func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 1000):
 	self.filename = filename
@@ -103,7 +103,9 @@ func _write_data_block(file, block: BinaryDataBlock):
 
 # Función para cargar un bloque de datos
 func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
+
 	var position = get_cached_position(identifier)
+	prints(position , " esto es position en cahe get ")
 	if position == -1:
 		var file = open_file()
 		total_size
@@ -114,14 +116,20 @@ func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
 			var current_id = file.get_buffer(8)
 			if current_id == identifier:
 				update_cache(identifier, position)
+				
 				break
 			position += total_size
-
+		position += 8 # por si esta en cache esto adelanta el identificador
 		close_file(file)
+	else:
+		position += 8 # por si esta en cache esto adelanta el identificador
+		
 
 	if position != -1:
+		
 		var file = open_file()
 		file.seek(position)
+		prints(position , " desde archivo")
 		var data_8bit = file.get_buffer(size_8bit)
 
 		var data_16bit = []
