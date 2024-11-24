@@ -1,7 +1,7 @@
 # DVL
 # Proyecto de Gestión de Usuarios con ENet
 
-Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Engine y la biblioteca ENet para la comunicación cliente-servidor. El sistema permite la creación, modificación y eliminación de usuarios con verificación de credenciales, almacenamiento en caché y registro de historial de cambios.
+Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Engine y la biblioteca ENet , tcp y websocket , para la comunicación cliente-servidor. El sistema permite la creación, modificación y eliminación de usuarios con verificación de credenciales, almacenamiento en caché y registro de historial de cambios.
 
 ## Funcionalidades
 
@@ -16,8 +16,9 @@ Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Eng
 
 - **Godot Engine 4.3**: Motor de juego utilizado para el desarrollo.
 - **ENet**: Biblioteca para la comunicación cliente-servidor.
-
-
+- **TCP**: 
+- **WebSocket**:
+- 
 ## Instalación
 
 1. Clona este repositorio:
