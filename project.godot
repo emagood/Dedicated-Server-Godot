@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="net server data_base godot"
+config/name="DataVaultLedger"
 run/main_scene="res://escenas/menu/todo_main.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"

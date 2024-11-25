@@ -3,10 +3,16 @@ extends Control
 var user_identifiers = []
 var binary_block_handler
 
-
+	
+var data_8bit 
+var data_16bit
+var data_64bit 
 
 
 func _ready() -> void:
+	data_8bit = generate_random_8bit_data(256)
+	data_16bit = generate_random_16bit_data(255)
+	data_64bit = generate_random_64bit_data(4)
 	var name = "kijkonh"
 	var adjusted = nick_name(name)
 	print("Nombre ajustado:", adjusted ,"size (", adjusted.length(),")")
@@ -208,8 +214,26 @@ func prueba_completa2():
 
 
 func _on__identificadores_pressed() -> void:
+	var timer_local = Time.get_ticks_msec()
+	for i in range(10):
+		var user_id = generate_random_identifier()
+		print("Generado identificador:", user_id)
+		user_identifiers.append(user_id)
+		#var data_8bit = generate_random_8bit_data(256)
+		#var data_16bit = generate_random_16bit_data(255)
+		#var data_64bit = generate_random_64bit_data(4)
+		prints(data_8bit , " datos de 8 bit ema prueba total")
+		print("Guardando datos para el identificador:", user_id)
+		if not binary_block_handler.save_data_block(user_id, data_8bit, data_16bit, [], []):
+			print("Error al guardar los datos del usuario con identificador:", user_id)
+		else:
+			print("Datos guardados correctamente para el identificador:", user_id)
+			
+	pass # Replace with function body.
 
-	for i in range(20):
+	print(" 10 user listos no aleatorios .(generate_random_identifier()) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
+	timer_local = Time.get_ticks_msec()
+	for i in range(10):
 		var user_id = generate_random_identifier()
 		print("Generado identificador:", user_id)
 		user_identifiers.append(user_id)
@@ -222,11 +246,8 @@ func _on__identificadores_pressed() -> void:
 			print("Error al guardar los datos del usuario con identificador:", user_id)
 		else:
 			print("Datos guardados correctamente para el identificador:", user_id)
-			
-	pass # Replace with function body.
-	prints("20 user listos")
-	
-	
+	print(" 20 user listos aleatorios.(generate_random_identifier()) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
+
 
 func _on_data_random_id_pressed() -> void:
 	var total = 5
