@@ -24,7 +24,7 @@ This project implements a user management system using Godot Engine and the ENet
 
 # [esp]
 # DVL
-# Proyecto de Gestión de Usuarios con ENet
+# Proyecto de Gestión de Usuarios con Thot-p2p
 
 Este proyecto implementa un sistema de gestión de usuarios utilizando Godot Engine y la biblioteca ENet , tcp y websocket , para la comunicación cliente-servidor. El sistema permite la creación, modificación y eliminación de usuarios con verificación de credenciales, almacenamiento en caché y registro de historial de cambios.
 
