@@ -1,6 +1,6 @@
 # [ing]
 # DVL
-# User Management Project with ENet
+# User Management Project with Thot-p2p
 
 This project implements a user management system using Godot Engine and the ENet library, tcp and websocket, for client-server communication. The system allows the creation, modification, and deletion of users with credential verification, caching, and change history logging.
 
