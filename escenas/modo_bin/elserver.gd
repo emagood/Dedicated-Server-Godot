@@ -518,3 +518,26 @@ func _on_user_0_pressed() -> void:
 		print("No se encontraron datos para el identificador:", user_id)
 	pass # Replace with function body.
 	pass # Replace with function body.
+
+
+func _on_test_id_speed_pressed() -> void:
+	var timer_local = Time.get_ticks_msec()
+	var count = 0
+	var user
+	for user_id in user_identifiers:
+		count += 1
+		user = user_id
+		if count >= 5000:
+			break
+		#timer_local = Time.get_ticks_msec()
+	prints(user)
+	if binary_block_handler.load_index_blocks(user):
+		
+		print(" bloques del archivo.(load_index_blocks) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") user id = " ,user, " user position =  ",count)
+	timer_local = Time.get_ticks_msec()
+	if binary_block_handler.block_exists(user):
+		print(" bloques del archivo.(block exists) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") user id = " ,user, " user position =  ",count)
+
+	pass # Replace with function body.load_index_blocks
+
+	pass # Replace with function body.

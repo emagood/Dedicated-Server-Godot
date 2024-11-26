@@ -1,3 +1,14 @@
+'''
+sen modo simple 
+lee 40,000 bytes en total en 100 milisegundos solo identificadores 
+para leer 5 millones de usuarios, tomaría 100 segundos
+en modo de archivo multiplke 
+es la mitad usa 2 , usar mas no mejora ay un error 
+
+
+'''
+
+
 extends Node
 
 class_name BinaryBlockHandler
@@ -25,7 +36,7 @@ var total_size: int  # Variable global para almacenar el tamaño total
 var cache: Dictionary = {}
 var cache_size: int = 1 # Tamaño máximo de la caché (opcional) quedo en 5 millones 
 
-func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 1000):
+func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 500000):
 	self.filename = filename
 	self.size_8bit = size_8bit
 	self.size_16bit = size_16bit
@@ -57,7 +68,10 @@ func ensure_file_exists():
 func update_cache(identifier: PackedByteArray, position: int):
 	if cache_size > 0:
 		if cache.size() >= cache_size and not cache.has(identifier):
+			#prints(cache.size() , "tamaño de cahe ", cache_size)
 			cache.erase(cache.keys()[0])  # Eliminar el elemento más antiguo
+			#prints("se elimino este dato de cache ",cache.keys()[0] )
+			#prints(cache.size() , "tamaño de cahe despues  ", cache_size)
 		cache[identifier] = position
 
 # Función para obtener la posición desde la caché
@@ -273,7 +287,7 @@ func load_all_blocks(max_blocks: int = -1) -> Array:
 		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
 			# Añadir el identificador a la caché si no está presente
 			if not cache.has(current_id):
-				cache[current_id] = file.get_position() - 8
+				update_cache(current_id , file.get_position() - 8)
 
 			# Cargar el bloque de datos y añadirlo a la lista de bloques
 			var block = current_id
@@ -452,6 +466,44 @@ func count_identifiers_in_range(file, start_position: int, end_position: int) ->
 			count += 1
 		file.seek(file.get_position() + total_size - 8)
 	return count
+
+'''
+index se usara para la cache secundaria usara busqueda rapida 
+refcforrer toda la cahe es mas rapido y leer un archivo por secuenxia tambien
+detener el archivo en cada omprobacion es lento 
+un 1 user 80 milisegundos ms 
+todo all file 5000 5k user 160 ms
+???? es mas rapido 
+
+'''
+func load_index_blocks(identifier , max_blocks: int = -1 ) -> Array:
+	var blocks = []  # Lista para almacenar los bloques cargados
+	var file = open_file()
+	var blocks_loaded = 0
+
+	# Leer el archivo bloque por bloque
+	while file.get_position() < file.get_length():
+		if max_blocks != -1 and blocks_loaded >= max_blocks:
+			break
+
+		var current_id = file.get_buffer(8)  # Leer el identificador del bloque
+
+		if current_id == identifier:
+			# Añadir el identificador a la caché si no está presente
+			if not cache.has(current_id):
+				cache[current_id] = file.get_position() - 8
+
+			# Cargar el bloque de datos y añadirlo a la lista de bloques
+			var block = current_id
+			if block:
+				blocks.append(block)
+				blocks_loaded += 1
+
+		# Mover el puntero de archivo al siguiente bloque
+		file.seek(file.get_position() + total_size - 8)
+
+	close_file(file)
+	return blocks  # Retornar los bloques cargados
 
 
 '''
