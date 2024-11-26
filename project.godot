@@ -18,7 +18,8 @@ config/icon="res://icon.svg"
 [file_customization]
 
 folder_colors={
-"res://escenas/": "red"
+"res://escenas/": "red",
+"res://thot/": "orange"
 }
 
 [rendering]
