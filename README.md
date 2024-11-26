@@ -80,6 +80,10 @@ Las contribuciones son bienvenidas. Si deseas colaborar, por favor sigue los sig
 4. Empuja tu rama (`git push origin feature/nueva_caracteristica`).
 5. Abre un Pull Request.
 
+## x no impelentado 
+Implement an AES to encrypt data, AES data tends to have the same memory space in a Bytearray, that's useful since we save and load blocks
+implementar un aes para cifrar los datos , los datos aes tienden a tener el mismo espacio de memoria en un bytearray , eso es útil ya que guardamos y cargamos bloques 
+
 ## Licencia
 
 Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
