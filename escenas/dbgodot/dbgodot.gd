@@ -49,6 +49,9 @@ func ensure_file_exists():
 		var file = FileAccess.open(filename, FileAccess.WRITE)
 		file.close()
 		print("Archivo creado:", filename)
+	else:
+		prints("se cargo los datos")
+		load_all_blocks()
 
 # Función para actualizar la caché
 func update_cache(identifier: PackedByteArray, position: int):
@@ -65,7 +68,9 @@ func get_cached_position(identifier: PackedByteArray) -> int:
 func save_data_block(identifier: PackedByteArray, data_8bit: PackedByteArray, data_16bit: Array, data_32bit: Array, data_64bit: Array):
 	var block = BinaryDataBlock.new(identifier, data_8bit, data_16bit, data_32bit, data_64bit)
 	var file = open_file()
-
+	if identifier == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+		prints("error al guardar un identififcador vacio(0) ([0, 0, 0, 0, 0, 0, 0, 0])")
+		return
 	total_size
 	var found_position = get_cached_position(identifier)
 	var position = 0
@@ -103,7 +108,9 @@ func _write_data_block(file, block: BinaryDataBlock):
 
 # Función para cargar un bloque de datos
 func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
-
+	if identifier == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+		prints("error al cargar un identififcador vacio(0) ([0, 0, 0, 0, 0, 0, 0, 0])")
+		return
 	var position = get_cached_position(identifier)
 	prints(position , " esto es position en cahe get ")
 	if position == -1:
