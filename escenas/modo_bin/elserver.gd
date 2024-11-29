@@ -23,6 +23,8 @@ func _ready() -> void:
 	data_8bit = generate_random_8bit_data(256)
 	data_16bit = generate_random_16bit_data(255)
 	data_64bit = generate_random_64bit_data(4)
+	var array_string = string_to_packedbytearray("1234567890")
+	prints(array_string)
 	var name = "kijkonh"
 	var adjusted = nick_name(name)
 	print("Nombre ajustado:", adjusted ,"size (", adjusted.length(),")")
@@ -239,24 +241,24 @@ func _on__identificadores_pressed() -> void:
 		else:
 			print("Datos guardados correctamente para el identificador:", user_id)
 			
-	pass # Replace with function body.
+	#pass # Replace with function body.
 
 	print(" 10 user listos no aleatorios .(generate_random_identifier()) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
-	timer_local = Time.get_ticks_msec()
-	for i in range(10):
-		var user_id = generate_random_identifier()
-		print("Generado identificador:", user_id)
-		user_identifiers.append(user_id)
-		var data_8bit = generate_random_8bit_data(256)
-		var data_16bit = generate_random_16bit_data(255)
-		#var data_64bit = generate_random_64bit_data(4)
-		prints(data_8bit , " datos de 8 bit ema prueba total")
-		print("Guardando datos para el identificador:", user_id)
-		if not binary_block_handler.save_data_block(user_id, data_8bit, data_16bit, [], []):
-			print("Error al guardar los datos del usuario con identificador:", user_id)
-		else:
-			print("Datos guardados correctamente para el identificador:", user_id)
-	print(" 20 user listos aleatorios.(generate_random_identifier()) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
+	#timer_local = Time.get_ticks_msec()
+	#for i in range(10):
+		#var user_id = generate_random_identifier()
+		#print("Generado identificador:", user_id)
+		#user_identifiers.append(user_id)
+		#var data_8bit = generate_random_8bit_data(256)
+		#var data_16bit = generate_random_16bit_data(255)
+		##var data_64bit = generate_random_64bit_data(4)
+		#prints(data_8bit , " datos de 8 bit ema prueba total")
+		#print("Guardando datos para el identificador:", user_id)
+		#if not binary_block_handler.save_data_block(user_id, data_8bit, data_16bit, [], []):
+			#print("Error al guardar los datos del usuario con identificador:", user_id)
+		#else:
+			#print("Datos guardados correctamente para el identificador:", user_id)
+	#print(" 20 user listos aleatorios.(generate_random_identifier()) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
 
 
 func _on_data_random_id_pressed() -> void:
@@ -308,7 +310,7 @@ func _on_string_data_pressed() -> void:
 		print("String guardado en el bloque de 8 bits:", sample_string)
 		
 
-		var result_string = binary_block_handler.read_string(user_id, 0,  21)
+		var result_string = binary_block_handler.read_string(user_id, 0,  20)
 		print("String leído desde el bloque de 8 bits, posiciones 1 a 20:", result_string) # Replace with function body.
 
 
@@ -377,7 +379,7 @@ func _on_buscar_desde_pressed() -> void:
 
 	var timer_local = Time.get_ticks_msec()
 	var start_block = 0
-	var max_blocks = 1000000
+	var max_blocks = 10
 	var blocks = binary_block_handler.load_blocks_from(start_block, max_blocks)
 	print("Bloques cargados desde el bloque ", start_block)  #, ":", blocks
 
@@ -393,10 +395,10 @@ func _on_buscar_desde_pressed() -> void:
 		else:
 			print("Identificador no encontrado desde el bloque ", start_block)
 		#return
-		print(" bloques del archivo.(find_identifier_from) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
+		#print(" bloques del archivo.(find_identifier_from) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
 
 
-		timer_local = Time.get_ticks_msec()
+		#timer_local = Time.get_ticks_msec()
 		var num_files = 4  # Número configurable de archivos a abrir
 		position = binary_block_handler.multi_identifier_file(identifier, num_files)
 		if position != -1:

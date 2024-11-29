@@ -339,7 +339,7 @@ func eliminar_todos_los_usuarios():
 			prints("100 user delete ")
 			return 
 
-	print("Todos los usuarios han sido eliminados.")
+	print("100 los usuarios han sido eliminados.")
 
 
 

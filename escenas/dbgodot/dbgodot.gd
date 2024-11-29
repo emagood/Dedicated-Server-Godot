@@ -394,13 +394,14 @@ func multi_identifier_file(identifier: PackedByteArray, num_files: int = 5) -> i
 	var blocks_per_sector = ceil(float(file_size) / float(total_size) / float(num_files))  # Asegurar redondeo hacia arriba
 	var sector_size = blocks_per_sector * total_size  # Ajustar el tamaño del sector para incluir bloques completos
 	var positions = []
-
+	#prints("#################################################################")
 	for i in range(num_files):
 		var file = FileAccess.open(filename, FileAccess.READ)
 		var start_position = i * sector_size
 		var end_position = start_position + sector_size
 		if end_position > file_size:
 			end_position = file_size
+		#prints("multi identifier ... sector multiple , file " ,file ,"  .pocicion init.  ",start_position,"  . termina en pocicion...   ",end_position)
 		positions.append({ "file": file, "start": start_position, "end": end_position })
 
 	for pos in positions:
@@ -446,6 +447,8 @@ func count_valid_identifiers(num_files: int = 10) -> int:
 		end_position = start_position + sector_size
 		if end_position > file_size:
 			end_position = file_size
+			prints("count_valid_identifiers ...  sector multiple , file " ,file ,"  .pocicion init.  ",start_position,"  . termina en pocicion...   ",end_position)
+		
 		positions.append({ "file": file, "start": start_position, "end": end_position })
 
 	for pos in positions:
