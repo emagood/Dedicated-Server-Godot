@@ -308,7 +308,7 @@ func _on_string_data_pressed() -> void:
 		print("String guardado en el bloque de 8 bits:", sample_string)
 		
 
-		var result_string = binary_block_handler.read_string(user_id, 8,  28)
+		var result_string = binary_block_handler.read_string(user_id, 0,  21)
 		print("String leído desde el bloque de 8 bits, posiciones 1 a 20:", result_string) # Replace with function body.
 
 
