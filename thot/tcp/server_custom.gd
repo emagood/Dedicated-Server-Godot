@@ -1,34 +1,69 @@
 extends Node
 class_name NetworkServer
 
+### user quite la classe global 
+#class ClientData:
+#
+	#var peer: PacketPeerStream
+	#var connection: StreamPeerTCP
+
 # Network
 var server: TCPServer # Holds the TCP Server Object
 var client_datas: Dictionary = {}
 var next_client_id = 1
+var port = null
+var upnp = UPNP.new()
+var thread = null
+@export var upnp_ip = 0
+
 
 signal client_connected(client_id)
 signal client_disconnected(client_id)
 signal data_received(client_id, data)
 
 func _init(address: String = "127.0.0.1", port: int = 3115):
+	self.port = port
 	server = TCPServer.new()
 	var err = server.listen(port, address)
 	if err == OK:
 		print("Server started on port %d" % port)
 	else:
 		print("Failed to start server: %s" % err)
+	thread = Thread.new()
+	thread.start(_upnp_setup.bind(port))
 
 func _ready() -> void:
+	
 	#get_tree().set_multiplayer(multiplayer, self.get_path())
 	pass
 	#multiplayer.peer_connected.connect(_peer_connected)
+	
+func _upnp_setup(server_port):
+	prints("upnp setup iniciando")
+	var err = upnp.discover()
+	if err != OK:
+		push_error(str(err))
+		return
+	if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
+		upnp.add_port_mapping(server_port, server_port, ProjectSettings.get_setting("application/config/name"), "UDP")
+		#upnp.add_port_mapping(server_port, server_port, ProjectSettings.get_setting("application/config/name"), "TCP")
+		upnp_ip = upnp.query_external_address()
+		print("Success! Join Address: %s" % upnp_ip)
 
 
 func _process(_delta):
 	if server != null:
 		if server.is_connection_available():
 			var client_connection: StreamPeerTCP = server.take_connection()
-			var client_id = next_client_id
+			##########################################
+			#### prueba 
+			# Encuentra la primera clave numérica faltante en el diccionario 
+			var key = 1 
+			while client_datas.has(key): 
+				key += 1 # Agrega el nuevo valor en el primer lugar vacío encontrado 
+			#dictionary[key] = new_value
+			
+			var client_id = key
 			next_client_id += 1
 			client_datas[client_id] = ClientData.new()
 			client_datas[client_id].peer = PacketPeerStream.new()
@@ -79,3 +114,9 @@ func send_data(client_id: int, data):
 	else:
 		client_datas.erase(client_id)
 		push_error("[SERVER] Client %d not found" % client_id)
+
+
+func _exit_tree() -> void:
+	prints("adios ")
+	thread.wait_to_finish()
+	upnp.delete_port_mapping(port)
