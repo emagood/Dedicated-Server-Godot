@@ -637,8 +637,21 @@ func _on_load_manual_pressed() -> void:
 
 func _on_init_database_pressed() -> void:
 	if binary_block_handler != null:
+		#binary_block_handler.queue_free()
 		prints("clase ya iniciada configuracion: archivo ",binary_block_handler.filename," size 8: ",binary_block_handler.size_8bit," size 16: ",binary_block_handler.size_16bit," size 32: ",binary_block_handler.size_32bit ," size 64: ",binary_block_handler.size_64bit)
 		return
+		
 	binary_block_handler = BinaryBlockHandler.new($init_database/file.text,int($init_database/n8bit.text), int($init_database/n16bit.text), int($init_database/n32bit.text), int($init_database/n64bit.text))   
+	add_child(binary_block_handler)
 	 # Ajustar tamaño para data_16bit
+	pass # Replace with function body.
+
+
+func _on_quit_class_pressed() -> void:
+	if binary_block_handler != null:
+		binary_block_handler.queue_free()
+		binary_block_handler = null
+		prints("se elimino la clase")
+	else:
+		prints("no se nicio la clase")
 	pass # Replace with function body.
