@@ -22,10 +22,10 @@ color = Color(0.816023, 0.324142, 0.79462, 1)
 
 [node name="20_add_user" type="Button" parent="."]
 layout_mode = 0
-offset_left = 292.0
-offset_top = 75.0
-offset_right = 414.0
-offset_bottom = 106.0
+offset_left = 26.0
+offset_top = 204.0
+offset_right = 148.0
+offset_bottom = 235.0
 text = "add_20_user"
 
 [node name="delete_1k" type="Button" parent="."]
@@ -46,18 +46,18 @@ text = "data_random"
 
 [node name="string_data" type="Button" parent="."]
 layout_mode = 0
-offset_left = 53.0
-offset_top = 87.0
-offset_right = 61.0
-offset_bottom = 95.0
+offset_left = 28.0
+offset_top = 153.0
+offset_right = 146.0
+offset_bottom = 184.0
 text = "string all user "
 
 [node name="count_user" type="Button" parent="."]
 layout_mode = 0
-offset_left = 347.0
-offset_top = 134.0
-offset_right = 406.0
-offset_bottom = 165.0
+offset_left = 336.0
+offset_top = 158.0
+offset_right = 395.0
+offset_bottom = 189.0
 text = "contar"
 
 [node name="Label" type="Label" parent="."]
@@ -68,10 +68,10 @@ text = "esta prueba es en texto plano y binarios  , es peligroso , adaptaremos c
 
 [node name="buscar_desde" type="Button" parent="."]
 layout_mode = 0
-offset_left = 549.0
-offset_top = 93.0
-offset_right = 557.0
-offset_bottom = 101.0
+offset_left = 740.0
+offset_top = 154.0
+offset_right = 855.0
+offset_bottom = 185.0
 text = "buscar_sector"
 
 [node name="add_user_1" type="Button" parent="."]
@@ -84,10 +84,10 @@ text = "add_1_user"
 
 [node name="salir" type="Button" parent="."]
 layout_mode = 0
-offset_left = 84.0
-offset_top = 217.0
-offset_right = 125.0
-offset_bottom = 248.0
+offset_left = 10.0
+offset_top = 35.0
+offset_right = 51.0
+offset_bottom = 66.0
 text = "salir"
 
 [node name="speed_search" type="Button" parent="."]
@@ -130,6 +130,115 @@ offset_right = 712.0
 offset_bottom = 231.0
 text = "test_instan"
 
+[node name="aad_user manueal" type="Button" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 328.0
+offset_right = 171.0
+offset_bottom = 359.0
+text = "add user manual"
+
+[node name="add_id" type="LineEdit" parent="aad_user manueal"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 39.0
+offset_right = 69.5625
+offset_bottom = 70.0
+placeholder_text = "id"
+
+[node name="exist_manual" type="Button" parent="."]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 328.0
+offset_right = 431.0
+offset_bottom = 359.0
+text = "exist manual"
+
+[node name="id_search" type="LineEdit" parent="exist_manual"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 36.0
+offset_right = 81.0
+offset_bottom = 67.0
+placeholder_text = "id search"
+
+[node name="load_manual" type="Button" parent="."]
+layout_mode = 0
+offset_left = 572.0
+offset_top = 329.0
+offset_right = 680.0
+offset_bottom = 360.0
+text = "load_manual"
+
+[node name="load_data_id" type="LineEdit" parent="load_manual"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 40.0
+offset_right = 112.0
+offset_bottom = 71.0
+placeholder_text = "load_data_id"
+
+[node name="init_database" type="Button" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 59.0
+offset_right = 202.0
+offset_bottom = 90.0
+text = "init DataBase"
+
+[node name="file" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 1.0
+offset_right = 436.0
+offset_bottom = 32.0
+text = "prueba_completa.dat"
+placeholder_text = "name_file"
+
+[node name="n8bit" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 3.0
+offset_right = 519.563
+offset_bottom = 34.0
+text = "256"
+placeholder_text = "data 8"
+
+[node name="n16bit" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 546.0
+offset_top = 2.0
+offset_right = 614.563
+offset_bottom = 33.0
+text = "255"
+placeholder_text = "data 16"
+
+[node name="n32bit" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 639.0
+offset_top = 3.0
+offset_right = 707.563
+offset_bottom = 34.0
+text = "0"
+placeholder_text = "data 32"
+
+[node name="n64bit" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 734.0
+offset_top = 4.0
+offset_right = 802.563
+offset_bottom = 35.0
+text = "0"
+placeholder_text = "data 64"
+
+[node name="info_init" type="Label" parent="init_database"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -24.0
+offset_right = 39.0
+offset_bottom = -1.0
+text = "inicio de clase        cargar/crear  file .dat . DB .txt .user          8 bite             16 bite         32 bite          64 bite   "
+
 [connection signal="pressed" from="20_add_user" to="." method="_on__identificadores_pressed"]
 [connection signal="pressed" from="delete_1k" to="." method="_on_delete_1k_pressed"]
 [connection signal="pressed" from="data_random_id" to="." method="_on_data_random_id_pressed"]
@@ -143,3 +252,7 @@ text = "test_instan"
 [connection signal="pressed" from="prueba add_use_exist" to="." method="_on_prueba_add_use_exist_pressed"]
 [connection signal="pressed" from="user_0" to="." method="_on_user_0_pressed"]
 [connection signal="pressed" from="test_id_speed" to="." method="_on_test_id_speed_pressed"]
+[connection signal="pressed" from="aad_user manueal" to="." method="_on_aad_user_manueal_pressed"]
+[connection signal="pressed" from="exist_manual" to="." method="_on_exist_manual_pressed"]
+[connection signal="pressed" from="load_manual" to="." method="_on_load_manual_pressed"]
+[connection signal="pressed" from="init_database" to="." method="_on_init_database_pressed"]

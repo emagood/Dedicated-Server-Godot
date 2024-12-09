@@ -11,7 +11,7 @@
 extends Control
 
 var user_identifiers = []
-var binary_block_handler
+var binary_block_handler = null
 
 	
 var data_8bit 
@@ -31,7 +31,7 @@ func _ready() -> void:
 
 	
 	
-	binary_block_handler = BinaryBlockHandler.new("prueba_completa.dat", 256, 255, 0, 0)  # Ajustar tamaño para data_16bit
+	
 	pass
 # (Resto de tus funciones...)
 
@@ -226,6 +226,9 @@ func prueba_completa2():
 
 
 func _on__identificadores_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	var timer_local = Time.get_ticks_msec()
 	for i in range(10):
 		var user_id = generate_random_identifier()
@@ -262,6 +265,9 @@ func _on__identificadores_pressed() -> void:
 
 
 func _on_data_random_id_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	var total = 5
 	for user_id in user_identifiers:
 		total-= 1
@@ -298,7 +304,9 @@ func _on_data_random_id_pressed() -> void:
 
 
 func _on_string_data_pressed() -> void:
-	
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	
 	
 	
@@ -315,6 +323,9 @@ func _on_string_data_pressed() -> void:
 
 
 func _on_delete_1k_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	# Eliminar datos de los usuarios
 	var total = 0
 	for user_id in user_identifiers:
@@ -341,6 +352,9 @@ func _on_delete_1k_pressed() -> void:
 
 
 func _on_count_user_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	var timer_local = Time.get_ticks_msec()
 	var all_blocks = binary_block_handler.load_all_blocks()
 	if all_blocks.size() > 0:
@@ -376,7 +390,9 @@ func nick_name(name: String) -> String:
 
 
 func _on_buscar_desde_pressed() -> void:
-
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	var timer_local = Time.get_ticks_msec()
 	var start_block = 0
 	var max_blocks = 10
@@ -412,7 +428,9 @@ pass # Replace with function body.
 
 
 func _on_user_1_pressed() -> void:
-
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 
 	for i in range(1):
 		var user_id = generate_random_identifier()
@@ -441,7 +459,9 @@ func _on_salir_pressed() -> void:
 
 func _on_speed_search_pressed() -> void:
 	var timer_local = Time.get_ticks_msec()
-
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 
 
 	for user_id in user_identifiers:
@@ -462,6 +482,9 @@ func _on_speed_search_pressed() -> void:
 
 
 func _on_block_exist_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	var timer_local = Time.get_ticks_msec()
 	var count = 0
 	for user_id in user_identifiers:
@@ -474,7 +497,9 @@ func _on_block_exist_pressed() -> void:
 
 
 func _on_prueba_add_use_exist_pressed() -> void:
-
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	var user_id = string_to_packedbytearray("1234567890123")
 	print("Generado identificador:", user_id)
 	user_identifiers.append(user_id)
@@ -495,6 +520,9 @@ func _on_prueba_add_use_exist_pressed() -> void:
 
 
 func _on_user_0_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	var user_id = string_to_packedbytearray("emanuel") ## /// da (0) / 0
 	print("Generado identificador:", user_id)
 	user_identifiers.append(user_id)
@@ -523,6 +551,9 @@ func _on_user_0_pressed() -> void:
 
 
 func _on_test_id_speed_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
 	var timer_local = Time.get_ticks_msec()
 	var count = 0
 	var user
@@ -542,4 +573,72 @@ func _on_test_id_speed_pressed() -> void:
 
 	pass # Replace with function body.load_index_blocks
 
+	pass # Replace with function body.
+
+
+func _on_aad_user_manueal_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
+	if $"aad_user manueal/add_id".text == "":
+		prints("error ingrese un string valido ")
+		return
+	var user_id =  string_to_packedbytearray($"aad_user manueal/add_id".text)  #generate_random_identifier()
+	var temp_user
+	var data_8bit = generate_random_8bit_data(256)
+	var data_16bit = generate_random_16bit_data(255)
+	#var data_64bit = generate_random_64bit_data(4)
+	#prints(data_8bit , " datos de 8 bit ema prueba total")
+	print("Guardando datos para el identificador:", user_id)
+	if not binary_block_handler.save_data_block(user_id, data_8bit, data_16bit, [], []):
+		print("Error al guardar los datos del usuario con identificador:", user_id)
+	else:
+		print("Datos guardados correctamente para el identificador:", user_id)
+
+
+
+
+func _on_exist_manual_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
+	if $exist_manual/id_search.text == "":
+		prints("error ingrese un string valido ")
+		return
+	var user_id = string_to_packedbytearray($exist_manual/id_search.text)
+	var loaded_block = binary_block_handler.block_exists(user_id)
+	if loaded_block:
+		print("El usuario existe :", user_id)
+		#print("Datos de 8 bits:", loaded_block.data_8bit)
+		#print("Datos de 16 bits:", loaded_block.data_16bit)
+		#print("Datos de 64 bits:", loaded_block)
+	else:
+		print("No se encontraron datos para el identificador:", user_id)
+			
+
+
+func _on_load_manual_pressed() -> void:
+	if binary_block_handler == null:
+		prints("error no se puede argar iniialisa primero")
+		return
+	if $load_manual/load_data_id.text == "":
+		prints("error ingrese un string valido ")
+		return
+	var user_id = string_to_packedbytearray($load_manual/load_data_id.text)
+	var loaded_block = binary_block_handler.load_data_block(user_id)
+	if loaded_block:
+		print("El usuario data existe :", user_id)
+		print("Datos de 8 bits:", loaded_block.data_8bit)
+		print("Datos de 16 bits:", loaded_block.data_16bit)
+		#print("Datos de 64 bits:", loaded_block)
+	else:
+		print("No se encontraron datos para el identificador:", user_id)
+			
+
+func _on_init_database_pressed() -> void:
+	if binary_block_handler != null:
+		prints("clase ya iniciada configuracion: archivo ",binary_block_handler.filename," size 8: ",binary_block_handler.size_8bit," size 16: ",binary_block_handler.size_16bit," size 32: ",binary_block_handler.size_32bit ," size 64: ",binary_block_handler.size_64bit)
+		return
+	binary_block_handler = BinaryBlockHandler.new($init_database/file.text,int($init_database/n8bit.text), int($init_database/n16bit.text), int($init_database/n32bit.text), int($init_database/n64bit.text))   
+	 # Ajustar tamaño para data_16bit
 	pass # Replace with function body.

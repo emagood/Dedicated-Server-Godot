@@ -28,10 +28,10 @@ text = "prueba de distintos modos de db en godot "
 
 [node name="texto_plano" type="Button" parent="."]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 48.0
-offset_right = 192.0
-offset_bottom = 79.0
+offset_left = 23.0
+offset_top = 47.0
+offset_right = 203.0
+offset_bottom = 78.0
 text = "prueba en texto plano"
 
 [node name="binarios" type="Button" parent="."]
