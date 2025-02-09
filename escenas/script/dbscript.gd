@@ -165,14 +165,19 @@ func prueba():
 	manager.save_user("john_doe", "123456789012", "securepass")  # Este debería imprimir "El usuario ya existe"
 
 	# Intentar obtener un usuario que no existe
-	var non_existent_user = manager.get_user_by_identifier("000000000000")
+	var non_existent_user = manager.get_user_by_identifier("987654321098")
 	if non_existent_user.is_empty():
 		print("El usuario no existe: 000000000000")
+	else:
+		print("El usuario si existe: 987654321098")
 
 	# Intentar obtener un usuario por nombre que no existe
-	var non_existent_name = manager.get_user_by_name("non_existent_user")
+	var non_existent_name = manager.get_user_by_name("john_doe")
 	if non_existent_name.is_empty():
 		print("El usuario no existe: non_existent_user")
+	else:
+		print("El usuario si existe: john_doe")
+		
 
 	# Mostrar usuarios que están en el array actualmente
 	var users = manager.get_users()
@@ -436,4 +441,17 @@ func _on_list_user_pressed() -> void:
 
 func _on_salir_pressed() -> void:
 	queue_free()
+	pass # Replace with function body.
+
+
+func _on_log_history_pressed() -> void:
+	
+	var data_exten = load("res://nvr/main/escenas/edit.tscn").instantiate()
+	data_exten.current_dir = "res://history.dat"
+	
+
+	add_child(data_exten)
+	prints("⭐️ DATOS HISTORY INSTANCIADO ⭐️" )
+
+	
 	pass # Replace with function body.

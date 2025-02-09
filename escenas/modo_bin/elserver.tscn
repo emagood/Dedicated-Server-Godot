@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.816023, 0.324142, 0.79462, 1)
+color = Color(0.541176, 0.541176, 0.541176, 1)
 
 [node name="20_add_user" type="Button" parent="."]
 layout_mode = 0

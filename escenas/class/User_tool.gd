@@ -1,7 +1,7 @@
 '''
 No es solo texto plano :)
 
-Se puede comprimir con acssesfile 
+Se puede comprimir con acssesfile x . no
 
 '''
 

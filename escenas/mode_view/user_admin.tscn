@@ -82,6 +82,14 @@ offset_right = 125.0
 offset_bottom = 248.0
 text = "salir"
 
+[node name="log history" type="Button" parent="."]
+layout_mode = 0
+offset_left = 626.0
+offset_top = 68.0
+offset_right = 716.0
+offset_bottom = 99.0
+text = "history log"
+
 [connection signal="pressed" from="add_100_user" to="." method="_on_add_100_user_pressed"]
 [connection signal="pressed" from="deleter_100_user" to="." method="_on_deleter_100_user_pressed"]
 [connection signal="pressed" from="add_quit_random" to="." method="_on_add_quit_random_pressed"]
@@ -89,3 +97,4 @@ text = "salir"
 [connection signal="pressed" from="user_update" to="." method="_on_user_update_pressed"]
 [connection signal="pressed" from="list_user" to="." method="_on_list_user_pressed"]
 [connection signal="pressed" from="salir" to="." method="_on_salir_pressed"]
+[connection signal="pressed" from="log history" to="." method="_on_log_history_pressed"]

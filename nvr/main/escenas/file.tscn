@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://mvc2df27ryii"]
+
+[ext_resource type="Texture2D" uid="uid://4s7q827jgyo3" path="res://texturas/fondo lindo.png" id="1_pwpur"]
+[ext_resource type="Script" path="res://main/script/file.gd" id="2_alh3i"]
+[ext_resource type="LabelSettings" uid="uid://d18tsbtkaab4n" path="res://cosa/label.tres" id="3_pwpur"]
+[ext_resource type="LabelSettings" uid="uid://bkmwqn01sy8wb" path="res://cosa/dir_label.tres" id="4_ne5m1"]
+
+[node name="Texture" type="TextureRect"]
+clip_contents = true
+offset_right = 360.0
+offset_bottom = 407.0
+scale = Vector2(0.275, 0.275)
+texture = ExtResource("1_pwpur")
+expand_mode = 4
+stretch_mode = 4
+script = ExtResource("2_alh3i")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "nuevo"
+label_settings = ExtResource("3_pwpur")
+
+[node name="dir_label" type="Label" parent="."]
+layout_mode = 0
+offset_top = 14.5455
+offset_right = 1.0
+offset_bottom = 37.5455
+scale = Vector2(1.58182, 1.43636)
+text = "nuevo"
+label_settings = ExtResource("4_ne5m1")
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 137
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
