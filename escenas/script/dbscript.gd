@@ -33,9 +33,9 @@ quitar lineas absurdas
 #
 		#while file.get_position() < file.get_length():
 			#var initial_position = file.get_position()
-			#file.get_buffer(12)  # Saltar el nombre de usuario
+			#file.get_buffer(16)  # Saltar el nombre de usuario
 #
-			#if read_partial(file, 12) == identifier:
+			#if read_partial(file, 16) == identifier:
 				#file.seek(initial_position)
 				#var user_string = file.get_buffer(36).get_string_from_utf8()
 				#file.close()
@@ -65,10 +65,10 @@ quitar lineas absurdas
 #
 		#while file.get_position() < file.get_length():
 			#var initial_position = file.get_position()
-			#file.get_buffer(12)  # Saltar el nombre de usuario
+			#file.get_buffer(16)  # Saltar el nombre de usuario
 #
-			## Leer y comparar identificador completo (12 caracteres)
-			#if read_partial(file, 12) == identifier:
+			## Leer y comparar identificador completo (16 caracteres)
+			#if read_partial(file, 16) == identifier:
 				#file.seek(initial_position)
 				#var user_string = file.get_buffer(36).get_string_from_utf8()
 				#file.close()
@@ -89,8 +89,8 @@ quitar lineas absurdas
 		#while file.get_position() < file.get_length():
 			#var initial_position = file.get_position()
 #
-			## Leer y comparar nombre de usuario completo (12 caracteres)
-			#if read_partial(file, 12) == username:
+			## Leer y comparar nombre de usuario completo (16 caracteres)
+			#if read_partial(file, 16) == username:
 				#file.seek(initial_position)
 				#var user_string = file.get_buffer(36).get_string_from_utf8()
 				#file.close()
@@ -119,14 +119,14 @@ quitar lineas absurdas
 	#while file.get_position() < file.get_length():
 		#var initial_position = file.get_position()
 #
-			## Leer y comparar nombre de usuario en partes de 4, 8 y 12 caracteres
+			## Leer y comparar nombre de usuario en partes de 4, 8 y 16 caracteres
 		#if read_partial(file, 4) != username.substr(0, 4):
 			#file.seek(initial_position + 36)
 			#continue
 		#if read_partial(file, 8) != username.substr(0, 8):
 			#file.seek(initial_position + 36)
 			#continue
-		#if read_partial(file, 12) != username:
+		#if read_partial(file, 16) != username:
 			#file.seek(initial_position + 36)
 			#continue
 #
@@ -160,9 +160,9 @@ func prueba():
 	var manager = UserArrayManager.new("res://users.dat", "res://history.dat")
 
 	# Intentar agregar usuarios
-	manager.save_user("john_doe", "123456789012", "securepass")
+	manager.save_user("john_doe", "163456789016", "securepass")
 	manager.save_user("jane_doe", "987654321098", "anotherpass")
-	manager.save_user("john_doe", "123456789012", "securepass")  # Este debería imprimir "El usuario ya existe"
+	manager.save_user("john_doe", "163456789016", "securepass")  # Este debería imprimir "El usuario ya existe"
 
 	# Intentar obtener un usuario que no existe
 	var non_existent_user = manager.get_user_by_identifier("987654321098")
@@ -185,7 +185,7 @@ func prueba():
 		print("Usuario: ", user["username"], ", Identificador: ", user["identifier"], ", Contraseña: ", user["password"])
 #
 	## Recuperar un usuario existente por identificador
-	#var existing_user = manager.get_user_by_identifier("123456789012")
+	#var existing_user = manager.get_user_by_identifier("163456789016")
 	#if not existing_user.is_empty():
 		#print("Usuario encontrado: ", existing_user["username"], ", Identificador: ", existing_user["identifier"], ", Contraseña: ", existing_user["password"])
 #
@@ -270,9 +270,9 @@ func prueba_dos():
 	var loop = 100
 	while  loop:
 		loop -= 1
-		var username = "user_" + str(random.randi_range(10, 9999))
-		var identifier = pad_right(str(random.randi_range(100000000000, 999999999999)), 12)
-		var password = "pass_" + str(random.randi_range(10, 9999))
+		var username = "user_user" + str(random.randi_range(10, 9999))
+		var identifier = pad_right(str(random.randi_range(100000000000, 999999999999)), 16)
+		var password = "pass_pass" + str(random.randi_range(10, 9999))
 		
 		manager.save_user(username, identifier, password)
 
@@ -294,9 +294,9 @@ func prueba_tres():
 
 	# Generar 3 usuarios aleatorios
 	for i in range(3):
-		var username = "user_" + str(random.randi_range(1000, 9999))
-		var identifier = pad_right(str(random.randi_range(100000000000, 999999999999)), 12)
-		var password = "pass_" + str(random.randi_range(1000, 9999))
+		var username = "user_user" + str(random.randi_range(1000, 9999))
+		var identifier = pad_right(str(random.randi_range(100000000000, 999999999999)), 16)
+		var password = "pass_pass" + str(random.randi_range(1000, 9999))
 		manager.save_user(username, identifier, password)
 
 	print("3 usuarios aleatorios creados y guardados.")
@@ -312,9 +312,9 @@ func prueba_tres():
 
 	# Generar 2 usuarios aleatorios adicionales
 	for i in range(2):
-		var username = "user_" + str(random.randi_range(1000, 9999))
-		var identifier = pad_right(str(random.randi_range(100000000000, 999999999999)), 12)
-		var password = "pass_" + str(random.randi_range(1000, 9999))
+		var username = "user_user" + str(random.randi_range(1000, 9999))
+		var identifier = pad_right(str(random.randi_range(100000000000, 999999999999)), 16)
+		var password = "pass_pass" + str(random.randi_range(1000, 9999))
 		manager.save_user(username, identifier, password)
 
 	print("2 usuarios aleatorios adicionales creados y guardados.")
@@ -351,10 +351,10 @@ func eliminar_todos_los_usuarios():
 
 func _test_update_user():
 	var manager = UserArrayManager.new("users.dat", "history.dat")
-	manager.save_user("john_doe", "123456789012", "securepass")
-	manager.save_user("jane_doe", "987654321098", "anotherpass")
+	manager.save_user("john_doe", "1634567890163445", "securepass")
+	manager.save_user("jane_doe", "9876543210981634", "anotherpass")
 	
-	var result = manager.update_user("user12345678", "oldpassword", "newusername", "newpassword")
+	var result = manager.update_user("user16345678", "oldpassword", "newusername", "newpassword")
 	if result:
 		print("Usuario actualizado correctamente.")
 	else:

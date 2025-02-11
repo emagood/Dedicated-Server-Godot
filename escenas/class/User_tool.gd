@@ -3,6 +3,8 @@ No es solo texto plano :)
 
 Se puede comprimir con acssesfile x . no
 
+combertir todo a 16 bit 
+16 . 32 . 48
 '''
 
 extends Node
@@ -21,15 +23,15 @@ class User:
 		self.password = password
 
 	func serialize() -> String:
-		return pad_right(username, 12) + pad_right(identifier, 12) + pad_right(password, 12)
+		return pad_right(username, 16) + pad_right(identifier, 16) + pad_right(password, 16)
 
 	static func from_string(user_string: String) -> User:
-		if user_string.length() < 36:
+		if user_string.length() < 48:
 			return null  # Devolver null si los datos del usuario no son válidos
 
-		var username = user_string.substr(0, 12).strip_edges()
-		var identifier = user_string.substr(12, 12).strip_edges()
-		var password = user_string.substr(24, 12).strip_edges()
+		var username = user_string.substr(0, 16).strip_edges()
+		var identifier = user_string.substr(16, 16).strip_edges()
+		var password = user_string.substr(32, 16).strip_edges()
 		return User.new(username, identifier, password)
 
 	func to_dict() -> Dictionary:
@@ -64,18 +66,18 @@ class UserDeleter:
 
 		while file.get_position() < file.get_length():
 			var initial_position = file.get_position()
-			file.get_buffer(12)  # Saltar el nombre de usuario
+			file.get_buffer(16)  # Saltar el nombre de usuario
 
 			# Leer y comparar identificador y contraseña
-			if read_partial(file, 12) == identifier and read_partial(file, 12) == password:
+			if read_partial(file, 16) == identifier and read_partial(file, 16) == password:
 				# Si coincide, borrar el bloque completo
 				file.seek(initial_position)
-				file.store_buffer(pad_right("", 36).to_utf8_buffer())
+				file.store_buffer(pad_right("", 48).to_utf8_buffer())
 				file.close()
 				return true
 
-			# Saltar al siguiente bloque de 36
-			file.seek(initial_position + 36)
+			# Saltar al siguiente bloque de 48
+			file.seek(initial_position + 48)
 
 		file.close()
 		print("El usuario no existe o la contraseña es incorrecta.")
@@ -90,18 +92,18 @@ class UserDeleter:
 		while file.get_position() < file.get_length():
 			var initial_position = file.get_position()
 
-			# Leer y comparar nombre de usuario (12 caracteres) y contraseña
-			if read_partial(file, 12) == username:
-				file.seek(initial_position + 12)  # Moverse a la posición de la contraseña
-				if read_partial(file, 12) == password:
+			# Leer y comparar nombre de usuario (16 caracteres) y contraseña
+			if read_partial(file, 16) == username:
+				file.seek(initial_position + 16)  # Moverse a la posición de la contraseña
+				if read_partial(file, 16) == password:
 					# Si coincide, borrar el bloque completo
 					file.seek(initial_position)
-					file.store_buffer(pad_right("", 36).to_utf8_buffer())
+					file.store_buffer(pad_right("", 48).to_utf8_buffer())
 					file.close()
 					return true
 
-			## Saltar al siguiente bloque de 36
-			file.seek(initial_position + 36)
+			## Saltar al siguiente bloque de 48
+			file.seek(initial_position + 48)
 
 		file.close()
 		print("El usuario no existe o la contraseña es incorrecta.")
@@ -128,16 +130,16 @@ class UserSearcher:
 
 		while file.get_position() < file.get_length():
 			var initial_position = file.get_position()
-			file.get_buffer(12)  # Saltar el nombre de usuario
+			file.get_buffer(16)  # Saltar el nombre de usuario
 
-			# Leer y comparar identificador completo (12 caracteres)
-			if read_partial(file, 12) == identifier:
+			# Leer y comparar identificador completo (16 caracteres)
+			if read_partial(file, 16) == identifier:
 				file.seek(initial_position)
-				var user_string = file.get_buffer(36).get_string_from_utf8()
+				var user_string = file.get_buffer(48).get_string_from_utf8()
 				file.close()
 				return User.from_string(user_string).to_dict()
 
-			file.seek(initial_position + 36)
+			file.seek(initial_position + 48)
 
 		file.close()
 		print("El usuario no existe: ", identifier)
@@ -152,14 +154,14 @@ class UserSearcher:
 		while file.get_position() < file.get_length():
 			var initial_position = file.get_position()
 
-			# Leer y comparar nombre de usuario completo (12 caracteres)
-			if read_partial(file, 12) == username:
+			# Leer y comparar nombre de usuario completo (16 caracteres)
+			if read_partial(file, 16) == username:
 				file.seek(initial_position)
-				var user_string = file.get_buffer(36).get_string_from_utf8()
+				var user_string = file.get_buffer(48).get_string_from_utf8()
 				file.close()
 				return User.from_string(user_string).to_dict()
 
-			file.seek(initial_position + 36)
+			file.seek(initial_position + 48)
 
 		file.close()
 		print("El usuario no existe: ", username)
@@ -269,9 +271,9 @@ class UserArrayManager:
 			return false
 
 		if new_username != "":
-			user["username"] = pad_with_spaces(new_username, 12)
+			user["username"] = pad_with_spaces(new_username, 16)
 		if new_password != "":
-			user["password"] = pad_with_spaces(new_password, 12)
+			user["password"] = pad_with_spaces(new_password, 16)
 
 		var updated_user = User.new(user["username"], user["identifier"], user["password"])
 		var user_string = updated_user.serialize()
@@ -285,7 +287,7 @@ class UserArrayManager:
 
 		while file.get_position() < file.get_length():
 			var initial_position = file.get_position()
-			var current_block = file.get_buffer(36).get_string_from_utf8()
+			var current_block = file.get_buffer(48).get_string_from_utf8()
 			var block_user = User.from_string(current_block)
 
 			if block_user and block_user.username.strip_edges() == username.strip_edges():
@@ -299,7 +301,7 @@ class UserArrayManager:
 				prints("usuario actualizado con exito")
 				return true
 
-			file.seek(initial_position + 36)
+			file.seek(initial_position + 48)
 
 		file.close()
 		print("Usuario no encontrado.")
@@ -333,7 +335,7 @@ class UserArrayManager:
 		var count = 0
 		while not file.eof_reached():
 			count += 1
-			var user_string = file.get_buffer(36).get_string_from_utf8()
+			var user_string = file.get_buffer(48).get_string_from_utf8()
 			var user = User.from_string(user_string)
 			if cache.size() < max_cache_size:
 				if user:
@@ -345,7 +347,7 @@ class UserArrayManager:
 	# Recuperar un usuario por su nombre
 	# Recuperar un usuario por su nombre
 	func get_user_by_name(username: String) -> Dictionary:
-		username = pad_with_spaces(username, 12)  # Rellenar con espacios hasta 12 caracteres
+		username = pad_with_spaces(username, 16)  # Rellenar con espacios hasta 16 caracteres
 
 	# Buscar en la caché
 		for user in cache.values():
@@ -380,13 +382,13 @@ class UserArrayManager:
 
 	# Guardar un usuario en el archivo
 	func save_user(username: String, identifier: String, password: String):
-	# Comprobar que el identifier tenga 12 caracteres
-		if identifier.length() != 12:
-			history.add_change("ERROR_USER_IDENTIFIER_NOT_12", username, identifier, Time.get_datetime_string_from_system() +" "  + String.num(Time.get_unix_time_from_system(),-1) )
+	# Comprobar que el identifier tenga 16 caracteres
+		if identifier.length() != 16:
+			history.add_change("ERROR_USER_IDENTIFIER_NOT_16", username, identifier, Time.get_datetime_string_from_system() +" "  + String.num(Time.get_unix_time_from_system(),-1) )
 			return
 
-		username = pad_with_spaces(username, 12)  # Rellenar con espacios hasta 12 caracteres
-		password = pad_with_spaces(password, 12)  # Rellenar con espacios hasta 12 caracteres
+		username = pad_with_spaces(username, 16)  # Rellenar con espacios hasta 16 caracteres
+		password = pad_with_spaces(password, 16)  # Rellenar con espacios hasta 16 caracteres
 
 	#@# Buscar en la caché por identificador y nombre de usuario
 		for user in cache.values():
@@ -408,7 +410,7 @@ class UserArrayManager:
 			history.add_change("ERROR_USER_USERNAME", username, identifier, Time.get_datetime_string_from_system() +" "  + String.num(Time.get_unix_time_from_system(),0) )
 			return
 
-	##Crear el objeto usuario y formatear sus datos a una cadena de 36 caracteres
+	##Crear el objeto usuario y formatear sus datos a una cadena de 48 caracteres
 		var user = User.new(username, identifier, password)
 		var user_string = user.serialize()
 
@@ -420,7 +422,7 @@ class UserArrayManager:
 
 		while file.get_position() < file.get_length():
 			var initial_position = file.get_position()
-			var current_block = file.get_buffer(36).get_string_from_utf8()
+			var current_block = file.get_buffer(48).get_string_from_utf8()
 
 		#  ,,,.,.,,.,. Verificar si el bloque actual está vacío
 			if current_block.strip_edges() == "":
@@ -433,7 +435,7 @@ class UserArrayManager:
 				history.add_change("ADD", username, identifier, Time.get_datetime_string_from_system() +" "  + String.num(Time.get_unix_time_from_system(),0) )
 				return
 
-			file.seek(initial_position + 36)
+			file.seek(initial_position + 48)
 
 	#¡'''¡'Si no se encontraron bloques vacíos, agregar al final del archivo
 		file.seek_end()  #¡'¡ Ir al final del archivo para agregar el nuevo usuario
@@ -474,7 +476,7 @@ class UserArrayManager:
 
 			while file.get_position() < file.get_length():
 				var initial_position = file.get_position()
-				var current_block = file.get_buffer(36).get_string_from_utf8()
+				var current_block = file.get_buffer(48).get_string_from_utf8()
 				var block_user = User.from_string(current_block)
 
 				if block_user and block_user.identifier == identifier and block_user.username == user.username:
@@ -491,7 +493,7 @@ class UserArrayManager:
 					entries_written += 1
 					break
 
-				file.seek(initial_position + 36)
+				file.seek(initial_position + 48)
 
 			if not found_block:
 				file.seek_end()
