@@ -230,14 +230,17 @@ func _on__identificadores_pressed() -> void:
 		prints("error no se puede argar iniialisa primero")
 		return
 	var timer_local = Time.get_ticks_msec()
-	for i in range(10):
+	var adduser = int(str($adduser.text))
+	#prints(adduser)
+	#return
+	for i in range(adduser):
 		var user_id = generate_random_identifier()
 		print("Generado identificador:", user_id)
 		user_identifiers.append(user_id)
 		#var data_8bit = generate_random_8bit_data(256)
 		#var data_16bit = generate_random_16bit_data(255)
 		#var data_64bit = generate_random_64bit_data(4)
-		prints(data_8bit , " datos de 8 bit ema prueba total")
+		#prints(data_8bit , " datos de 8 bit ema prueba total")
 		print("Guardando datos para el identificador:", user_id)
 		if not binary_block_handler.save_data_block(user_id, data_8bit, data_16bit, [], []):
 			print("Error al guardar los datos del usuario con identificador:", user_id)
@@ -246,7 +249,7 @@ func _on__identificadores_pressed() -> void:
 			
 	#pass # Replace with function body.
 
-	print(" 10 user listos no aleatorios .(generate_random_identifier()) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
+	print(adduser, ": user listos no aleatorios .(generate_random_identifier()) en milisegundos (" , Time.get_ticks_msec() - timer_local ,") ")
 	#timer_local = Time.get_ticks_msec()
 	#for i in range(10):
 		#var user_id = generate_random_identifier()

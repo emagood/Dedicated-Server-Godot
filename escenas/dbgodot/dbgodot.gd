@@ -14,18 +14,20 @@ extends Node
 class_name BinaryBlockHandler
 
 class BinaryDataBlock:
+	var test : bool
 	var identifier: PackedByteArray
 	var data_8bit: PackedByteArray
 	var data_16bit: Array
 	var data_32bit: Array
 	var data_64bit: Array
 
-	func _init(identifier: PackedByteArray, data_8bit: PackedByteArray, data_16bit: Array, data_32bit: Array, data_64bit: Array):
+	func _init(identifier: PackedByteArray, data_8bit: PackedByteArray, data_16bit: Array, data_32bit: Array, data_64bit: Array, test: bool = false):
 		self.identifier = identifier
 		self.data_8bit = data_8bit
 		self.data_16bit = data_16bit
 		self.data_32bit = data_32bit
 		self.data_64bit = data_64bit
+		self.test = test
 
 var filename: String
 var size_8bit: int
@@ -35,8 +37,9 @@ var size_64bit: int
 var total_size: int  # Variable global para almacenar el tamaño total
 var cache: Dictionary = {}
 var cache_size: int = 1 # Tamaño máximo de la caché (opcional) quedo en 5 millones 
+var test : bool
 
-func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 500000):
+func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 500000,test : bool = false ):
 	self.filename = filename
 	self.size_8bit = size_8bit
 	self.size_16bit = size_16bit
@@ -44,6 +47,7 @@ func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, s
 	self.size_64bit = size_64bit
 	self.cache_size = cache_size
 	self.total_size = 8 + size_8bit + size_16bit * 2 + size_32bit * 4 + size_64bit * 8  # Calcular total_size aquí
+	self.test = test
 	ensure_file_exists()
 
 # Función para abrir el archivo
@@ -125,8 +129,13 @@ func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
 	if identifier == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
 		prints("error al cargar un identififcador vacio(0) ([0, 0, 0, 0, 0, 0, 0, 0])")
 		return
+	if not block_exists(identifier):
+		print("Error: El identificador no existe. No se puede actualizar el bloque.")
+		return # comprobar si existe el bloque xd
+		
 	var position = get_cached_position(identifier)
-	prints(position , " esto es position en cahe get ")
+	if test:
+		prints(position , " esto es position en cahe get ")
 	if position == -1:
 		var file = open_file()
 		total_size
@@ -140,7 +149,7 @@ func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
 				
 				break
 			position += total_size
-		position += 8 # por si esta en cache esto adelanta el identificador
+		#position += 8 # por si esta en cache esto adelanta el identificador
 		close_file(file)
 	else:
 		position += 8 # por si esta en cache esto adelanta el identificador
