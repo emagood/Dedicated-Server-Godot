@@ -36,7 +36,7 @@ var size_32bit: int
 var size_64bit: int
 var total_size: int  # Variable global para almacenar el tamaño total
 var cache: Dictionary = {}
-var cache_size: int = 1 # Tamaño máximo de la caché (opcional) quedo en 5 millones 
+var cache_size: int = 500000 # Tamaño máximo de la caché (opcional) quedo en 5 millones 
 var test : bool
 
 func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 500000,test : bool = false ):

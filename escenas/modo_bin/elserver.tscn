@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpshlghi16q4c"]
+[gd_scene load_steps=3 format=3 uid="uid://dpshlghi16q4c"]
 
 [ext_resource type="Script" path="res://escenas/modo_bin/elserver.gd" id="1_sqspy"]
+[ext_resource type="Script" path="res://escenas/modo_bin/log_scroll.gd" id="3_xmiep"]
 
 [node name="prueba" type="Control"]
 layout_mode = 3
@@ -38,10 +39,10 @@ text = "quit_1000_user"
 
 [node name="data_random_id" type="Button" parent="."]
 layout_mode = 0
-offset_left = 481.0
-offset_top = 148.0
-offset_right = 489.0
-offset_bottom = 156.0
+offset_left = 391.0
+offset_top = 158.0
+offset_right = 503.0
+offset_bottom = 189.0
 text = "data_random"
 
 [node name="string_data" type="Button" parent="."]
@@ -54,10 +55,10 @@ text = "string all user "
 
 [node name="count_user" type="Button" parent="."]
 layout_mode = 0
-offset_left = 336.0
-offset_top = 158.0
-offset_right = 395.0
-offset_bottom = 189.0
+offset_left = 26.0
+offset_top = 102.0
+offset_right = 85.0
+offset_bottom = 133.0
 text = "contar"
 
 [node name="Label" type="Label" parent="."]
@@ -68,18 +69,18 @@ text = "esta prueba es en texto plano y binarios  , es peligroso , adaptaremos c
 
 [node name="buscar_desde" type="Button" parent="."]
 layout_mode = 0
-offset_left = 740.0
-offset_top = 154.0
-offset_right = 855.0
-offset_bottom = 185.0
+offset_left = 191.0
+offset_top = 112.0
+offset_right = 306.0
+offset_bottom = 143.0
 text = "buscar_sector"
 
 [node name="add_user_1" type="Button" parent="."]
 layout_mode = 0
-offset_left = 224.0
+offset_left = 167.0
 offset_top = 156.0
-offset_right = 232.0
-offset_bottom = 164.0
+offset_right = 262.0
+offset_bottom = 187.0
 text = "add_1_user"
 
 [node name="salir" type="Button" parent="."]
@@ -92,18 +93,18 @@ text = "salir"
 
 [node name="speed_search" type="Button" parent="."]
 layout_mode = 0
-offset_left = 480.0
-offset_top = 199.0
-offset_right = 593.0
-offset_bottom = 230.0
+offset_left = 407.0
+offset_top = 205.0
+offset_right = 520.0
+offset_bottom = 236.0
 text = "speed_search"
 
 [node name="block_exist" type="Button" parent="."]
 layout_mode = 0
-offset_left = 613.0
-offset_top = 151.0
-offset_right = 706.0
-offset_bottom = 182.0
+offset_left = 409.0
+offset_top = 111.0
+offset_right = 502.0
+offset_bottom = 142.0
 text = "block_exist"
 
 [node name="prueba add_use_exist" type="Button" parent="."]
@@ -116,18 +117,18 @@ text = "user_exist_??"
 
 [node name="user_0" type="Button" parent="."]
 layout_mode = 0
-offset_left = 158.0
-offset_top = 157.0
-offset_right = 217.0
-offset_bottom = 188.0
+offset_left = 118.0
+offset_top = 113.0
+offset_right = 177.0
+offset_bottom = 144.0
 text = "user_0"
 
 [node name="test_id_speed" type="Button" parent="."]
 layout_mode = 0
-offset_left = 619.0
-offset_top = 200.0
-offset_right = 712.0
-offset_bottom = 231.0
+offset_left = 311.0
+offset_top = 112.0
+offset_right = 404.0
+offset_bottom = 143.0
 text = "test_instan"
 
 [node name="aad_user manueal" type="Button" parent="."]
@@ -148,10 +149,10 @@ placeholder_text = "id"
 
 [node name="exist_manual" type="Button" parent="."]
 layout_mode = 0
-offset_left = 323.0
-offset_top = 328.0
-offset_right = 431.0
-offset_bottom = 359.0
+offset_left = 184.0
+offset_top = 325.0
+offset_right = 292.0
+offset_bottom = 356.0
 text = "exist manual"
 
 [node name="id_search" type="LineEdit" parent="exist_manual"]
@@ -164,10 +165,10 @@ placeholder_text = "id search"
 
 [node name="load_manual" type="Button" parent="."]
 layout_mode = 0
-offset_left = 572.0
-offset_top = 329.0
-offset_right = 680.0
-offset_bottom = 360.0
+offset_left = 303.0
+offset_top = 323.0
+offset_right = 411.0
+offset_bottom = 354.0
 text = "load_manual"
 
 [node name="load_data_id" type="LineEdit" parent="load_manual"]
@@ -241,10 +242,10 @@ text = "inicio de clase        cargar/crear  file .dat . DB .txt .user          
 
 [node name="quit_class" type="Button" parent="."]
 layout_mode = 0
-offset_left = 92.0
-offset_top = 98.0
-offset_right = 176.0
-offset_bottom = 129.0
+offset_left = 286.0
+offset_top = 152.0
+offset_right = 370.0
+offset_bottom = 183.0
 text = "quit_class"
 
 [node name="adduser" type="TextEdit" parent="."]
@@ -254,6 +255,26 @@ offset_top = 238.0
 offset_right = 108.0
 offset_bottom = 274.0
 placeholder_text = "add user"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.530612
+anchor_top = -0.627083
+anchor_right = 0.530612
+anchor_bottom = 0.742
+offset_left = 4.0
+offset_top = 403.0
+offset_right = 457.0
+offset_bottom = 174.84
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="log_scroll" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_xmiep")
 
 [connection signal="pressed" from="20_add_user" to="." method="_on__identificadores_pressed"]
 [connection signal="pressed" from="delete_1k" to="." method="_on_delete_1k_pressed"]

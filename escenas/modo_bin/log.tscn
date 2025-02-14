@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp5abyxh6wdr1"]
+
+[ext_resource type="Script" path="res://escenas/modo_bin/log.gd" id="1_sidc7"]
+
+[node name="log" type="Label"]
+offset_left = 3.0
+offset_top = 406.0
+offset_right = 977.0
+offset_bottom = 488.0
+text = "yu8y8uy"
+script = ExtResource("1_sidc7")
