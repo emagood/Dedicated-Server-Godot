@@ -1,5 +1,9 @@
 extends Control
 
+var number1
+var number2 
+var xor_result
+
 func _ready():
 	# Pruebas con diferentes longitudes de bits
 	var bytes_8 = PackedByteArray([34])  # 8 bits
@@ -29,39 +33,12 @@ func _ready():
 	#print_bits(bit_positions_large)
 
 	# Operaciones adicionales para mostrar los bits de las operaciones
-	var number1 = PackedByteArray([0x06, 0xbd, 0x8f, 0xe7, 0xb0, 0x9b, 0xad, 0x03])
-	var number2 = PackedByteArray([0x4b, 0x9a, 0x5a, 0x41, 0x29, 0xdf, 0x04, 0x70])
+	number1 = PackedByteArray([0x06, 0xbd, 0x8f, 0xe7, 0xb0, 0x9b, 0xad, 0x03])
+	number2 = PackedByteArray([0x4b, 0x9a, 0x5a, 0x41, 0x29, 0xdf, 0x04, 0x70])
 
 	print("Número 1: ", format_bytes(number1))
 	print("Número 2 (Clave): ", format_bytes(number2))
 
-	var xor_result = bitwise_operation(number1, number2, "xor")
-	print("XOR resultado: ", format_bytes(xor_result))
-	print_bits(get_bit_positions(xor_result, 64))
-
-	var inverted_xor = bitwise_operation(xor_result, number2, "xor")
-	print("Invertido XOR con número 2: ", format_bytes(inverted_xor))
-	print_bits(get_bit_positions(inverted_xor, 64))
-
-	var and_result = bitwise_operation(number1, number2, "and")
-	print("AND resultado: ", format_bytes(and_result))
-	print_bits(get_bit_positions(and_result, 64))
-
-	var or_result = bitwise_operation(number1, number2, "or")
-	print("OR resultado: ", format_bytes(or_result))
-	print_bits(get_bit_positions(or_result, 64))
-
-	var nand_result = bitwise_operation(number1, number2, "nand")
-	print("NAND resultado: ", format_bytes(nand_result))
-	print_bits(get_bit_positions(nand_result, 64))
-
-	var nor_result = bitwise_operation(number1, number2, "nor")
-	print("NOR resultado: ", format_bytes(nor_result))
-	print_bits(get_bit_positions(nor_result, 64))
-
-	var xnor_result = bitwise_operation(number1, number2, "xnor")
-	print("XNOR resultado: ", format_bytes(xnor_result))
-	print_bits(get_bit_positions(xnor_result, 64))
 
 # Función para obtener posiciones de bits para longitudes variables
 func get_bit_positions(packet: PackedByteArray, bit_length: int) -> Array:
@@ -113,3 +90,56 @@ func format_bytes(data: PackedByteArray) -> String:
 	for byte in data:
 		str += String("%02x" % byte) + " "
 	return str.strip_edges()
+
+
+func _on_xor_pressed() -> void:
+	xor_result = bitwise_operation(number1, number2, "xor")
+	print("XOR resultado: ", format_bytes(xor_result))
+	print_bits(get_bit_positions(xor_result, 64))
+	pass # Replace with function body.
+
+
+func _on_xor_2_pressed() -> void:
+	if xor_result == null:
+		prints("xor no inicviado , esta vacio ")
+		return
+	var inverted_xor = bitwise_operation(xor_result, number2, "xor")
+	print("Invertido XOR con número 2: ", format_bytes(inverted_xor))
+	print_bits(get_bit_positions(inverted_xor, 64))
+	pass # Replace with function body.
+
+
+func _on_and_pressed() -> void:
+
+	var and_result = bitwise_operation(number1, number2, "and")
+	print("AND resultado: ", format_bytes(and_result))
+	print_bits(get_bit_positions(and_result, 64))
+	pass # Replace with function body.
+
+
+func _on_or_pressed() -> void:
+	var or_result = bitwise_operation(number1, number2, "or")
+	print("OR resultado: ", format_bytes(or_result))
+	print_bits(get_bit_positions(or_result, 64))
+	pass # Replace with function body.
+
+
+func _on_nand_pressed() -> void:
+	var nand_result = bitwise_operation(number1, number2, "nand")
+	print("NAND resultado: ", format_bytes(nand_result))
+	print_bits(get_bit_positions(nand_result, 64))
+	pass # Replace with function body.
+
+
+func _on_nor_pressed() -> void:
+	var nor_result = bitwise_operation(number1, number2, "nor")
+	print("NOR resultado: ", format_bytes(nor_result))
+	print_bits(get_bit_positions(nor_result, 64))
+	pass # Replace with function body.
+
+
+func _on_xnor_pressed() -> void:
+	var xnor_result = bitwise_operation(number1, number2, "xnor")
+	print("XNOR resultado: ", format_bytes(xnor_result))
+	print_bits(get_bit_positions(xnor_result, 64))
+	pass # Replace with function body.
