@@ -332,7 +332,7 @@ class UserArrayManager:
 			history.add_change("USER_FILE_DAT_ERROR", filename, "************", String.num(Time.get_unix_time_from_system(),0) )
 			print("Error al abrir el archivo de usuarios.")
 			return
-		var count = 0
+		var count = -1
 		while not file.eof_reached():
 			count += 1
 			var user_string = file.get_buffer(48).get_string_from_utf8()

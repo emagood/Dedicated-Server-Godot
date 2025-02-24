@@ -81,3 +81,11 @@ func _on_prueba_ram_pressed() -> void:
 	prints("instancio escena")
 
 	pass # Replace with function body.
+
+
+func _on_rsa_pressed() -> void:
+	var menu = preload("res://rsas.tscn").instantiate()
+	add_child(menu)
+	prints("instancio escena")
+	await get_tree().create_timer(3).timeout
+	pass # Replace with function body.

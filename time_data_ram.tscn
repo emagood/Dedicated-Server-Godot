@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://voctt1ex0eqr"]
 
-[ext_resource type="Script" path="res://prueba_data_ram.gd" id="1_1lg0i"]
-[ext_resource type="Script" path="res://time_data_ram.gd" id="1_ix2wl"]
+[ext_resource type="Script" uid="uid://b4ceoew55f6le" path="res://prueba_data_ram.gd" id="1_1lg0i"]
+[ext_resource type="Script" uid="uid://brd5btuceiks8" path="res://time_data_ram.gd" id="1_ix2wl"]
 
 [node name="time_data_ram" type="Control"]
 layout_mode = 3

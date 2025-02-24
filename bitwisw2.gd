@@ -1,5 +1,5 @@
 extends Control
-
+@onready var chek = $CheckButton
 var number1
 var number2 
 var xor_result
@@ -95,7 +95,8 @@ func format_bytes(data: PackedByteArray) -> String:
 func _on_xor_pressed() -> void:
 	xor_result = bitwise_operation(number1, number2, "xor")
 	print("XOR resultado: ", format_bytes(xor_result))
-	print_bits(get_bit_positions(xor_result, 64))
+	if chek.button_pressed == true:
+		print_bits(get_bit_positions(xor_result, 64))
 	pass # Replace with function body.
 
 
@@ -105,7 +106,8 @@ func _on_xor_2_pressed() -> void:
 		return
 	var inverted_xor = bitwise_operation(xor_result, number2, "xor")
 	print("Invertido XOR con número 2: ", format_bytes(inverted_xor))
-	print_bits(get_bit_positions(inverted_xor, 64))
+	if chek.button_pressed == true:
+		print_bits(get_bit_positions(inverted_xor, 64))
 	pass # Replace with function body.
 
 
@@ -113,33 +115,38 @@ func _on_and_pressed() -> void:
 
 	var and_result = bitwise_operation(number1, number2, "and")
 	print("AND resultado: ", format_bytes(and_result))
-	print_bits(get_bit_positions(and_result, 64))
+	if chek.button_pressed == true:
+		print_bits(get_bit_positions(and_result, 64))
 	pass # Replace with function body.
 
 
 func _on_or_pressed() -> void:
 	var or_result = bitwise_operation(number1, number2, "or")
 	print("OR resultado: ", format_bytes(or_result))
-	print_bits(get_bit_positions(or_result, 64))
+	if chek.button_pressed == true:
+		print_bits(get_bit_positions(or_result, 64))
 	pass # Replace with function body.
 
 
 func _on_nand_pressed() -> void:
 	var nand_result = bitwise_operation(number1, number2, "nand")
 	print("NAND resultado: ", format_bytes(nand_result))
-	print_bits(get_bit_positions(nand_result, 64))
+	if chek.button_pressed == true:
+		print_bits(get_bit_positions(nand_result, 64))
 	pass # Replace with function body.
 
 
 func _on_nor_pressed() -> void:
 	var nor_result = bitwise_operation(number1, number2, "nor")
 	print("NOR resultado: ", format_bytes(nor_result))
-	print_bits(get_bit_positions(nor_result, 64))
+	if chek.button_pressed == true:
+		print_bits(get_bit_positions(nor_result, 64))
 	pass # Replace with function body.
 
 
 func _on_xnor_pressed() -> void:
 	var xnor_result = bitwise_operation(number1, number2, "xnor")
 	print("XNOR resultado: ", format_bytes(xnor_result))
-	print_bits(get_bit_positions(xnor_result, 64))
+	if chek.button_pressed == true:
+		print_bits(get_bit_positions(xnor_result, 64))
 	pass # Replace with function body.

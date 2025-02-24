@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://juy3mjxiyfxc"]
 
-[ext_resource type="Script" path="res://escenas/menu/main_menu.gd" id="1_sqxgi"]
+[ext_resource type="Script" uid="uid://dv7mvfmyw40al" path="res://escenas/menu/main_menu.gd" id="1_sqxgi"]
 
 [node name="todo_main" type="Control"]
 layout_mode = 3
@@ -24,7 +24,7 @@ color = Color(0.290989, 0.290259, 0.214567, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-text = "prueba de distintos modos de db en godot "
+text = "prueba de distintos modos en godot "
 
 [node name="texto_plano" type="Button" parent="."]
 layout_mode = 0
@@ -66,8 +66,17 @@ offset_right = 592.0
 offset_bottom = 110.0
 text = "prueba_ram"
 
+[node name="rsa" type="Button" parent="."]
+layout_mode = 0
+offset_left = 752.0
+offset_top = 83.0
+offset_right = 800.0
+offset_bottom = 109.0
+text = "rsa"
+
 [connection signal="pressed" from="texto_plano" to="." method="_on_texto_plano_pressed"]
 [connection signal="pressed" from="binarios" to="." method="_on_binarios_pressed"]
 [connection signal="pressed" from="salir" to="." method="_on_salir_pressed"]
 [connection signal="pressed" from="prueba de bit" to="." method="_on_prueba_de_bit_pressed"]
 [connection signal="pressed" from="prueba_ram" to="." method="_on_prueba_ram_pressed"]
+[connection signal="pressed" from="rsa" to="." method="_on_rsa_pressed"]

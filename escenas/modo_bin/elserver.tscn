@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpshlghi16q4c"]
 
-[ext_resource type="Script" path="res://escenas/modo_bin/elserver.gd" id="1_sqspy"]
-[ext_resource type="Script" path="res://escenas/modo_bin/log_scroll.gd" id="3_xmiep"]
+[ext_resource type="Script" uid="uid://dwtk4polvnem5" path="res://escenas/modo_bin/elserver.gd" id="1_sqspy"]
+[ext_resource type="Script" uid="uid://cidc4nnb6jk06" path="res://escenas/modo_bin/log_scroll.gd" id="3_xmiep"]
 
 [node name="prueba" type="Control"]
 layout_mode = 3

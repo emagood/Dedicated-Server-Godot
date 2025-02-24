@@ -324,7 +324,7 @@ func list_user():
 	var timer_local = Time.get_ticks_msec()
 	var manager = UserArrayManager.new("res://users.dat", "res://history.dat")
 
-	var limiter = -1
+	var limiter = 0
 	var users = manager.get_users()
 	for user in users:
 		limiter += 1
