@@ -6,17 +6,17 @@ const PUBLIC_KEY_FILE = "res://public_key.rsa"
 var rsa = Crypto.new()
 var private_key: CryptoKey
 var public_key: CryptoKey
+var message = "Hello, Godot!"
+var decrypted_message
+var encrypted_message
 
 func _ready():
-	generate_keys()
-	save_keys()
-	load_keys()
-	var message = "Hello, Godot!"
-	var encrypted_message = encrypt_message(message)
-	var decrypted_message = decrypt_message(encrypted_message)
-	print("Original message: ", message)
-	print("Encrypted message: ", encrypted_message.hex_encode())
-	print("Decrypted message: ", decrypted_message)
+
+
+
+	pass
+	#encrypted_message = encrypt_message(message)
+	#decrypted_message = decrypt_message(encrypted_message)
 
 # Generar claves RSA
 func generate_keys():
@@ -59,4 +59,27 @@ func decrypt_message(encrypted_message: PackedByteArray) -> String:
 
 func _on_salir_pressed() -> void:
 	queue_free()
+	pass # Replace with function body.
+
+
+func _on_send_mensaje_pressed() -> void:
+	encrypted_message = encrypt_message($panel_text/mensaje.text)
+	decrypted_message = decrypt_message(encrypted_message)
+	$panel_text/descrip.text = decrypted_message
+	$big_panel_text/encript_mensaje.text = str(encrypted_message.hex_encode())
+	pass # Replace with function body.
+
+
+func _on_load_key_pressed() -> void:
+	load_keys()
+	pass # Replace with function body.
+
+
+func _on_key_gen_pressed() -> void:
+	generate_keys()
+	pass # Replace with function body.
+
+
+func _on_save_key_pressed() -> void:
+	save_keys()
 	pass # Replace with function body.
