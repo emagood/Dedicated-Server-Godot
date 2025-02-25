@@ -13,3 +13,5 @@ prueba_completa.dat
 *.dat
 prueba_completa.dat
 history.dat
+public_key.rsa
+private_key.rsa
