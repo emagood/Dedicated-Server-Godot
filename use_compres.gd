@@ -3,7 +3,7 @@ extends Control
 @export_enum("YES_ARRAY:0", "NOT_NADA:1") var PRUEBA: int = 0
 @export_enum("DEFLATE:1", "GZIP:3") var MODE_COMPRESSION: int = 1
 
-var cadena = "ddelas manzanas nace frujhfjfsnhooooooooooodmksmkmkmkmkmkmkkkmta verde y rojaeu"
+var cadena = "ddelas manzanas rgrhsgsfsgfegsrgnace frujhfjfsnhooooooooooodmksmkmkmkmkmkmkkkmta verde y rojaeu"
 var string_length
 var bytes: PackedByteArray
 
@@ -23,7 +23,7 @@ func _ready() -> void:
 	var rng = RandomNumberGenerator.new()
 	rng.seed = hash_value
 	
-	var num_copias = 64
+	var num_copias = 6400
 	var mejor_comprimido = bytes
 	var mejor_tamaño = bytes.size()
 	
@@ -34,12 +34,12 @@ func _ready() -> void:
 		
 		# Realizar operación XOR entre la cadena original y los datos aleatorios
 		var xor_result = bitwise_operation(bytes, random_data, "xor")
-		print("XOR resultado:", xor_result)
+		#print("XOR resultado:", xor_result)
 		
 		# Comprimir el resultado XOR
 		var compressed_data = compressor.compress_data(xor_result)
-		print("Tamaño de datos comprimidos:", compressed_data.size())
-		print("Datos comprimidos:", compressed_data)
+		#print("Tamaño de datos comprimidos:", compressed_data.size())
+		#print("Datos comprimidos:", compressed_data)
 		
 		# Comparar tamaños y guardar el menor
 		if compressed_data.size() < mejor_tamaño:

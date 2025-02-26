@@ -1,12 +1,26 @@
+extends Control
 
-
-
+# Nodo que almacena las salas
 var rooms = []
+
+# Clase que representa un jugador
+class Player:
+	var player_id: String
+	var ip: String
+	var port: int
+
+	func _init(id: String, ip: String, port: int):
+		player_id = id
+		self.ip = ip
+		self.port = port
+
+# Clase que representa una sala
+
 
 
 
 # Clase que representa una sala
-
+# Clase que representa una sala
 class Room:
 	var room_name: String
 	var players: Array = []
@@ -15,30 +29,54 @@ class Room:
 	var game_modes: Array = []
 	var ip: String
 	var port: int
+	var max_players: int
 
-	func _init(name: String, modes: Array, ip: String, port: int):
+	func _init(name: String, modes: Array, ip: String, port: int, max_players: int):
 		room_name = name
 		game_modes = modes
 		self.ip = ip
 		self.port = port
+		self.max_players = max_players
 		creation_time = Time.get_unix_time_from_system()
 
 	func add_player(player: Player) -> void:
-		if player.player_id not in banned_players:
-			players.append(player)
-		else:
+		if player.player_id in banned_players:
 			print(player.player_id + " está baneado y no puede unirse a la sala " + room_name)
+		elif players.size() >= max_players:
+			print("No se puede añadir más jugadores a la sala " + room_name + ". Límite de jugadores alcanzado.")
+		else:
+			players.append(player)
+			print(player.player_id + " se unió a la sala " + room_name)
 
 	func remove_player(player_id: String) -> void:
 		for player in players:
 			if player.player_id == player_id:
-				player.lobby = ""  # a
 				players.erase(player)
 				return
 
-
 	func get_players() -> Array:
 		return players
+
+## Función para unirse a una sala con verificación de ban y límite de jugadores
+#func join_room(room_name: String, player: Player) -> void:
+	#for room in rooms:
+		#if room.room_name == room_name:
+			#room.add_player(player)
+			#return
+	#print("Sala no encontrada: " + room_name)
+
+
+
+
+
+
+
+
+
+
+
+
+# Función para banear un jugador por nombre en una sala
 # Función para banear un jugador por nombre en una sala específica
 func ban_player_from_room_by_name(rooms: Array, room_name: String, player_id: String) -> void:
 	for room in rooms:
@@ -53,11 +91,12 @@ func ban_player_from_room_by_name(rooms: Array, room_name: String, player_id: St
 			return
 	print("Sala " + room_name + " no encontrada.")
 
-# Función para crear una nueva sala con modos de juego, IP y puerto
-func create_room(room_name: String, modes: Array, ip: String, port: int) -> void:
-	var new_room = Room.new(room_name, modes, ip, port)
+
+# Función para crear una nueva sala con modos de juego, IP, puerto y número máximo de jugadores
+func create_room(room_name: String, modes: Array, ip: String, port: int, max_players: int) -> void:
+	var new_room = Room.new(room_name, modes, ip, port, max_players)
 	rooms.append(new_room)
-	print("Sala creada: " + room_name + " con modos: " + str(modes) + ", IP: " + ip + ", Puerto: " + str(port))
+	print("Sala creada: " + room_name + " con modos: " + str(modes) + ", IP: " + ip + ", Puerto: " + str(port) + ", Máximo de jugadores: " + str(max_players))
 
 
 
@@ -69,40 +108,24 @@ func join_room(room_name: String, player: Player) -> void:
 				print(player.player_id + " está baneado y no puede unirse a la sala: " + room_name)
 			else:
 				room.add_player(player)
-				player.lobby = room_name  # Asigna el nombre de la sala a la propiedad lobby del jugador
 				print(player.player_id + " se unió a la sala: " + room_name)
 			return
 	print("Sala no encontrada: " + room_name)
 
 
-
-
 # Función para ver todas las salas disponibles
-func list_rooms(player: Player) -> void:
-	if player.lobby != "":  # Verifica si el jugador ya tiene una sala asignada
-		var room_found = false
-		for room in rooms:
-			if room.room_name == player.lobby:
-				room_found = true
-				print("El jugador " + player.player_id + " ya tiene una sala asignada: " + player.lobby)
-				break
-		if not room_found:
-			print("La sala " + player.lobby + " asignada al jugador " + player.player_id + " no existe.")
-		return
-
+# Función para ver todas las salas disponibles
+func list_rooms() -> void:
 	if rooms.size() == 0:
 		print("No hay salas disponibles.")
 		return
 
-	print("Salas disponibles para el jugador " + player.player_id + ":")
+	print("Salas disponibles:")
 	for room in rooms:
-		if player.player_id not in room.banned_players:
-			var player_info = []
-			for p in room.players:
-				player_info.append(str(p.player_id) + " (IP: " + p.ip + ", Puerto: " + str(p.port) + ")")
-			print("Sala: " + room.room_name + " - IP: " + room.ip + ", Puerto: " + str(room.port) + " - Jugadores: " + str(player_info) + " - Modos: " + str(room.game_modes) + " - Creada a las: " + str(room.creation_time))
-
-
+		var player_info = []
+		for player in room.players:
+			player_info.append(str(player.player_id) + " (IP: " + player.ip + ", Puerto: " + str(player.port) + ")")
+		print("Sala: " + room.room_name + " - IP: " + room.ip + ", Puerto: " + str(room.port) + " - Jugadores: " + str(player_info) + " - Modos: " + str(room.game_modes) + " - Creada a las: " + str(room.creation_time))
 
 # Función para comparar dos salas por modo de juego (primero en la lista)
 func compare_rooms_by_mode(a: Room, b: Room) -> int:
@@ -124,6 +147,8 @@ func find_rooms_with_mode(rooms: Array, mode_name: String) -> Array:
 		if mode_name in room.game_modes:
 			matching_rooms.append(room)
 	return matching_rooms
+	
+	
 # Función para eliminar una sala
 func remove_room(room_name: String) -> void:
 	for room in rooms:
@@ -157,33 +182,6 @@ func list_top_10_rooms_by_mode(rooms: Array, mode_name: String) -> void:
 			player_info.append(str(player.player_id) + " (IP: " + player.ip + ", Puerto: " + str(player.port) + ")")
 		print("Sala: " + room.room_name + " - IP: " + room.ip + ", Puerto: " + str(room.port) + " - Jugadores: " + str(player_info) + " - Modos: " + str(room.game_modes) + " - Creada a las: " + str(room.creation_time))
 
-
-func assign_rooms_to_players(players: Array, rooms: Array, mode: String) -> void:
-	for player in players:
-		if player.lobby == "":  # Verifica a
-			var sala_asignada = false  
-			# Buscar una sala con el modo de juego especificado
-			for room in rooms:
-				if mode in room.game_modes and player.player_id not in room.banned_players:
-					player.lobby = room.room_name
-					room.add_player(player)
-					print("Jugador " + player.player_id + " asignado a la sala: " + room.room_name)
-					sala_asignada = true
-					break
-			# Si no se encontró una sala con el modo de juego especificado o el jugador está baneado en todas las salas
-			if not sala_asignada:
-				print("No se encontró una sala adecuada para el jugador " + player.player_id + " con el modo de juego: " + mode)
-
-
-
-
-# verifica si ay playrs sin rooms o salas 
-func find_players_without_rooms(players: Array, mode: String) -> void:
-	for player in players:
-		if player.lobby == "":  # Verifica si la propiedad lobby está vacía
-			print("El jugador " + player.player_id + " no tiene una sala asignada para el modo de juego: " + mode)
-
-
 ## Función para comparar dos salas por modo de juego (primero en la lista)
 #func compare_rooms_by_mode(a: Room, b: Room) -> int:
 	#if a.game_modes[0] < b.game_modes[0]:
@@ -193,7 +191,7 @@ func find_players_without_rooms(players: Array, mode: String) -> void:
 	#else:
 		#return 0
 
-
+# Ejemplo de uso
 
 # Función para enviar un mensaje de un jugador a otro, especificando la sala por su nombre
 func send_message_in_room(rooms: Array, room_name: String, sender: Player, receiver: Player, message: String) -> void:
@@ -221,48 +219,49 @@ func send_message_to_room(rooms: Array, room_name: String, sender: Player, messa
 	print("Sala " + room_name + " no encontrada.")
 
 
+
+
+
 func _ready() -> void:
 
-	create_room("Sala 1", ["Modo A", "Modo B"], "192.168.1.1", 1234)
-	create_room("Sala 2", ["Modo B", "Modo C"], "192.168.1.2", 1235)
-	create_room("Sala 3", ["Modo C", "Modo D"], "192.168.1.3", 1236)
+	create_room("Sala 1", ["Modo A", "Modo B"], "192.168.1.1", 1234,5)
+	create_room("Sala 2", ["Modo B", "Modo C"], "192.168.1.2", 1235,5)
+	create_room("Sala 3", ["Modo C", "Modo D"], "192.168.1.3", 1236,2)
 	
 	print("Antes de eliminar:")
-
+	list_rooms()
 	remove_room("Sala 2")
 	print("Después de eliminar:")
-
+	list_rooms()
 
 
 	var player1 = Player.new("Jugador1", "192.168.1.1", 1234)
 	var player2 = Player.new("Jugador2", "192.168.1.2", 1235)
 	var player3 = Player.new("Jugador3", "192.168.1.3", 1236)
-	var player4 = Player.new("Jugador4", "192.168.1.1", 1234)
-	var player5 = Player.new("Jugador6", "192.168.1.2", 1235)
-	var player6 = Player.new("Jugador5", "192.168.1.3", 1236)
-	list_rooms(player3)
+
 	join_room("Sala 1", player1)
 	join_room("Sala 2", player2)
 	join_room("Sala 3", player3)
-	list_rooms(player2)
+	
 	print("Antes de ordenar:")
+	list_rooms()
 	sort_rooms_by_mode(rooms)
 	print("Después de ordenar:")
-	list_rooms(player1)
+	list_rooms()
 	remove_room("Sala 1")
-
-	create_room("Sala 1", ["Modo A", "Modo B"], "192.168.1.1", 1234)
-	create_room("Sala 2", ["Modo B", "Modo C"], "192.168.1.2", 1235)
-	create_room("Sala 3", ["Modo C", "Modo D"], "192.168.1.3", 1236)
-	create_room("Sala 4", ["Modo A", "Modo C"], "192.168.1.4", 1237)
-	create_room("Sala 5", ["Modo B", "Modo D"], "192.168.1.5", 1238)
-	create_room("Sala 6", ["Modo A", "Modo D"], "192.168.1.6", 1239)
-	create_room("Sala 7", ["Modo B", "Modo A"], "192.168.1.7", 1240)
-	create_room("Sala 8", ["Modo C", "Modo B"], "192.168.1.8", 1241)
-	create_room("Sala 9", ["Modo A", "Modo B"], "192.168.1.9", 1242)
-	create_room("Sala 10", ["Modo B", "Modo C"], "192.168.1.10", 1243)
-	create_room("Sala 11", ["Modo D", "Modo A"], "192.168.1.11", 1244)
-	create_room("Sala 12", ["Modo A", "Modo B"], "192.168.1.12", 1245)
+	list_rooms()
+	create_room("Sala 1", ["Modo A", "Modo B"], "192.168.1.1", 1234,4)
+	create_room("Sala 2", ["Modo B", "Modo C"], "192.168.1.2", 1235,4)
+	create_room("Sala 3", ["Modo C", "Modo D"], "192.168.1.3", 1236,7)
+	create_room("Sala 4", ["Modo A", "Modo C"], "192.168.1.4", 1237,2)
+	create_room("Sala 5", ["Modo B", "Modo D"], "192.168.1.5", 1238,2)
+	create_room("Sala 6", ["Modo A", "Modo D"], "192.168.1.6", 1239,2)
+	create_room("Sala 7", ["Modo B", "Modo A"], "192.168.1.7", 1240,2)
+	create_room("Sala 8", ["Modo C", "Modo B"], "192.168.1.8", 1241,2)
+	create_room("Sala 9", ["Modo A", "Modo B"], "192.168.1.9", 1242,2)
+	create_room("Sala 10", ["Modo B", "Modo C"], "192.168.1.10", 1243,2)
+	create_room("Sala 11", ["Modo D", "Modo A"], "192.168.1.11", 1244,2)
+	create_room("Sala 12", ["Modo A", "Modo B"], "192.168.1.12", 1245,2)
 	
 
 
@@ -271,7 +270,7 @@ func _ready() -> void:
 	join_room("Sala 3", player3)
 
 	print("Lista de salas antes de filtrar:")
-	list_rooms(player3)
+	list_rooms()
 	
 	list_top_10_rooms_by_mode(rooms, "Modo A")
 	join_room("Sala 1", player1)
@@ -285,7 +284,7 @@ func _ready() -> void:
 	
 
 	# Crear una sala
-	create_room("Sala 1", ["Modo A", "Modo B"], "192.168.1.1", 1234)
+	create_room("Sala 1", ["Modo A", "Modo B"], "192.168.1.1", 1234,3)
 	
 
 	
@@ -301,34 +300,11 @@ func _ready() -> void:
 	join_room("Sala 1", player1)
 	prints("jugado jugador            ##########################################################################################")
 	# Listar jugadores en la sala después del baneo
-	list_rooms(player1)
-
-#var player1 = Player.new("Jugador1", "192.168.1.1", 1234, "Juan", "")
-#var player2 = Player.new("Jugador2", "192.168.1.2", 1235, "Ana", "Sala 1")
-#var player3 = Player.new("Jugador3", "192.168.1.3", 1236, "Luis", "")
-#var players = [player1, player2, player3]
-	prints("asignamos playerssss      @@@@@@#########################################")
-
-	var player11 = Player.new("Jugador1", "192.168.1.1", 1234, "Juan", "")
-	var player21 = Player.new("Jugador2", "192.168.1.2", 1235, "Ana", "")
-	var player31 = Player.new("Jugador3", "192.168.1.3", 1236, "Luis", "")	
-	var players = [player11, player21, player31,player4,player5,player6]
-
-# Buscar jugadores sin sala asignada
-	find_players_without_rooms(players, "Modo A")
-
-	#var room1 = Room.new("Sala 1", ["Modo A", "Modo B"], "192.168.1.1", 1234)
-	#var room2 = Room.new("Sala 2", ["Modo B", "Modo C"], "192.168.1.2", 1235)
-	#var rooms = [room1, room2]
-
-
-# Enviar mensaje a un jugador en la sala
-	send_message_in_room(rooms, "Sala 1", player1, player2, "Hola, Ana!")
-
-# Enviar mensaje a todos los jugadores en la sala
+	list_rooms()
+	
+	send_message_in_room(rooms, "Sala 1", player1, player2, "¡Hola, Jugador2!")
+	send_message_in_room(rooms, "Sala 1", player1, player3, "¡Hola, Jugador3!")
+	send_message_in_room(rooms, "Sala 2", player1, player3, "¡Hola, Jugador3!")
 	send_message_to_room(rooms, "Sala 1", player1, "Hola a todos en Sala 1!")
-
-
-
-# Asignar salas a los jugadores
-	assign_rooms_to_players(players, rooms, "Modo A")
+	
+	

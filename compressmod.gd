@@ -7,7 +7,7 @@ class_name Compressor
 func compress_data(data: PackedByteArray) -> PackedByteArray:
 	# Comprimir los datos con un solo argumento
 	var compressed_data = data.compress(compression_mode)
-	print("Tamaño comprimido:", compressed_data.size())
+	#print("Tamaño comprimido:", compressed_data.size())
 	return compressed_data
 
 func decompress_data(compressed_data: PackedByteArray, original_size: int) -> PackedByteArray:

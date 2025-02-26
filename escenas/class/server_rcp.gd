@@ -16,10 +16,21 @@ Para cada accion de id comprobar password
 '''
 
 
-extends Node
+extends Control
 class_name server_id
 
-var Player = load("res://class/player.gd").Player
+#
+#class rooi extends player:
+	#var event_name: String
+	#var players: Array = []
+	#var creation_time: int
+	#var event_modes: Array = []
+	#var max_players: int
+	#var event_date: String
+	#
+
+
+var Player = load("res://escenas/class/player.gd").Player
 #var room = load("res://room_player_ipl.gd").Room  no se usa 
 
 class RpcHandler:
@@ -33,6 +44,7 @@ class RpcHandler:
 		player_ids = {}
 		player_id_map = {}
 		safe_id_map = {}
+
 
 	func generate_unique_id(player) -> String:
 		var unique_id = str(hash(player.player_id + player.ip + str(player.port)))
@@ -86,36 +98,41 @@ class RpcHandler:
 		return ""
 
 	func add_friend(player_id: String, friend_id: String) -> void:
-		var player = get_player(get_unique_id_by_player_id(player_id))
-		var friend = get_player(get_unique_id_by_player_id(friend_id))
-		if player and friend:
+		var playeri = get_player(player_id)
+		var friend = get_player(friend_id)
+		if playeri and friend:
 			var friend_data = {"id": friend_id, "nombre": friend.nombre}
-			if not player.friends.has(friend_data):
-				player.friends.append(friend_data)
-				print(friend.nombre + " ha sido agregado a la lista de amigos de " + player.nombre)
+			if not playeri.friends.has(friend_data):
+				playeri.friends.append(friend_data)
+				print(friend.nombre + " ha sido agregado a la lista de amigos de " + playeri.nombre)
+				add_friend(friend_id, player_id)
 
 	func remove_friend(player_id: String, friend_id: String) -> void:
-		var player = get_player(get_unique_id_by_player_id(player_id))
-		if player:
+		var playeri = get_player(player_id)
+		if playeri:
 			var friend_to_remove = null
-			for friend in player.friends:
+			for friend in playeri.friends:
 				if friend["id"] == friend_id:
 					friend_to_remove = friend
 					break
 			if friend_to_remove:
-				player.friends.erase(friend_to_remove)
-				print(friend_to_remove["nombre"] + " ha sido eliminado de la lista de amigos de " + player.nombre)
+				playeri.friends.erase(friend_to_remove)
+				print(friend_to_remove["nombre"] + " ha sido eliminado de la lista de amigos de " + playeri.nombre)
+				remove_friend(friend_id , player_id)
 			else:
-				print("Amigo no encontrado en la lista de " + player.nombre)
+				print("Amigo no encontrado en la lista de " + playeri.nombre)
 
-	func list_friends(player_id: String) -> void:
-		var player = get_player(get_unique_id_by_player_id(player_id))
-		if player:
-			print("Lista de amigos de " + player.nombre + ":")
-			for friend in player.get_friends():
+	func list_friends(player_id: String) :
+		var playeri = get_player(player_id)
+		if playeri:
+			print("Lista de amigos de " + playeri.nombre + ":")
+			for friend in playeri.get_friends():
 				print("- " + friend["nombre"] + " (ID: " + friend["id"] + ")")
+				return String(str(friend["nombre"]))
 		else:
 			print("Jugador no encontrado.")
+			return "jugador no encontrado"
+
 
 	func remove_safe_unique_id(safe_unique_id: String) -> void:
 		if safe_unique_id in safe_id_map:
@@ -153,6 +170,7 @@ func _ready() -> void:
 	print("ID de Jugador3: " + id3)
 
 	print("Amigos de " + player1.nombre + " después de eliminar: " + str(player1.friends))
+
 	# Obtener un jugador por su identificador único
 	var retrieved_player = rpc_handler.get_player(id1)
 	print("Jugador recuperado: " + retrieved_player.player_id , "  nombre " ,retrieved_player.nombre )
@@ -165,6 +183,14 @@ func _ready() -> void:
 	# Agregar amigos
 	rpc_handler.add_friend(id1, id2)
 	rpc_handler.add_friend(id1, id3)
+	rpc_handler.list_friends(id2)
+	rpc_handler.list_friends(id3)
+	prints("amigos lista " ,rpc_handler.list_friends(id1))
+	prints("amigos lista " ,rpc_handler.list_friends(id2))
+	
+	#prints(player1.friends)
+	#prints(player1.friends)
+	
 
 	# Mostrar amigos de Juan
 	print("Amigos de " + player1.nombre + ": " + str(player1.friends))
