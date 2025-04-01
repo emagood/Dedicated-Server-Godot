@@ -83,4 +83,4 @@ func _on_check_nodes():
 
 # Método para imprimir los grupos actuales
 func print_groups():
-	print("Grupos actuales: %s" % str(groups.keys()))
+	print("Grupos actuales: " , self.groups.keys())

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq4knkq0ro0ck"]
+
+[ext_resource type="Script" uid="uid://dw7xvaevwohjj" path="res://back-sever/thread.gd" id="1_ibmeo"]
+
+
+[node name="thread" type="Node"]
+script = ExtResource("1_ibmeo")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "no hace muho y funciona mal "

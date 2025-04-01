@@ -1,0 +1,296 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpshlghi16q4c"]
+
+[ext_resource type="Script" uid="uid://dwtk4polvnem5" path="res://back-sever/escenas/modo_bin/elserver.gd" id="1_sqspy"]
+[ext_resource type="Script" uid="uid://cidc4nnb6jk06" path="res://back-sever/escenas/modo_bin/log_scroll.gd" id="3_xmiep"]
+
+[node name="prueba" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sqspy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.541176, 0.541176, 0.541176, 1)
+
+[node name="20_add_user" type="Button" parent="."]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 204.0
+offset_right = 148.0
+offset_bottom = 235.0
+text = "add_user"
+
+[node name="delete_1k" type="Button" parent="."]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 207.0
+offset_right = 400.0
+offset_bottom = 238.0
+text = "quit_1000_user"
+
+[node name="data_random_id" type="Button" parent="."]
+layout_mode = 0
+offset_left = 388.0
+offset_top = 154.0
+offset_right = 500.0
+offset_bottom = 185.0
+text = "data_random"
+
+[node name="string_data" type="Button" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 153.0
+offset_right = 146.0
+offset_bottom = 184.0
+text = "string all user "
+
+[node name="count_user" type="Button" parent="."]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 102.0
+offset_right = 85.0
+offset_bottom = 133.0
+text = "contar"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "esta prueba es en texto plano y binarios  , es peligroso , adaptaremos cifrado aes mas adelante "
+
+[node name="buscar_desde" type="Button" parent="."]
+layout_mode = 0
+offset_left = 191.0
+offset_top = 112.0
+offset_right = 306.0
+offset_bottom = 143.0
+text = "buscar_sector"
+
+[node name="add_user_1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 167.0
+offset_top = 156.0
+offset_right = 262.0
+offset_bottom = 187.0
+text = "add_1_user"
+
+[node name="salir" type="Button" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 35.0
+offset_right = 51.0
+offset_bottom = 66.0
+text = "salir"
+
+[node name="speed_search" type="Button" parent="."]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 205.0
+offset_right = 520.0
+offset_bottom = 236.0
+text = "speed_search"
+
+[node name="block_exist" type="Button" parent="."]
+layout_mode = 0
+offset_left = 409.0
+offset_top = 111.0
+offset_right = 502.0
+offset_bottom = 142.0
+text = "block_exist"
+
+[node name="prueba add_use_exist" type="Button" parent="."]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 205.0
+offset_right = 265.0
+offset_bottom = 236.0
+text = "user_exist_??"
+
+[node name="user_0" type="Button" parent="."]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 113.0
+offset_right = 177.0
+offset_bottom = 144.0
+text = "user_0"
+
+[node name="test_id_speed" type="Button" parent="."]
+layout_mode = 0
+offset_left = 311.0
+offset_top = 112.0
+offset_right = 404.0
+offset_bottom = 143.0
+text = "test_instan"
+
+[node name="aad_user manueal" type="Button" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 328.0
+offset_right = 171.0
+offset_bottom = 359.0
+text = "add user manual"
+
+[node name="add_id" type="LineEdit" parent="aad_user manueal"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 39.0
+offset_right = 69.5625
+offset_bottom = 70.0
+placeholder_text = "id"
+
+[node name="exist_manual" type="Button" parent="."]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 325.0
+offset_right = 292.0
+offset_bottom = 356.0
+text = "exist manual"
+
+[node name="id_search" type="LineEdit" parent="exist_manual"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 36.0
+offset_right = 81.0
+offset_bottom = 67.0
+placeholder_text = "id search"
+
+[node name="load_manual" type="Button" parent="."]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 323.0
+offset_right = 411.0
+offset_bottom = 354.0
+text = "load_manual"
+
+[node name="load_data_id" type="LineEdit" parent="load_manual"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 40.0
+offset_right = 112.0
+offset_bottom = 71.0
+placeholder_text = "load_data_id"
+
+[node name="init_database" type="Button" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 59.0
+offset_right = 202.0
+offset_bottom = 90.0
+text = "init DataBase"
+
+[node name="file" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 1.0
+offset_right = 436.0
+offset_bottom = 32.0
+text = "prueba_completa.dat"
+placeholder_text = "name_file"
+
+[node name="n8bit" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 3.0
+offset_right = 519.563
+offset_bottom = 34.0
+text = "256"
+placeholder_text = "data 8"
+
+[node name="n16bit" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 546.0
+offset_top = 2.0
+offset_right = 614.563
+offset_bottom = 33.0
+text = "255"
+placeholder_text = "data 16"
+
+[node name="n32bit" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 639.0
+offset_top = 3.0
+offset_right = 707.563
+offset_bottom = 34.0
+text = "0"
+placeholder_text = "data 32"
+
+[node name="n64bit" type="LineEdit" parent="init_database"]
+layout_mode = 0
+offset_left = 734.0
+offset_top = 4.0
+offset_right = 802.563
+offset_bottom = 35.0
+text = "0"
+placeholder_text = "data 64"
+
+[node name="info_init" type="Label" parent="init_database"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -24.0
+offset_right = 39.0
+offset_bottom = -1.0
+text = "inicio de clase        cargar/crear  file .dat . DB .txt .user          8 bite             16 bite         32 bite          64 bite   "
+
+[node name="quit_class" type="Button" parent="."]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 152.0
+offset_right = 370.0
+offset_bottom = 183.0
+text = "quit_class"
+
+[node name="adduser" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 238.0
+offset_right = 108.0
+offset_bottom = 274.0
+placeholder_text = "add user"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.530612
+anchor_top = -0.627083
+anchor_right = 0.530612
+anchor_bottom = 0.742
+offset_left = 4.0
+offset_top = 403.0
+offset_right = 457.0
+offset_bottom = 174.84
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="log_scroll" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_xmiep")
+
+[connection signal="pressed" from="20_add_user" to="." method="_on__identificadores_pressed"]
+[connection signal="pressed" from="delete_1k" to="." method="_on_delete_1k_pressed"]
+[connection signal="pressed" from="data_random_id" to="." method="_on_data_random_id_pressed"]
+[connection signal="pressed" from="string_data" to="." method="_on_string_data_pressed"]
+[connection signal="pressed" from="count_user" to="." method="_on_count_user_pressed"]
+[connection signal="pressed" from="buscar_desde" to="." method="_on_buscar_desde_pressed"]
+[connection signal="pressed" from="add_user_1" to="." method="_on_user_1_pressed"]
+[connection signal="pressed" from="salir" to="." method="_on_salir_pressed"]
+[connection signal="pressed" from="speed_search" to="." method="_on_speed_search_pressed"]
+[connection signal="pressed" from="block_exist" to="." method="_on_block_exist_pressed"]
+[connection signal="pressed" from="prueba add_use_exist" to="." method="_on_prueba_add_use_exist_pressed"]
+[connection signal="pressed" from="user_0" to="." method="_on_user_0_pressed"]
+[connection signal="pressed" from="test_id_speed" to="." method="_on_test_id_speed_pressed"]
+[connection signal="pressed" from="aad_user manueal" to="." method="_on_aad_user_manueal_pressed"]
+[connection signal="pressed" from="exist_manual" to="." method="_on_exist_manual_pressed"]
+[connection signal="pressed" from="load_manual" to="." method="_on_load_manual_pressed"]
+[connection signal="pressed" from="init_database" to="." method="_on_init_database_pressed"]
+[connection signal="pressed" from="quit_class" to="." method="_on_quit_class_pressed"]

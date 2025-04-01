@@ -1,0 +1,101 @@
+[gd_scene load_steps=2 format=3 uid="uid://q8g7dd7k1j2f"]
+
+[ext_resource type="Script" uid="uid://be4nyq51lxlor" path="res://back-sever/escenas/script/dbscript.gd" id="1_k1d2y"]
+
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k1d2y")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.716177, 0.279136, 0.978929, 1)
+
+[node name="add_100_user" type="Button" parent="."]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 60.0
+offset_right = 349.0
+offset_bottom = 107.0
+text = "add 100 user"
+
+[node name="deleter_100_user" type="Button" parent="."]
+layout_mode = 0
+offset_left = 366.0
+offset_top = 58.0
+offset_right = 493.0
+offset_bottom = 104.0
+text = "delete 100 user"
+
+[node name="add_quit_random" type="Button" parent="."]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 193.0
+offset_right = 509.0
+offset_bottom = 224.0
+text = "add_quit_random"
+
+[node name="user_add_admin" type="Button" parent="."]
+layout_mode = 0
+offset_left = 214.0
+offset_top = 191.0
+offset_right = 349.0
+offset_bottom = 222.0
+text = "user_add_admin"
+
+[node name="user_update" type="Button" parent="."]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 136.0
+offset_right = 403.0
+offset_bottom = 167.0
+text = "update_user"
+
+[node name="list_user" type="Button" parent="."]
+layout_mode = 0
+offset_left = 221.0
+offset_top = 136.0
+offset_right = 293.0
+offset_bottom = 167.0
+text = "list_user"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "esta prueba es en texto plano sin firmar , es peligroso , adaptaremos cifrado aes mas adelante "
+
+[node name="salir" type="Button" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 217.0
+offset_right = 125.0
+offset_bottom = 248.0
+text = "salir"
+
+[node name="log history" type="Button" parent="."]
+layout_mode = 0
+offset_left = 626.0
+offset_top = 68.0
+offset_right = 716.0
+offset_bottom = 99.0
+text = "history log"
+
+[connection signal="pressed" from="add_100_user" to="." method="_on_add_100_user_pressed"]
+[connection signal="pressed" from="deleter_100_user" to="." method="_on_deleter_100_user_pressed"]
+[connection signal="pressed" from="add_quit_random" to="." method="_on_add_quit_random_pressed"]
+[connection signal="pressed" from="user_add_admin" to="." method="_on_user_add_admin_pressed"]
+[connection signal="pressed" from="user_update" to="." method="_on_user_update_pressed"]
+[connection signal="pressed" from="list_user" to="." method="_on_list_user_pressed"]
+[connection signal="pressed" from="salir" to="." method="_on_salir_pressed"]
+[connection signal="pressed" from="log history" to="." method="_on_log_history_pressed"]

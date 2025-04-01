@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbkojmkat7ta8"]
-
-[ext_resource type="Script" uid="uid://c0v7je4yqcly7" path="res://thot/e_net/cliente/ClientCustom.gd.gd" id="1_5abrd"]
-
-[node name="cliente" type="Node"]
-script = ExtResource("1_5abrd")

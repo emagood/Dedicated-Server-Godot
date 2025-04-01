@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dkjgr2aoe2sp2" path="res://extra/grupo/mach_base_group.gd" id="1_ki3eb"]
 [ext_resource type="Script" uid="uid://bu2kal6fovdbg" path="res://extra/grupo/metodo_prueba.gd" id="2_ki3eb"]
 
-[node name="Control" type="Control"]
+[node name="main_group" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,60 @@ grow_vertical = 2
 script = ExtResource("1_ki3eb")
 
 [node name="Control" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control2" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control3" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control4" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control5" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control6" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control7" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control8" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control9" type="Control" parent="." groups=["grupo_2"]]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ki3eb")
+
+[node name="Control10" type="Control" parent="." groups=["grupo_2"]]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
