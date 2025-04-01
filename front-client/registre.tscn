@@ -1,0 +1,134 @@
+[gd_scene load_steps=2 format=3 uid="uid://drqby26rvrd0y"]
+
+[ext_resource type="PackedScene" uid="uid://bbkojmkat7ta8" path="res://lib/thot/e_net/cliente/cliente.tscn" id="1_4dsqe"]
+
+[node name="registre" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="cliente" parent="." instance=ExtResource("1_4dsqe")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 233.0
+offset_top = 264.0
+offset_right = 370.0
+offset_bottom = 295.0
+
+[node name="registrar" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "registrar"
+
+[node name="pass" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="login" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "login"
+
+[node name="box-line" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(333, 0)
+layout_direction = 2
+offset_left = 158.0
+offset_top = 19.0
+offset_right = 491.0
+offset_bottom = 109.0
+
+[node name="LineEdit2" type="LineEdit" parent="box-line"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="box-line"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="box-line"]
+layout_mode = 2
+max_length = 16
+secret = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="box-line"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="LineEdit3" type="LineEdit" parent="box-line"]
+layout_mode = 2
+max_length = 16
+secret = true
+
+[node name="MarginContainer4" type="MarginContainer" parent="box-line"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="LineEdit4" type="LineEdit" parent="box-line"]
+layout_mode = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="box-line"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="label-chek" type="VBoxContainer" parent="."]
+offset_left = 509.0
+offset_top = 77.0
+offset_right = 553.0
+offset_bottom = 167.0
+
+[node name="button" type="CheckButton" parent="label-chek"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="label-chek"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label2" type="CheckButton" parent="label-chek"]
+layout_mode = 2
+
+[node name="label-line" type="VBoxContainer" parent="."]
+offset_left = -834.0
+offset_top = 60.0
+offset_right = -609.0
+offset_bottom = 251.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="label-line"]
+layout_mode = 2
+text = "user"
+
+[node name="MarginContainer" type="MarginContainer" parent="label-line"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="label-line"]
+layout_mode = 2
+text = "pass"
+
+[node name="MarginContainer2" type="MarginContainer" parent="label-line"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="label-line"]
+layout_mode = 2
+text = "pass"
+
+[node name="MarginContainer3" type="MarginContainer" parent="label-line"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="label-line/MarginContainer3"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="label-line/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="label-line/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+text = "suma 12 + 26"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="label-line"]
+layout_mode = 2
+text = "chek"

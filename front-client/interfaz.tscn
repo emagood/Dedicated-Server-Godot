@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6p45t623jirn"]
+
+[ext_resource type="PackedScene" uid="uid://bbkojmkat7ta8" path="res://lib/thot/e_net/cliente/cliente.tscn" id="1_ubb6b"]
+
+[node name="Interfaz" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="cliente" parent="." instance=ExtResource("1_ubb6b")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 248.0
+offset_top = 146.0
+offset_right = 385.0
+offset_bottom = 177.0
+
+[node name="registrar" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "registrar"
+
+[node name="pass" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="login" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "login"
+
+[node name="box-line" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(333, 0)
+layout_direction = 2
+layout_mode = 2
+offset_left = 158.0
+offset_top = 19.0
+offset_right = 491.0
+offset_bottom = 109.0
+
+[node name="LineEdit2" type="LineEdit" parent="box-line"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="box-line"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="box-line"]
+layout_mode = 2
+
+[node name="label-chek" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 39.0
+offset_right = 551.0
+offset_bottom = 129.0
+
+[node name="button" type="MarginContainer" parent="label-chek"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="label-chek"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label2" type="CheckButton" parent="label-chek"]
+layout_mode = 2
+
+[node name="label-line" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 27.0
+offset_right = 144.0
+offset_bottom = 101.0
+
+[node name="Label" type="Label" parent="label-line"]
+layout_mode = 2
+text = "user"
+
+[node name="MarginContainer" type="MarginContainer" parent="label-line"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="label-line"]
+layout_mode = 2
+text = "pass"
