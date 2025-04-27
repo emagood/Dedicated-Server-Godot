@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://be4nyq51lxlor" path="res://back-sever/escenas/script/dbscript.gd" id="1_k1d2y"]
 
-
 [node name="main" type="Control"]
 layout_mode = 3
 anchors_preset = 15

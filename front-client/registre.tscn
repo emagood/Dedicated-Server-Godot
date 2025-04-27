@@ -13,6 +13,7 @@ grow_vertical = 2
 [node name="cliente" parent="." instance=ExtResource("1_4dsqe")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 233.0
 offset_top = 264.0
 offset_right = 370.0
@@ -32,6 +33,7 @@ text = "login"
 [node name="box-line" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(333, 0)
 layout_direction = 2
+layout_mode = 0
 offset_left = 158.0
 offset_top = 19.0
 offset_right = 491.0
@@ -70,6 +72,7 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="label-chek" type="VBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 509.0
 offset_top = 77.0
 offset_right = 553.0
@@ -86,10 +89,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="label-line" type="VBoxContainer" parent="."]
-offset_left = -834.0
-offset_top = 60.0
-offset_right = -609.0
-offset_bottom = 251.0
+layout_mode = 0
+offset_left = 113.0
+offset_top = 31.0
+offset_right = 338.0
+offset_bottom = 222.0
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="label-line"]

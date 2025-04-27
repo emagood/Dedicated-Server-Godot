@@ -1,9 +1,9 @@
 '''
-sen modo simple 
-lee 40,000 bytes en total en 100 milisegundos solo identificadores 
+sen modo simple
+lee 40,000 bytes en total en 100 milisegundos solo identificadores
 para leer 5 millones de usuarios, tomaría 100 segundos
-en modo de archivo multiplke 
-es la mitad usa 2 , usar mas no mejora ay un error 
+en modo de archivo multiplke
+es la mitad usa 2 , usar mas no mejora ay un error
 
 
 '''
@@ -12,6 +12,9 @@ es la mitad usa 2 , usar mas no mejora ay un error
 extends Node
 
 class_name BinaryBlockHandler
+
+
+
 
 class BinaryDataBlock:
 	var test : bool
@@ -36,7 +39,7 @@ var size_32bit: int
 var size_64bit: int
 var total_size: int  # Variable global para almacenar el tamaño total
 var cache: Dictionary = {}
-var cache_size: int = 500000 # Tamaño máximo de la caché (opcional) quedo en 5 millones 
+var cache_size: int = 500000 # Tamaño máximo de la caché (opcional) quedo en 5 millones
 var test : bool
 
 func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, size_64bit: int, cache_size: int = 500000,test : bool = false ):
@@ -46,7 +49,7 @@ func _init(filename: String, size_8bit: int, size_16bit: int, size_32bit: int, s
 	self.size_32bit = size_32bit
 	self.size_64bit = size_64bit
 	self.cache_size = cache_size
-	self.total_size = 8 + size_8bit + size_16bit * 2 + size_32bit * 4 + size_64bit * 8  # Calcular total_size aquí
+	self.total_size = 16 + size_8bit + size_16bit * 2 + size_32bit * 4 + size_64bit * 8  # Calcular total_size aquí
 	self.test = test
 	ensure_file_exists()
 
@@ -86,9 +89,10 @@ func get_cached_position(identifier: PackedByteArray) -> int:
 func save_data_block(identifier: PackedByteArray, data_8bit: PackedByteArray, data_16bit: Array, data_32bit: Array, data_64bit: Array):
 	var block = BinaryDataBlock.new(identifier, data_8bit, data_16bit, data_32bit, data_64bit)
 	var file = open_file()
-	if identifier == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+	if identifier == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]):
 		prints("error al guardar un identififcador vacio(0) ([0, 0, 0, 0, 0, 0, 0, 0])")
 		return
+	prints("save data block de :" , identifier)
 	total_size
 	var found_position = get_cached_position(identifier)
 	var position = 0
@@ -97,8 +101,8 @@ func save_data_block(identifier: PackedByteArray, data_8bit: PackedByteArray, da
 	if found_position == -1:
 		while position < file_length:
 			file.seek(position)
-			var current_id = file.get_buffer(8)
-			if current_id == identifier or current_id == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+			var current_id = file.get_buffer(16)
+			if current_id == identifier or current_id == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]):
 				found_position = position
 				break
 			position += total_size
@@ -126,7 +130,7 @@ func _write_data_block(file, block: BinaryDataBlock):
 
 # Función para cargar un bloque de datos
 func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
-	if identifier == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+	if identifier == PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]):
 		prints("error al cargar un identififcador vacio(0) ([0, 0, 0, 0, 0, 0, 0, 0])")
 		return
 	if not block_exists(identifier):
@@ -143,7 +147,7 @@ func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
 		position = 0
 		while position < file_length:
 			file.seek(position)
-			var current_id = file.get_buffer(8)
+			var current_id = file.get_buffer(16)
 			if current_id == identifier:
 				update_cache(identifier, position)
 				
@@ -152,7 +156,7 @@ func load_data_block(identifier: PackedByteArray) -> BinaryDataBlock:
 		#position += 8 # por si esta en cache esto adelanta el identificador
 		close_file(file)
 	else:
-		position += 8 # por si esta en cache esto adelanta el identificador
+		position += 16 # por si esta en cache esto adelanta el identificador
 		
 
 	if position != -1:
@@ -192,7 +196,7 @@ func block_exists(identifier: PackedByteArray) -> bool:
 
 	while position < file_length:
 		file.seek(position)
-		if file.get_buffer(8) == identifier:
+		if file.get_buffer(16) == identifier:
 			close_file(file)
 			update_cache(identifier, position)
 			return true
@@ -212,10 +216,10 @@ func delete_data_block(identifier: PackedByteArray):
 
 	while file.get_position() < file.get_length():
 		var initial_position = file.get_position()
-		var current_id = file.get_buffer(8)
+		var current_id = file.get_buffer(16)
 		if current_id == identifier:
 			file.seek(initial_position)
-			file.store_buffer(PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]))  # Establecer el identificador a 0
+			file.store_buffer(PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))  # Establecer el identificador a 0
 			close_file(file)
 			return true
 		file.seek(initial_position + total_size)
@@ -234,21 +238,21 @@ func update_data_block(identifier: PackedByteArray, block_type: String, position
 
 	while file.get_position() < file.get_length():
 		var initial_position = file.get_position()
-		var current_id = file.get_buffer(8)
+		var current_id = file.get_buffer(16)
 		if current_id == identifier:
 			file.seek(initial_position)
 
 			if block_type == "8bit" and position < size_8bit:
-				file.seek(file.get_position() + 8 + position)
+				file.seek(file.get_position() + 16 + position)
 				file.store_8(value)
 			elif block_type == "16bit" and position < size_16bit:
-				file.seek(file.get_position() + 8 + size_8bit + position * 2)
+				file.seek(file.get_position() + 16 + size_8bit + position * 2)
 				file.store_16(value)
 			elif block_type == "32bit" and position < size_32bit:
-				file.seek(file.get_position() + 8 + size_8bit + size_16bit * 2 + position * 4)
+				file.seek(file.get_position() + 16 + size_8bit + size_16bit * 2 + position * 4)
 				file.store_32(value)
 			elif block_type == "64bit" and position < size_64bit:
-				file.seek(file.get_position() + 8 + size_8bit + size_16bit * 2 + size_32bit * 4 + position * 8)
+				file.seek(file.get_position() + 16 + size_8bit + size_16bit * 2 + size_32bit * 4 + position * 8)
 				file.store_64(value)
 
 			close_file(file)
@@ -291,12 +295,12 @@ func load_all_blocks(max_blocks: int = -1) -> Array:
 		if max_blocks != -1 and blocks_loaded >= max_blocks:
 			break
 
-		var current_id = file.get_buffer(8)  # Leer el identificador del bloque
+		var current_id = file.get_buffer(16)  # Leer el identificador del bloque
 
-		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]):
 			# Añadir el identificador a la caché si no está presente
 			if not cache.has(current_id):
-				update_cache(current_id , file.get_position() - 8)
+				update_cache(current_id , file.get_position() - 16)
 
 			# Cargar el bloque de datos y añadirlo a la lista de bloques
 			var block = current_id
@@ -305,7 +309,7 @@ func load_all_blocks(max_blocks: int = -1) -> Array:
 				blocks_loaded += 1
 
 		# Mover el puntero de archivo al siguiente bloque
-		file.seek(file.get_position() + total_size - 8)
+		file.seek(file.get_position() + total_size - 16)
 
 	close_file(file)
 	return blocks  # Retornar los bloques cargados
@@ -334,12 +338,12 @@ func load_blocks_from(start_block: int, max_blocks: int = -1) -> Array:
 		if max_blocks != -1 and blocks_loaded >= max_blocks:
 			break
 
-		var current_id = file.get_buffer(8)  # Leer el identificador del bloque
+		var current_id = file.get_buffer(16)  # Leer el identificador del bloque
 
-		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]):
 			# Añadir el identificador a la caché si no está presente
 			if not cache.has(current_id):
-				cache[current_id] = file.get_position() - 8
+				cache[current_id] = file.get_position() - 16
 
 			# Cargar el bloque de datos y añadirlo a la lista de bloques
 			var block = current_id
@@ -348,7 +352,7 @@ func load_blocks_from(start_block: int, max_blocks: int = -1) -> Array:
 				blocks_loaded += 1
 
 		# Mover el puntero de archivo al siguiente bloque
-		file.seek(file.get_position() + total_size - 8)
+		file.seek(file.get_position() + total_size - 16)
 
 	close_file(file)
 	return blocks  # Retornar los bloques cargados
@@ -372,17 +376,17 @@ func find_identifier_from(start_block: int, identifier: PackedByteArray, max_blo
 		if max_blocks != -1 and blocks_searched >= max_blocks:
 			break
 
-		var current_id = file.get_buffer(8)  # Leer el identificador del bloque
+		var current_id = file.get_buffer(16)  # Leer el identificador del bloque
 
 		if current_id == identifier:
-			var position = file.get_position() - 8
+			var position = file.get_position() - 16
 			update_cache(identifier, position)
 			close_file(file)
 			return position
 
 		blocks_searched += 1
 		# Mover el puntero de archivo al siguiente bloque
-		file.seek(file.get_position() + total_size - 8)
+		file.seek(file.get_position() + total_size - 16)
 
 	close_file(file)
 	return -1  # Retornar -1 si no se encuentra el identificador
@@ -412,14 +416,27 @@ func multi_identifier_file(identifier: PackedByteArray, num_files: int = 5) -> i
 			end_position = file_size
 		#prints("multi identifier ... sector multiple , file " ,file ,"  .pocicion init.  ",start_position,"  . termina en pocicion...   ",end_position)
 		positions.append({ "file": file, "start": start_position, "end": end_position })
-
+	var hil = []
+	var index = 0
 	for pos in positions:
+		
+		var custom_function =  Callable(self, "search_identifier_in_range")
+		var parametros = [pos["file"], pos["start"], pos["end"], identifier]  # Los parámetros que deseas pasar
+		var clas_hilo = hilo.new(custom_function,parametros)
+		hil.append(clas_hilo)
+		hil[index].connect("retorno_hilo", Callable(self, "_on_retorno_hilo"))
+		#func_test(custom_function,parametros)
+		index += 1
+		prints("estoy en bucle ")
 		var found_position = search_identifier_in_range(pos["file"], pos["start"], pos["end"], identifier)
 		if found_position != -1:
 			# Cerrar todos los archivos abiertos antes de retornar
 			for p in positions:
 				p["file"].close()
 			return found_position
+		
+	for i in hil:
+		hil[i] = null
 
 	# Cerrar todos los archivos si no se encuentra el identificador
 	for p in positions:
@@ -428,16 +445,26 @@ func multi_identifier_file(identifier: PackedByteArray, num_files: int = 5) -> i
 	return -1
 
 
+func _on_retorno_hilo(resultado):
+	print("Resultado del hilo:", resultado)
+	
+	
 # Función auxiliar para buscar un identificador en un rango específico del archivo
 func search_identifier_in_range(file, start_position: int, end_position: int, identifier: PackedByteArray) -> int:
+	if not file:
+		print("Error: No se pudo abrir el archivo.")
+		return 1
+	if file == null:
+		print("Error: No se pudo abrir el archivo.")
+		return 1
 	file.seek(start_position)
 	while file.get_position() < end_position:
-		var current_id = file.get_buffer(8)
+		var current_id = file.get_buffer(16)
 		if current_id == identifier:
-			var position = file.get_position() - 8
+			var position = file.get_position() - 16
 			update_cache(identifier, position)
 			return position
-		file.seek(file.get_position() + total_size - 8)
+		file.seek(file.get_position() + total_size - 16)
 	return -1
 
 
@@ -456,7 +483,7 @@ func count_valid_identifiers(num_files: int = 10) -> int:
 		end_position = start_position + sector_size
 		if end_position > file_size:
 			end_position = file_size
-			prints("count_valid_identifiers ...  sector multiple , file " ,file ,"  .pocicion init.  ",start_position,"  . termina en pocicion...   ",end_position)
+		prints("count_valid_identifiers ...  sector multiple , file " ,file ,"  .pocicion init.  ",start_position,"  . termina en pocicion...   ",end_position)
 		
 		positions.append({ "file": file, "start": start_position, "end": end_position })
 
@@ -473,19 +500,19 @@ func count_identifiers_in_range(file, start_position: int, end_position: int) ->
 	var count = 0
 	file.seek(start_position)
 	while file.get_position() < end_position:
-		var current_id = file.get_buffer(8)
-		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0]):
+		var current_id = file.get_buffer(16)
+		if current_id != PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]):
 			count += 1
-		file.seek(file.get_position() + total_size - 8)
+		file.seek(file.get_position() + total_size - 16)
 	return count
 
 '''
-index se usara para la cache secundaria usara busqueda rapida 
+index se usara para la cache secundaria usara busqueda rapida
 refcforrer toda la cahe es mas rapido y leer un archivo por secuenxia tambien
-detener el archivo en cada omprobacion es lento 
-un 1 user 80 milisegundos ms 
+detener el archivo en cada omprobacion es lento
+un 1 user 80 milisegundos ms
 todo all file 5000 5k user 160 ms
-???? es mas rapido 
+???? es mas rapido
 
 '''
 func load_index_blocks(identifier , max_blocks: int = -1 ) -> Array:
@@ -498,12 +525,12 @@ func load_index_blocks(identifier , max_blocks: int = -1 ) -> Array:
 		if max_blocks != -1 and blocks_loaded >= max_blocks:
 			break
 
-		var current_id = file.get_buffer(8)  # Leer el identificador del bloque
+		var current_id = file.get_buffer(16)  # Leer el identificador del bloque
 
 		if current_id == identifier:
 			# Añadir el identificador a la caché si no está presente
 			if not cache.has(current_id):
-				cache[current_id] = file.get_position() - 8
+				cache[current_id] = file.get_position() - 16
 
 			# Cargar el bloque de datos y añadirlo a la lista de bloques
 			var block = current_id
@@ -512,7 +539,7 @@ func load_index_blocks(identifier , max_blocks: int = -1 ) -> Array:
 				blocks_loaded += 1
 
 		# Mover el puntero de archivo al siguiente bloque
-		file.seek(file.get_position() + total_size - 8)
+		file.seek(file.get_position() + total_size - 16)
 
 	close_file(file)
 	return blocks  # Retornar los bloques cargados
@@ -524,3 +551,68 @@ func load_index_blocks(identifier , max_blocks: int = -1 ) -> Array:
 //////////////////////////////////////////
 ////////////////////////////////////////////////////////
 '''
+class hilo:
+
+	var bucle = 0
+	var thread: Thread
+	var timer_local = 0
+	var timer_local2 = 0
+	var hilos = []
+	var count = 1
+	var custom_function
+	var parametros
+	signal retorno_hilo(resultado)
+
+	func _init(custom_function , parametros):
+		self.custom_function = custom_function
+		self.parametros = parametros
+		for a in count:
+			thread = Thread.new()
+			hilos.append(thread)
+		##thread = Thread.new()
+		#thread2 = Thread.new()
+		timer_local = Time.get_ticks_msec()
+		timer_local2 = timer_local
+		start_threads()
+		prints("Threads iniciados.")
+
+	func start_threads():
+		for a in hilos.size():
+			if hilos[a] == null or not hilos[a].is_alive():
+				hilos[a] = Thread.new()
+				hilos[a].start(_thread_function.bind(custom_function, parametros))
+
+	func stop_threads():
+		for i in range(hilos.size()):
+			if hilos[i] != null and hilos[i].is_alive():  # Verificar si el hilo existe y está activo
+				hilos[i].wait_to_finish()  # Esperar a que el hilo termine
+				hilos[i] = null  # Limpiar el hilo de la lista
+		prints("Threads detenidos.")
+
+
+	func restart_threads():
+		stop_threads()
+		start_threads()
+		prints("Threads reiniciados.")
+
+	func _thread_function(custom_function, parametros):
+		
+		if custom_function and parametros != null:
+			var resultado = custom_function.callv(parametros)
+			emit_signal("retorno_hilo", resultado)
+		elif !parametros:
+			custom_function.callv()
+		else:
+			return
+			
+		#for a in hilos.size():
+			#if hilos[a] != null or not hilos[a].is_alive():
+				#hilos[a].call_deferred("wait_to_finish")
+				#hilos[a] = null
+
+
+
+
+	func _exit_tree():
+		stop_threads()
+		prints("Esperando a que los threads terminen.")

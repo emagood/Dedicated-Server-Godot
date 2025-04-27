@@ -14,9 +14,9 @@ var user_identifiers = []
 var binary_block_handler = null
 @onready var log = $ScrollContainer/log_scroll
 	
-var data_8bit 
+var data_8bit
 var data_16bit
-var data_64bit 
+var data_64bit
 
 
 func _ready() -> void:
@@ -74,24 +74,57 @@ func prueba_completa3():
 #
 func label_log(stra):
 	log.texto += str(stra) + "\n"
-	
 
+#func string_to_packedbytearray(identifier_str: String) -> PackedByteArray:
+	#var packed_identifier = PackedByteArray()
+	#
+	## Verifica que el string tenga exactamente 16 caracteres
+	#if identifier_str.length() != 16:
+		#print("Error: El identificador debe tener exactamente 16 caracteres.")
+		#return PackedByteArray() # Retorna un array vacío si no tiene 16 caracteres
+	#
+	## Procesa cada carácter del string y lo convierte en un byte
+	#for char in identifier_str:
+		## Utiliza to_ascii_buffer() para obtener el valor ASCII del carácter
+		#var ascii_byte = char.to_ascii_buffer()[0] # Obtén el primer byte de la representación ASCII
+		#packed_identifier.append(ascii_byte)
+#
+	#return packed_identifier
 
 func string_to_packedbytearray(identifier_str: String) -> PackedByteArray:
-	var identifier = int(identifier_str)
 	var packed_identifier = PackedByteArray()
-	label_log(str(identifier) + " " + "identififador")
-	for i in range(8):
-		# Extrae cada byte del número de 64 bits
-		packed_identifier.append((identifier >> (8 * (7 - i))) & 0xFF)
 
+	# Rellenar el string con espacios si es menor a 16 caracteres
+	if identifier_str.length() < 16:
+		var spaces_to_add = 16 - identifier_str.length()
+		identifier_str += " ".repeat(spaces_to_add) # Genera los espacios necesarios usando repeat()
+	else:
+		prints("error el strin muy largo")
+		return PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	# Procesa cada carácter del string rellenado como un byte
+	for char in identifier_str:
+		var ascii_byte = char.to_ascii_buffer()[0] # Obtén el valor ASCII del carácter
+		packed_identifier.append(ascii_byte)
+	prints(packed_identifier)
 	return packed_identifier
+
+
+
+#func string_to_packedbytearray(identifier_str: String) -> PackedByteArray:
+	#var identifier = int(identifier_str)
+	#var packed_identifier = PackedByteArray()
+	#label_log(str(identifier) + " " + "identififador")
+	#for i in range(16):
+		## Extrae cada byte del número de 64 bits
+		#packed_identifier.append((identifier >> (8 * (15 - i))) & 0xFF)
+#
+	#return packed_identifier
 
 
 
 func generate_random_identifier() -> PackedByteArray:
 	var identifier = PackedByteArray()
-	for i in range(8):
+	for i in range(16):
 		identifier.append(randi_range(0, 255))
 	return identifier
 
@@ -142,7 +175,7 @@ func prueba_completa2():
 	#return
 	# Lista para almacenar los identificadores generados  8 256 510 774
 	user_identifiers = []
-
+ 
 	for i in range(1000):
 		var user_id = generate_random_identifier()
 		print("Generado identificador:", user_id)
@@ -589,6 +622,7 @@ func _on_aad_user_manueal_pressed() -> void:
 		return
 	var user_id =  string_to_packedbytearray($"aad_user manueal/add_id".text)  #generate_random_identifier()
 	var temp_user
+	prints("desde user add: " ,user_id)
 	var data_8bit = generate_random_8bit_data(256)
 	var data_16bit = generate_random_16bit_data(255)
 	#var data_64bit = generate_random_64bit_data(4)
@@ -642,10 +676,10 @@ func _on_load_manual_pressed() -> void:
 func _on_init_database_pressed() -> void:
 	if binary_block_handler != null:
 		#binary_block_handler.queue_free()
-		label_log("clase ya iniciada configuracion: archivo "+ str(binary_block_handler.filename) + " size 8: " + str(binary_block_handler.size_8bit) + " size 16: " + str(binary_block_handler.size_16bit) + " size 32: "+ str(binary_block_handler.size_32bit) + " size 64: "+ str(binary_block_handler.size_64bit))  
+		label_log("clase ya iniciada configuracion: archivo "+ str(binary_block_handler.filename) + " size 8: " + str(binary_block_handler.size_8bit) + " size 16: " + str(binary_block_handler.size_16bit) + " size 32: "+ str(binary_block_handler.size_32bit) + " size 64: "+ str(binary_block_handler.size_64bit))
 		return
 		
-	binary_block_handler = BinaryBlockHandler.new($init_database/file.text,int($init_database/n8bit.text), int($init_database/n16bit.text), int($init_database/n32bit.text), int($init_database/n64bit.text))   
+	binary_block_handler = BinaryBlockHandler.new($init_database/file.text,int($init_database/n8bit.text), int($init_database/n16bit.text), int($init_database/n32bit.text), int($init_database/n64bit.text))
 	add_child(binary_block_handler)
 	 # Ajustar tamaño para data_16bit
 	pass # Replace with function body.

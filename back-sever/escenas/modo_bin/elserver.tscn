@@ -55,10 +55,10 @@ text = "string all user "
 
 [node name="count_user" type="Button" parent="."]
 layout_mode = 0
-offset_left = 26.0
-offset_top = 102.0
-offset_right = 85.0
-offset_bottom = 133.0
+offset_left = 42.0
+offset_top = 120.0
+offset_right = 101.0
+offset_bottom = 151.0
 text = "contar"
 
 [node name="Label" type="Label" parent="."]

@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://d4k884d0narq0" path="res://lib/bit-w/bits.gd" id="1_cn8gx"]
 [ext_resource type="Script" uid="uid://cia32krj6nipf" path="res://lib/bit-w/bitwisw2.gd" id="3_p3b8h"]
 
-
 [node name="byte_bit" type="Control"]
 layout_mode = 3
 anchors_preset = 15

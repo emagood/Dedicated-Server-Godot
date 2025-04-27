@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6p45t623jirn"]
-
-[ext_resource type="PackedScene" uid="uid://bbkojmkat7ta8" path="res://lib/thot/e_net/cliente/cliente.tscn" id="1_ubb6b"]
+[gd_scene format=3 uid="uid://c6p45t623jirn"]
 
 [node name="Interfaz" type="Control"]
 layout_mode = 3
@@ -11,8 +9,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="cliente" parent="." instance=ExtResource("1_ubb6b")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
