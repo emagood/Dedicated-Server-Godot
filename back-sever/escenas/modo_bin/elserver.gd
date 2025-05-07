@@ -453,7 +453,7 @@ func _on_buscar_desde_pressed() -> void:
 
 
 		#timer_local = Time.get_ticks_msec()
-		var num_files = 4  # Número configurable de archivos a abrir
+		var num_files = 2  # Número configurable de archivos a abrir
 		position = binary_block_handler.multi_identifier_file(identifier, num_files)
 		if position != -1:
 			print("Identificador encontrado en la posición multi file :", position)

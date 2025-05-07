@@ -416,17 +416,17 @@ func multi_identifier_file(identifier: PackedByteArray, num_files: int = 5) -> i
 			end_position = file_size
 		#prints("multi identifier ... sector multiple , file " ,file ,"  .pocicion init.  ",start_position,"  . termina en pocicion...   ",end_position)
 		positions.append({ "file": file, "start": start_position, "end": end_position })
-	var hil = []
-	var index = 0
+	#var hil = []
+	#var index = 0
 	for pos in positions:
 		
-		var custom_function =  Callable(self, "search_identifier_in_range")
-		var parametros = [pos["file"], pos["start"], pos["end"], identifier]  # Los parámetros que deseas pasar
-		var clas_hilo = hilo.new(custom_function,parametros)
-		hil.append(clas_hilo)
-		hil[index].connect("retorno_hilo", Callable(self, "_on_retorno_hilo"))
-		#func_test(custom_function,parametros)
-		index += 1
+		#var custom_function =  Callable(self, "search_identifier_in_range")
+		#var parametros = [pos["file"], pos["start"], pos["end"], identifier]  # Los parámetros que deseas pasar
+		#var clas_hilo = hilo.new(custom_function,parametros)
+		#hil.append(clas_hilo)
+		#hil[index].connect("retorno_hilo", Callable(self, "_on_retorno_hilo"))
+		##func_test(custom_function,parametros)
+		#index += 1
 		prints("estoy en bucle ")
 		var found_position = search_identifier_in_range(pos["file"], pos["start"], pos["end"], identifier)
 		if found_position != -1:
@@ -435,8 +435,8 @@ func multi_identifier_file(identifier: PackedByteArray, num_files: int = 5) -> i
 				p["file"].close()
 			return found_position
 		
-	for i in hil:
-		hil[i] = null
+	#for i in hil:
+		#hil[i] = null
 
 	# Cerrar todos los archivos si no se encuentra el identificador
 	for p in positions:

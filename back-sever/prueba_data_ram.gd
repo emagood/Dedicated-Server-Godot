@@ -1,7 +1,7 @@
 extends Node
 var array_data = []
 var dict_data = {}
-@export var total = 100000
+@export var total = 100
 @export var num_tests = 10000
 func _ready():
 	# Crear un array y un diccionario con 10,000 datos aleatorios de 64 bits
@@ -106,7 +106,7 @@ func _on_random_buscar_100k_pressed() -> void:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	prints("empieza el conteo ")
-	var num_tests = 100000
+	var num_tests = 10000
 	for i in range(num_tests):
 		var random_index = rng.randi_range(0, total)
 				# Medir el tiempo de búsqueda en el diccionario
