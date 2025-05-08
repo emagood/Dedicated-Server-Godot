@@ -1,6 +1,6 @@
 extends Node
 
-var file_path = "res://registro.txt"
+var file_path = "res://registro_hash.txt"
 
 func read_entries():
 	var file = FileAccess.open(file_path, FileAccess.READ)
