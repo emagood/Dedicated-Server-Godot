@@ -19,7 +19,7 @@ func read_entries():
 	return entries
 
 func write_entry(user_data: String, user_hash: String):
-	prints(user_data, user_hash)
+	#prints(user_data, user_hash)
 	if user_data.length() != 16 or user_hash.length() != 32:
 		prints("Datos inválidos", user_data.length(), "  ", user_hash.length())
 		return
