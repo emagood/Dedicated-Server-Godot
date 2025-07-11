@@ -22,10 +22,10 @@ TxtLoad="*res://lib/nvr/main/script/txt_load.gd"
 
 [display]
 
-window/size/viewport_width=980
-window/size/viewport_height=480
+window/size/viewport_width=900
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+window/handheld/orientation=1
 
 [file_customization]
 
@@ -37,3 +37,4 @@ folder_colors={
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

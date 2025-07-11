@@ -6,6 +6,11 @@ var xor_result
 
 func _ready():
 	# Pruebas con diferentes longitudes de bits
+	var my_seed = "Godot Rocks".hash()
+	seed(my_seed)
+	var a = randf() + randi()
+	seed(my_seed)
+	var b = randf() + randi()
 	var bytes_8 = PackedByteArray([34])  # 8 bits
 	var bytes_16 = PackedByteArray([0x12, 0x34])  # 16 bits (2 bytes: 0x1234)
 	var bytes_128 = PackedByteArray([0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, 0xDE, 0xF0, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88])  # 128 bits (16 bytes)
@@ -32,13 +37,17 @@ func _ready():
 	#print("4096 bytes:")
 	#print_bits(bit_positions_large)
 
-	# Operaciones adicionales para mostrar los bits de las operaciones
-	number1 = PackedByteArray([0x06, 0xbd, 0x8f, 0xe7, 0xb0, 0x9b, 0xad, 0x03])
-	number2 = PackedByteArray([0x4b, 0x9a, 0x5a, 0x41, 0x29, 0xdf, 0x04, 0x70])
-
+	## Operaciones adicionales para mostrar los bits de las operaciones
+	#number1 = PackedByteArray([0x06, 0xbd, 0x8f, 0xe7, 0xb0, 0x9b, 0xad, 0x03])
+	#number2 = PackedByteArray([0x4b, 0x9a, 0x5a, 0x41, 0x29, 0xdf, 0x04, 0x70])
+	# Generar dos números de 8 bytes cada uno
+	seed(my_seed)
+	number1 = generate_random_8byte_number()
+	number2 = generate_random_8byte_number()
 	print("Número 1: ", format_bytes(number1))
 	print("Número 2 (Clave): ", format_bytes(number2))
-
+	seed(my_seed)
+	print("Número ale: ", format_bytes(generate_random_8byte_number()))
 
 # Función para obtener posiciones de bits para longitudes variables
 func get_bit_positions(packet: PackedByteArray, bit_length: int) -> Array:
@@ -150,3 +159,11 @@ func _on_xnor_pressed() -> void:
 	if chek.button_pressed == true:
 		print_bits(get_bit_positions(xnor_result, 64))
 	pass # Replace with function body.
+
+
+# Función para generar un número aleatorio de 8 bytes
+func generate_random_8byte_number() -> PackedByteArray:
+	var number = PackedByteArray()
+	for i in range(8):
+		number.append(randi() % 256)
+	return number

@@ -483,7 +483,7 @@ func count_valid_identifiers(num_files: int = 10) -> int:
 		end_position = start_position + sector_size
 		if end_position > file_size:
 			end_position = file_size
-		prints("count_valid_identifiers ...  sector multiple , file " ,file ,"  .pocicion init.  ",start_position,"  . termina en pocicion...   ",end_position)
+		#prints("count_valid_identifiers ...  sector multiple , file " ,file ,"  .pocicion init.  ",start_position,"  . termina en pocicion...   ",end_position)
 		
 		positions.append({ "file": file, "start": start_position, "end": end_position })
 
@@ -493,7 +493,7 @@ func count_valid_identifiers(num_files: int = 10) -> int:
 	# Cerrar todos los archivos
 	for p in positions:
 		p["file"].close()
-	prints(end_position)
+	#prints(end_position)
 	return total_valid_identifiers
 
 func count_identifiers_in_range(file, start_position: int, end_position: int) -> int:
@@ -550,69 +550,69 @@ func load_index_blocks(identifier , max_blocks: int = -1 ) -> Array:
 ////////////////////////////
 //////////////////////////////////////////
 ////////////////////////////////////////////////////////
-'''
-class hilo:
-
-	var bucle = 0
-	var thread: Thread
-	var timer_local = 0
-	var timer_local2 = 0
-	var hilos = []
-	var count = 1
-	var custom_function
-	var parametros
-	signal retorno_hilo(resultado)
-
-	func _init(custom_function , parametros):
-		self.custom_function = custom_function
-		self.parametros = parametros
-		for a in count:
-			thread = Thread.new()
-			hilos.append(thread)
-		##thread = Thread.new()
-		#thread2 = Thread.new()
-		timer_local = Time.get_ticks_msec()
-		timer_local2 = timer_local
-		start_threads()
-		prints("Threads iniciados.")
-
-	func start_threads():
-		for a in hilos.size():
-			if hilos[a] == null or not hilos[a].is_alive():
-				hilos[a] = Thread.new()
-				hilos[a].start(_thread_function.bind(custom_function, parametros))
-
-	func stop_threads():
-		for i in range(hilos.size()):
-			if hilos[i] != null and hilos[i].is_alive():  # Verificar si el hilo existe y está activo
-				hilos[i].wait_to_finish()  # Esperar a que el hilo termine
-				hilos[i] = null  # Limpiar el hilo de la lista
-		prints("Threads detenidos.")
-
-
-	func restart_threads():
-		stop_threads()
-		start_threads()
-		prints("Threads reiniciados.")
-
-	func _thread_function(custom_function, parametros):
-		
-		if custom_function and parametros != null:
-			var resultado = custom_function.callv(parametros)
-			emit_signal("retorno_hilo", resultado)
-		elif !parametros:
-			custom_function.callv()
-		else:
-			return
-			
+#'''
+#class hilo:
+#
+	#var bucle = 0
+	#var thread: Thread
+	#var timer_local = 0
+	#var timer_local2 = 0
+	#var hilos = []
+	#var count = 1
+	#var custom_function
+	#var parametros
+	#signal retorno_hilo(resultado)
+#
+	#func _init(custom_function , parametros):
+		#self.custom_function = custom_function
+		#self.parametros = parametros
+		#for a in count:
+			#thread = Thread.new()
+			#hilos.append(thread)
+		###thread = Thread.new()
+		##thread2 = Thread.new()
+		#timer_local = Time.get_ticks_msec()
+		#timer_local2 = timer_local
+		#start_threads()
+		#prints("Threads iniciados.")
+#
+	#func start_threads():
 		#for a in hilos.size():
-			#if hilos[a] != null or not hilos[a].is_alive():
-				#hilos[a].call_deferred("wait_to_finish")
-				#hilos[a] = null
+			#if hilos[a] == null or not hilos[a].is_alive():
+				#hilos[a] = Thread.new()
+				#hilos[a].start(_thread_function.bind(custom_function, parametros))
+#
+	#func stop_threads():
+		#for i in range(hilos.size()):
+			#if hilos[i] != null and hilos[i].is_alive():  # Verificar si el hilo existe y está activo
+				#hilos[i].wait_to_finish()  # Esperar a que el hilo termine
+				#hilos[i] = null  # Limpiar el hilo de la lista
+		#prints("Threads detenidos.")
+#
+#
+	#func restart_threads():
+		#stop_threads()
+		#start_threads()
+		#prints("Threads reiniciados.")
+#
+	#func _thread_function(custom_function, parametros):
+		#
+		#if custom_function and parametros != null:
+			#var resultado = custom_function.callv(parametros)
+			#emit_signal("retorno_hilo", resultado)
+		#elif !parametros:
+			#custom_function.callv()
+		#else:
+			#return
+			#
+		##for a in hilos.size():
+			##if hilos[a] != null or not hilos[a].is_alive():
+				##hilos[a].call_deferred("wait_to_finish")
+				##hilos[a] = null
+#
+#
 
 
-
-
-	func _exit_tree():
-		stop_threads()
-		prints("Esperando a que los threads terminen.")
+func _exit_tree():
+		#stop_threads()
+	prints("Esperando a que los threads terminen.")

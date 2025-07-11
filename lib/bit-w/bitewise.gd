@@ -12,6 +12,7 @@ func process_bitwise_operations(packet: PackedByteArray):
 	# Imprimir los números generados
 	print("Número 1: ", format_bytes(number1))
 	print("Número 2: ", format_bytes(number2))
+	print("Número ale: ", format_bytes(generate_random_8byte_number()))
 
 	# XOR
 	var xor_result = bitwise_operation(number1, number2, "xor")

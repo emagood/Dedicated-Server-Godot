@@ -72,7 +72,8 @@ text = "list_user"
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-text = "esta prueba es en texto plano sin firmar , es peligroso , adaptaremos cifrado aes mas adelante "
+text = "esta prueba es en texto plano sin firmar ,
+ es peligroso , adaptaremos cifrado aes mas adelante "
 
 [node name="salir" type="Button" parent="."]
 layout_mode = 0
@@ -84,10 +85,10 @@ text = "salir"
 
 [node name="log history" type="Button" parent="."]
 layout_mode = 0
-offset_left = 626.0
-offset_top = 68.0
-offset_right = 716.0
-offset_bottom = 99.0
+offset_left = 421.0
+offset_top = 133.0
+offset_right = 511.0
+offset_bottom = 164.0
 text = "history log"
 
 [connection signal="pressed" from="add_100_user" to="." method="_on_add_100_user_pressed"]

@@ -263,10 +263,10 @@ anchor_left = 0.530612
 anchor_top = -0.627083
 anchor_right = 0.530612
 anchor_bottom = 0.742
-offset_left = 4.0
-offset_top = 403.0
-offset_right = 457.0
-offset_bottom = 174.84
+offset_left = 48.4492
+offset_top = 509.35
+offset_right = 501.449
+offset_bottom = 281.19
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 

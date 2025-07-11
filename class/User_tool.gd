@@ -344,7 +344,7 @@ class UserArrayManager:
 		prints("total de users ", count)
 
 
-	# Recuperar un usuario por su nombre
+
 	# Recuperar un usuario por su nombre
 	func get_user_by_name(username: String) -> Dictionary:
 		username = pad_with_spaces(username, 16)  # Rellenar con espacios hasta 16 caracteres
@@ -410,7 +410,7 @@ class UserArrayManager:
 			history.add_change("ERROR_USER_USERNAME", username, identifier, Time.get_datetime_string_from_system() +" "  + String.num(Time.get_unix_time_from_system(),0) )
 			return
 
-	##Crear el objeto usuario y formatear sus datos a una cadena de 48 caracteres
+	#Crear el objeto usuario y formatear sus datos a una cadena de 48 caracteres
 		var user = User.new(username, identifier, password)
 		var user_string = user.serialize()
 

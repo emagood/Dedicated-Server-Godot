@@ -84,7 +84,7 @@ func _on_prueba_ram_pressed() -> void:
 
 
 func _on_rsa_pressed() -> void:
-	var menu = preload("res://back-sever/rsas.tscn").instantiate()
+	var menu = preload("res://lib/rsa/rsas.tscn").instantiate()
 	add_child(menu)
 	prints("instancio escena")
 	await get_tree().create_timer(3).timeout
