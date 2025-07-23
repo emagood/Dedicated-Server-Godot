@@ -1,7 +1,7 @@
 extends Control
 
-const PRIVATE_KEY_FILE = "res://private_key.rsa"
-const PUBLIC_KEY_FILE = "res://public_key.rsa"
+const PRIVATE_KEY_FILE = "res://datavaul/private_key.rsa"
+const PUBLIC_KEY_FILE = "res://datavaul/public_key.rsa"
 
 var rsa = Crypto.new()
 var private_key: CryptoKey
@@ -11,6 +11,8 @@ var decrypted_message
 var encrypted_message
 
 func _ready():
+	#var mio = "uhuiu"
+	#var entero = mio.length()
 
 
 
@@ -20,7 +22,7 @@ func _ready():
 
 # Generar claves RSA
 func generate_keys():
-	private_key = rsa.generate_rsa(2048)
+	private_key = rsa.generate_rsa(4096)
 	public_key = private_key
 
 # Guardar claves RSA en archivos
@@ -47,6 +49,7 @@ func load_keys():
 
 # Cifrar un mensaje usando la clave pública
 func encrypt_message(message: String) -> PackedByteArray:
+	prints("tamaño del mensaje : ", message.length())
 	var message_bytes = message.to_utf8_buffer()
 	var encrypted_message = rsa.encrypt(public_key, message_bytes)
 	return encrypted_message

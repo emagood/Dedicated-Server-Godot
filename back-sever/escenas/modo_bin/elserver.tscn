@@ -193,7 +193,7 @@ offset_left = 132.0
 offset_top = 1.0
 offset_right = 436.0
 offset_bottom = 32.0
-text = "prueba_completa.dat"
+text = "datavaul/prueba_completa.dat"
 placeholder_text = "name_file"
 
 [node name="n8bit" type="LineEdit" parent="init_database"]
